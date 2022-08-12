@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:56 by zoukaddo          #+#    #+#             */
-/*   Updated: 2022/08/08 17:30:43 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2022/08/12 15:44:39 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int main(int ac, char **av)
 {
    if (ac != 2)
-        ft_error("usage : ./cub3d (map).cub");
+        ft_error("usage : ./cub3d map.cub");
     init_the_map(av[1]);
     
     return (0);

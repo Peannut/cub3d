@@ -1,0 +1,6 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/zoukaddo/Desktop/cub3d'
+make: Leaving directory `/Users/zoukaddo/Desktop/cub3d'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+
