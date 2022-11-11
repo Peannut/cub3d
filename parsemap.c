@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 17:10:52 by zoukaddo          #+#    #+#             */
-/*   Updated: 2022/08/08 17:37:47 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2022/08/14 21:26:42 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	readmap(int fd)
 	}
 	
 }
+
 void	init_the_map(char *map_name)
 {
     int fd;
