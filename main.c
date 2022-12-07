@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:56 by zoukaddo          #+#    #+#             */
-/*   Updated: 2022/12/05 22:18:11 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2022/12/07 22:33:08 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int main(int ac, char **av)
 //    if (ac != 2)
 //         ft_error("usage : ./cub3d map.cub");
 //     init_the_map(av[1]);
+aaa
     void	*mlx;
 	void	*mlx_win;
 
