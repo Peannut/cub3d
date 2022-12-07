@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:56 by zoukaddo          #+#    #+#             */
-/*   Updated: 2022/12/07 22:33:08 by abouhaga         ###   ########.fr       */
+/*   Updated: 2022/12/07 22:33:45 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 int main(int ac, char **av)
 {
+	//test
 //    if (ac != 2)
 //         ft_error("usage : ./cub3d map.cub");
 //     init_the_map(av[1]);
-aaa
     void	*mlx;
 	void	*mlx_win;
 
