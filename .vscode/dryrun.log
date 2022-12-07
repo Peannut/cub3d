@@ -1,6 +1,6 @@
 make --dry-run --always-make --keep-going --print-directory
-make: Entering directory `/Users/abouhaga/Desktop/cub'
+make: Entering directory `/Users/abouhaga/Desktop/testcube'
 cc -g     -c -o main.o main.c
 cc -g  main.o  minilibx-linux/libmlx.a -o cub3d -L/usr/lib -lXext -lX11 -lm -lz 
-make: Leaving directory `/Users/abouhaga/Desktop/cub'
+make: Leaving directory `/Users/abouhaga/Desktop/testcube'
  
