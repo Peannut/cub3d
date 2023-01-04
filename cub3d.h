@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:54 by zoukaddo          #+#    #+#             */
-/*   Updated: 2022/08/08 17:36:41 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/01/04 13:52:55 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,54 @@
 # include <fcntl.h>
 # include "libft/libft.h"
 # include "get_next_line/get_next_line.h"
+#include <math.h>
 
-typedef struct s_data
+
+# define BLOCK 32
+# define PI 3.1415926535
+
+// typedef struct s_data
+// {
+// 	void *mlx;
+// 	void *win;
+// 	char **map;
+// 	int	floor_color;
+// 	int	ceiling_color;
+
+// }t_datad;
+
+
+typedef struct s_player
 {
-	void *mlx;
-	void *win;
-	char **map;
-	int	floor_color;
-	int	ceiling_color;
+	double	x;
+	double	y;
+	double	rotationAngle;
+	int	turnDirection; // -1 for left, +1 for right
+	int	walkDirection; // -1 for back, +1 for front
+	double	moveSpeed; // the constant value is in squares/second
+	double	rotationSpeed; // the constant value is in radians/second
+}	t_player;
 
-}t_data;
+typedef struct data {
+    void *mlx;
+    void *window;
+    char map[10][10];
+    t_player player;
+} t_data;
+
+
+// typedef struct s_player_params{
+//     t_player *player;
+//     char (*map)[10];
+// } t_player_params;
+
 
 void	init_the_map(char *map_name);
 void	ft_error(char *msg);
+
+/************drawing*******/
+void draw_map(void *mlx, void *window, char map[10][10]);
+void draw_grid(void *mlx, void *window);
+void draw_player(void *mlx, void *window, t_data *data);
+
 #endif 

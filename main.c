@@ -6,59 +6,37 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:56 by zoukaddo          #+#    #+#             */
-/*   Updated: 2022/12/31 02:26:46 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/01/04 13:55:22 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minilibx-linux/mlx.h"
 #include "cub3d.h"
 
+int key_press(int keycode, void *param) {
+    printf("key pressed: %d\n", keycode);
+    t_data *data = (t_data*)param;  // cast the void pointer to a t_data pointer
+    t_player *player = &data->player;  // get a pointer to the player struct
+    void *mlx = data->mlx;  // get a pointer to the mlx variable
+    void *window = data->window;  // get a pointer to the window variable
+    char (*map)[10] = data->map;  // get a pointer to the map array
 
-// void render(void *mlx, void *window, char map[10][10], int screen_width, int screen_height) {
-//     int x, y, i, j;
-//     int color;
+    double moveStep;
+    if (keycode == 119) {  // W key
 
-//     for (y = 0; y < 10; y++) {
-//         for (x = 0; x < 10; x++) {
-//             if (map[y][x] == '1') {
-//                 color = 0xA020F0; 
-//             } else {
-//                 color = 0xFFFF00; 
-//             }
-//             for (i = 0; i < 32; i++) {
-//                 for (j = 0; j < 32; j++) {
-//                     mlx_pixel_put(mlx, window, x * 32 + i, y * 32 + j, color);
-//                 }
-//             }
-//         }
-//     }
-// }
-void render(void *mlx, void *window, char map[10][10], int screen_width, int screen_height) {
-    int x, y, i, j;
-    int color;
-
-    for (y = 0; y < 10; y++) {
-        for (x = 0; x < 10; x++) {
-            if (map[y][x] == '1') {
-                color = 0xA020F0; 
-            } else {
-                color = 0xFFFF00; 
-            }
-            for (i = 0; i < 32; i++) {
-                for (j = 0; j < 32; j++) {
-                    mlx_pixel_put(mlx, window, x * 32 + i, y * 32 + j, color);
-                }
-            }
-            // draw grid
-            for (i = 0; i < 32; i++) {
-                mlx_pixel_put(mlx, window, x * 32 + i, y * 32 + 31, 0x000000);
-            }
-            for (j = 0; j < 32; j++) {
-                mlx_pixel_put(mlx, window, x * 32 + 31, y * 32 + j, 0x000000);
-            }
-        }
     }
+	else if (keycode == 97) {  // A key
+      
+    }
+	else if (keycode == 115) {  // S key
+      
+    }
+	else if (keycode == 100) {  // D key
+      
+    }
+	return (0);
 }
+
 
 int main(int ac, char **av)
 {
@@ -68,6 +46,15 @@ int main(int ac, char **av)
 //     init_the_map(av[1]);
     void	*mlx;
 	void	*mlx_win;
+    // t_player player;
+    t_data data;
+    data.player.x = 2;
+    data.player.y = 5;
+    data.player.turnDirection = 0;
+    data.player.walkDirection = 0;
+    data.player.rotationAngle = PI / 2;
+    data.player.rotationSpeed = 3 * (PI / 180);
+    data.player.moveSpeed = 4.0;
 
 	// 2d array map girder
 	char map[10][10] = {
@@ -85,7 +72,15 @@ int main(int ac, char **av)
 	
 	mlx = mlx_init();
 	mlx_win = mlx_new_window(mlx, 320, 320, "Hello world!");
-	render(mlx, mlx_win, map, 10, 10);
+	// render(mlx, mlx_win, map, 10, 10);
+    draw_map(mlx, mlx_win, map);
+    draw_grid(mlx, mlx_win);
+    draw_player(mlx, mlx_win, &data);
+    // t_player_params params;
+    // params.player = &player;
+    // data.map = map;
+    mlx_hook(mlx_win, 2, 1L << 0, key_press, (void*)&data);
+   
 	mlx_loop(mlx);
     return (0);
 }

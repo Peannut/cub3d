@@ -6,13 +6,13 @@
 #    By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 22:20:51 by zoukaddo          #+#    #+#              #
-#    Updated: 2022/12/05 22:22:16 by zoukaddo         ###   ########.fr        #
+#    Updated: 2023/01/01 16:20:28 by zoukaddo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= cub3d
 
-SRCS			= main.c
+SRCS			= main.c ./src/drawing.c
 
 OBJS			= $(SRCS:.c=.o)
 
