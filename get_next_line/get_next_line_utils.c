@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 01:08:46 by zoukaddo          #+#    #+#             */
-/*   Updated: 2021/12/01 14:24:32 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/01/04 18:41:07 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ size_t	ft_strlen(const char *s)
 	size_t	i;
 
 	i = 0;
+
 	while (s[i])
 		i++;
 	return (i);

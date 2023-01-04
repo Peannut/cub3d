@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 16:19:21 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/01/04 15:19:23 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/01/04 18:34:21 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void draw_map(void *mlx, void *window, t_data *data) {
             }
             for (i = 0; i < 32; i++) {
                 for (j = 0; j < 32; j++) {
-                    mlx_pixel_put(mlx, window, x * 32 + i, y * 32 + j, color);
+                    mlx_pixel_put(mlx, window, x * BLOCK + i, y * BLOCK + j, color);
                 }
             }
         }

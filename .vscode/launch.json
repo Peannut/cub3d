@@ -10,7 +10,7 @@
             "name": "GDB",
             "program": "${workspaceFolder}/cub3d",
             "stopOnEntry": true,
-            "arguments": ""
+            "arguments": "map.cub"
         }
     ]
 }
