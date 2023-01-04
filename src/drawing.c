@@ -6,19 +6,19 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 16:19:21 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/01/04 13:53:51 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/01/04 15:01:28 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void draw_map(void *mlx, void *window, char map[10][10]) {
+void draw_map(void *mlx, void *window, t_data *data) {
     int x, y, i, j;
     int color;
 
-    for (y = 0; y < 10; y++) {
-        for (x = 0; x < 10; x++) {
-            if (map[y][x] == '1') {
+    for (y = 0; y < data->height; y++) {
+        for (x = 0; x < data->width; x++) {
+            if (data->map[y][x] == '1') {
                 color = 0xA020F0; 
             } else {
                 color = 0xFFFF00; 
@@ -32,11 +32,11 @@ void draw_map(void *mlx, void *window, char map[10][10]) {
     }
 }
 
-void draw_grid(void *mlx, void *window) {
+void draw_grid(void *mlx, void *window, t_data *data) {
     int x, y, i, j;
 
-    for (y = 0; y < 10; y++) {
-        for (x = 0; x < 10; x++) {
+    for (y = 0; y < data->height; y++) {
+        for (x = 0; x < data->width; x++) {
             // draw grid
             for (i = 0; i < 32; i++) {
                 mlx_pixel_put(mlx, window, x * 32 + i, y * 32 + 31, 0x000000);

@@ -6,11 +6,13 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 00:32:58 by zoukaddo          #+#    #+#             */
-/*   Updated: 2022/08/08 17:36:20 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/01/04 14:14:27 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+#include"get_next_line.h"
 
 void	ft_check_endl(char **next, char **line)
 {
@@ -88,19 +90,19 @@ char	*get_next_line(int fd)
 	static char	*next;
 	char		*line;
 	int			read_byte;
+	int			buffer;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0))
+	buffer = 100;
+	if (fd < 0 || buffer <= 0 || read(fd, 0, 0))
 		return (NULL);
-	buff = malloc(BUFFER_SIZE + 1);
-	if (!buff)
-		return (NULL);
+	buff = malloc(buffer + 1);
+	read_byte = 1;
 	line = NULL;
+	buff[0] = 0;
 	ft_check_endl(&next, &line);
 	while (!ft_strchr(line, '\n'))
 	{	
-		read_byte = read(fd, buff, BUFFER_SIZE);
-		if (read_byte == -1)
-			return (NULL);
+		read_byte = read(fd, buff, buffer);
 		buff[read_byte] = '\0';
 		if (read_byte == 0)
 			break ;
@@ -110,3 +112,4 @@ char	*get_next_line(int fd)
 	ft_free(&buff);
 	return (line);
 }
+
