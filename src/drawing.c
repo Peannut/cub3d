@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 16:19:21 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/01/04 15:01:28 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/01/04 15:19:23 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,34 @@ void draw_circle(void *mlx, void *window, int x, int y, int radius, int color) {
     }
 }
 
-void draw_player(void *mlx, void *window, t_data *data) {
-    printf("player.x = %f, player.y = %f\n", data->player.x, data->player.y);
-    int radius = 3;  // radius of the circle
-    int center_x = data->player.x * 32 + 16;  // x coordinate of the center of the circle
-    int center_y = data->player.y * 32 + 16;  // y coordinate of the center of the circle
-    int color = 0xFF0000;  // color of the circle
+// void draw_player(void *mlx, void *window, t_data *data) {
+//     int radius = 3;  // radius of the circle
+//     int center_x = data->player.x * 32 + 16;  // x coordinate of the center of the circle
+//     int center_y = data->player.y * 32 + 16;  // y coordinate of the center of the circle
+//     int color = 0xFF0000;  // color of the circle
 
+//     draw_circle(mlx, window, center_x, center_y, radius, color);
+// }
+
+void draw_player(void *mlx, void *window, t_data *data) {
+    int radius = 3;  // radius of the circle
+    int color = 0xFF0000;  // color of the circle
+    int i, j;
+
+    // find the position of the 'P' character in the map
+    for (i = 0; i < data->height; i++) {
+        for (j = 0; j < data->width; j++) {
+            if (data->map[i][j] == 'P') {
+                data->player.x = j;
+                data->player.y = i;
+                break;
+            }
+        }
+    }
+    // calculate the center of the circle
+    int center_x = data->player.x * BLOCK + 16;
+    int center_y = data->player.y * BLOCK + 16;
+
+    // draw player
     draw_circle(mlx, window, center_x, center_y, radius, color);
 }
