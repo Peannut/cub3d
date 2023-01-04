@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:56 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/01/04 22:17:13 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/01/05 00:21:00 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,34 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
+
+void re_render(t_data *data) {
+    t_player *player = &data->player;
+
+    mlx_clear_window(data->mlx, data->mlx_win);
+    draw_map(data->mlx, data->mlx_win, data);
+    draw_player(data->mlx, data->mlx_win, data);
+    mlx_do_sync(data->mlx);
+}
+
+void    update(t_data *data) {
+    t_player *player = &data->player;
+    char **map = data->map;
+
+    // update player's rotation
+    player->rotationAngle += player->turnDirection * player->rotationSpeed;
+
+    // update player's position
+    double moveStep = player->walkDirection * player->moveSpeed;
+    double newPlayerX = player->x + cos(player->rotationAngle) * moveStep;
+    double newPlayerY = player->y + sin(player->rotationAngle) * moveStep;
+
+    // check if the new position is inside a wall
+    if (map[(int)newPlayerY][(int)newPlayerX] == '0') {
+        player->x = newPlayerX;
+        player->y = newPlayerY;
+    }
+}
 
 void draw_line(void *mlx, void *window, t_data *data) {
     int x1 = data->player.x * 32 + 16;  // x coordinate of the player's position
@@ -32,29 +60,11 @@ void draw_line(void *mlx, void *window, t_data *data) {
     }
 }
 
-void render(t_data *data) {
-    void *mlx = data->mlx;
-    void *window = data->window;
-    t_player *player = &data->player;
-
-    // clear the window
-    mlx_clear_window(mlx, window);
-
-    // draw the map
-    draw_map(mlx, window, data);
-
-    // draw the player
-    draw_player(mlx, window, data);
-
-    // update the window
-    mlx_do_sync(mlx);
-}
-
 int key_press(int keycode, void *param) {
     t_data *data = (t_data*)param;
     t_player *player = &data->player;
     void *mlx = data->mlx;
-    void *window = data->window;
+    void *window = data->mlx_win;
     char **map = data->map;
 
     double moveStep;
@@ -70,81 +80,22 @@ int key_press(int keycode, void *param) {
       
     }
     printf("turnDirection: %d\n", player->turnDirection);
+    // update(data);
+    // draw_line(mlx, window, data);
+    // re_render(data);
     // re-render the map and player
     // render(data);
 
     return (0);
 }
 
-// int key_press(int keycode, void *param) {
-//     // t_data *data = (t_data*)param;  // cast the void pointer to a t_data pointer
-//     // t_player *player = &data->player;  // get a pointer to the player struct
-//     // void *mlx = data->mlx;  // get a pointer to the mlx variable
-//     // void *window = data->window;  // get a pointer to the window variable
-//     // char **map = data->map;  // get a pointer to the map array
 
-//     // double moveStep;
-
-//     // if (keycode == 119) {  // W key
-//     //     // move the player forward
-//     //     moveStep = player->moveSpeed * cos(player->rotationAngle);
-//     //     if (map[(int)(player->y + moveStep)][(int)player->x] == '0') {
-//     //         player->y += moveStep;
-//     //     }
-//     //     moveStep = player->moveSpeed * sin(player->rotationAngle);
-//     //     if (map[(int)player->y][(int)(player->x + moveStep)] == '0') {
-//     //         player->x += moveStep;
-//     //     }
-//     // } else if (keycode == 97) {  // A key
-//     //     // rotate the player to the left
-//     //     player->rotationAngle -= player->rotationSpeed;
-//     // } else if (keycode == 115) {  // S key
-//     //     // move the player backward
-//     //     moveStep = player->moveSpeed * cos(player->rotationAngle);
-//     //     if (map[(int)(player->y - moveStep)][(int)player->x] == '0') {
-//     //         player->y -= moveStep;
-//     //     }
-//     //     moveStep = player->moveSpeed * sin(player->rotationAngle);
-//     //     if (map[(int)player->y][(int)(player->x - moveStep)] == '0') {
-//     //         player->x -= moveStep;
-//     //     }
-//     // } else if (keycode == 100) {  // D key
-//     //     // rotate the player to the right
-//     //     player->rotationAngle += player->rotationSpeed;
-//     // }
-//     // printf("player x, player y: %f, %f\n", player->x, player->y);
-//     // return (0);
-// }
-
-// int key_press(int keycode, void *param) {
-//     printf("key pressed: %d\n", keycode);
-//     // t_data *data = (t_data*)param;  // cast the void pointer to a t_data pointer
-//     // t_player *player = &data->player;  // get a pointer to the player struct
-//     // void *mlx = data->mlx;  // get a pointer to the mlx variable
-//     // void *window = data->window;  // get a pointer to the window variable
-//     // char (*map)[10] = data->map;  // get a pointer to the map array
-
-//     double moveStep;
-//     if (keycode == 119) {  // W key
-
-//     }
-// 	else if (keycode == 97) {  // A key
-      
-//     }
-// 	else if (keycode == 115) {  // S key
-      
-//     }
-// 	else if (keycode == 100) {  // D key
-      
-//     }
-// 	return (0);
-// }
 int key_release(int keycode, void *param) {
-    t_data *data = (t_data*)param;  // cast the void pointer to a t_data pointer
-    t_player *player = &data->player;  // get a pointer to the player struct
-    void *mlx = data->mlx;  // get a pointer to the mlx variable
-    void *window = data->window;  // get a pointer to the window variable
-    char **map = data->map;  // get a pointer to the map array
+    t_data *data = (t_data*)param;  
+    t_player *player = &data->player;  
+    void *mlx = data->mlx;  
+    void *window = data->mlx_win;  
+    char **map = data->map;
 
     if (keycode == 119) {  // W key
         player->walkDirection = 0;
@@ -157,6 +108,9 @@ int key_release(int keycode, void *param) {
     }
     return (0);
 }
+
+
+
 int main(int ac, char **av)
 {
 	//test2
@@ -181,18 +135,18 @@ int main(int ac, char **av)
     data.height = countlines(av[1]);
     data.width = countwidth(av[1]);
     
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, (data.width - 1)* BLOCK, data.height * BLOCK, "Hello world!");
-    draw_map(mlx, mlx_win, &data);
-    draw_grid(mlx, mlx_win, &data);
- ;
-    draw_player(mlx, mlx_win, &data);
-    draw_line(mlx, mlx_win, &data);
+	data.mlx = mlx_init();
+	data.mlx_win = mlx_new_window(data.mlx, (data.width - 1)* BLOCK, data.height * BLOCK, "Hello world!");
+    draw_map(data.mlx, data.mlx_win, &data);
+    draw_grid(data.mlx, data.mlx_win, &data);
+    draw_player(data.mlx, data.mlx_win, &data);
+    draw_line(data.mlx, data.mlx_win, &data);
     // t_player_params params;
     // params.player = &player;
     // data.map = map;
-    mlx_hook(mlx_win, 2, 1L << 0, key_press, (void*)&data);
-    mlx_hook(mlx_win, 3, 1L << 1, key_release, (void*)&data);
-	mlx_loop(mlx);
+    mlx_hook(data.mlx, 2, 1L << 0, key_press, (void*)&data);
+    mlx_hook(data.mlx, 3, 1L << 1, key_release, (void*)&data);
+    mlx_loop(data.mlx);
+
     return (0);
 }

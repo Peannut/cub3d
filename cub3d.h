@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:54 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/01/04 15:01:47 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/01/05 00:15:06 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_player
 
 typedef struct data {
     void *mlx;
-    void *window;
+    void *mlx_win;
     char **map;
 	int	height;
 	int	width;
