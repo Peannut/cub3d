@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:23:13 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/01/07 15:37:34 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/01/07 16:23:39 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void update(t_data *data) {
     t_player *player = &data->player;
     char **map = data->map;
 
+    printf("before x: %f, y: %f\n", player->x, player->y);
     // update player's rotation
     player->rotationAngle += player->turnDirection * player->rotationSpeed;
 
@@ -24,11 +25,14 @@ void update(t_data *data) {
     double newPlayerX = player->x + cos(player->rotationAngle) * moveStep;
     double newPlayerY = player->y + sin(player->rotationAngle) * moveStep;
 
+    player->x = newPlayerX;
+    player->y = newPlayerY;
     // check if the new position is inside a wall
-    if (map[(int)newPlayerY][(int)newPlayerX] == '0') {
-        player->x = newPlayerX;
-        player->y = newPlayerY;
-    }
+    // if (map[(int)newPlayerY][(int)newPlayerX] == '0') {
+    //     player->x = newPlayerX;
+    //     player->y = newPlayerY;
+    // }
+    printf("after x: %f, y: %f\n", player->x, player->y);
 }
 
 void render(t_data *data) {
@@ -37,6 +41,6 @@ void render(t_data *data) {
     draw_map(data);
     draw_line(data);
     draw_grid(data);
-    draw_player(data);
+    draw_player(data, 0);
     mlx_do_sync(data->mlx);
 }

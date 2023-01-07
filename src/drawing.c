@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 16:19:21 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/01/07 15:07:02 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/01/07 16:23:00 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,21 +71,25 @@ void draw_circle(void *mlx, void *window, int x, int y, int radius, int color) {
 //     draw_circle(mlx, window, center_x, center_y, radius, color);
 // }
 
-void draw_player(t_data *data) {
+void draw_player(t_data *data , int flag) {
     int radius = 3;  // radius of the circle
     int color = 0xFF0000;  // color of the circle
     int i, j;
 
     // find the position of the 'P' character in the map
-    for (i = 0; i < data->height; i++) {
-        for (j = 0; j < data->width; j++) {
-            if (data->map[i][j] == 'P') {
-                data->player.x = j;
-                data->player.y = i;
-                break;
+    if (flag == 1)
+    {
+        for (i = 0; i < data->height; i++) {
+            for (j = 0; j < data->width; j++) {
+                if (data->map[i][j] == 'P') {
+                    data->player.x = j;
+                    data->player.y = i;
+                    break;
+                }
             }
-        }
     }
+    }
+   
     // calculate the center of the circle
     int center_x = data->player.x * BLOCK + 16;
     int center_y = data->player.y * BLOCK + 16;

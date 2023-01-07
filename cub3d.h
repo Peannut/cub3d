@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:54 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/01/07 15:23:46 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/01/07 16:23:49 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	ft_error(char *msg);
 /************drawing*******/
 void draw_map(t_data *data);
 void draw_grid(t_data *data);
-void draw_player(t_data *data);
+void draw_player(t_data *data, int flag);
 void draw_line(t_data *data);
 
 
