@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:54 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/01/05 00:15:06 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/01/07 15:23:46 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ typedef struct s_player
 }	t_player;
 
 typedef struct data {
-    void *mlx;
-    void *mlx_win;
     char **map;
+	void *mlx;
+	void *mlx_win;
 	int	height;
 	int	width;
     t_player player;
@@ -65,9 +65,16 @@ void	init_the_map(char *map_name);
 void	ft_error(char *msg);
 
 /************drawing*******/
-void draw_map(void *mlx, void *window, t_data *data);
-void draw_grid(void *mlx, void *window, t_data *data);
-void draw_player(void *mlx, void *window, t_data *data);
+void draw_map(t_data *data);
+void draw_grid(t_data *data);
+void draw_player(t_data *data);
+void draw_line(t_data *data);
+
+
+/********update*******/
+void update(t_data *data);
+void render(t_data *data);
+
 /*********data reader*********/
 char	**readingdata(char *file);
 int		countlines(char *file);

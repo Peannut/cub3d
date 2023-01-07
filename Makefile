@@ -6,13 +6,15 @@
 #    By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 22:20:51 by zoukaddo          #+#    #+#              #
-#    Updated: 2023/01/04 14:15:01 by zoukaddo         ###   ########.fr        #
+#    Updated: 2023/01/07 15:24:19 by zoukaddo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= cub3d
 
-SRCS			= main.c ./src/drawing.c ./src/map_reader.c ./get_next_line/get_next_line_utils.c ./get_next_line/get_next_line.c
+SRCS			= main.c ./src/drawing.c ./src/map_reader.c \
+			./get_next_line/get_next_line_utils.c ./get_next_line/get_next_line.c \
+				./src/update.c
 
 OBJS			= $(SRCS:.c=.o)
 

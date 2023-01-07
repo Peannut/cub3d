@@ -6,13 +6,13 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 16:19:21 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/01/04 18:34:21 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/01/07 15:07:02 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void draw_map(void *mlx, void *window, t_data *data) {
+void draw_map(t_data *data) {
     int x, y, i, j;
     int color;
 
@@ -25,24 +25,24 @@ void draw_map(void *mlx, void *window, t_data *data) {
             }
             for (i = 0; i < 32; i++) {
                 for (j = 0; j < 32; j++) {
-                    mlx_pixel_put(mlx, window, x * BLOCK + i, y * BLOCK + j, color);
+                    mlx_pixel_put(data->mlx, data->mlx_win, x * BLOCK + i, y * BLOCK + j, color);
                 }
             }
         }
     }
 }
 
-void draw_grid(void *mlx, void *window, t_data *data) {
+void draw_grid(t_data *data) {
     int x, y, i, j;
 
     for (y = 0; y < data->height; y++) {
         for (x = 0; x < data->width; x++) {
             // draw grid
             for (i = 0; i < 32; i++) {
-                mlx_pixel_put(mlx, window, x * 32 + i, y * 32 + 31, 0x000000);
+                mlx_pixel_put(data->mlx, data->mlx_win, x * 32 + i, y * 32 + 31, 0x000000);
             }
             for (j = 0; j < 32; j++) {
-                mlx_pixel_put(mlx, window, x * 32 + 31, y * 32 + j, 0x000000);
+                mlx_pixel_put(data->mlx, data->mlx_win, x * 32 + 31, y * 32 + j, 0x000000);
             }
         }
     }
@@ -71,7 +71,7 @@ void draw_circle(void *mlx, void *window, int x, int y, int radius, int color) {
 //     draw_circle(mlx, window, center_x, center_y, radius, color);
 // }
 
-void draw_player(void *mlx, void *window, t_data *data) {
+void draw_player(t_data *data) {
     int radius = 3;  // radius of the circle
     int color = 0xFF0000;  // color of the circle
     int i, j;
@@ -91,5 +91,5 @@ void draw_player(void *mlx, void *window, t_data *data) {
     int center_y = data->player.y * BLOCK + 16;
 
     // draw player
-    draw_circle(mlx, window, center_x, center_y, radius, color);
+    draw_circle(data->mlx, data->mlx_win, center_x, center_y, radius, color);
 }
