@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:23:13 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/01/07 16:23:39 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/01/09 04:57:48 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,6 @@ void update(t_data *data) {
 
     player->x = newPlayerX;
     player->y = newPlayerY;
-    // check if the new position is inside a wall
-    // if (map[(int)newPlayerY][(int)newPlayerX] == '0') {
-    //     player->x = newPlayerX;
-    //     player->y = newPlayerY;
-    // }
     printf("after x: %f, y: %f\n", player->x, player->y);
 }
 
@@ -42,5 +37,6 @@ void render(t_data *data) {
     draw_line(data);
     draw_grid(data);
     draw_player(data, 0);
+    castAllRays(data);
     mlx_do_sync(data->mlx);
 }

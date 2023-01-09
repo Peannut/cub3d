@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:56 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/01/07 16:24:46 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/01/09 04:57:06 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,12 @@ int main(int ac, char **av)
     data.player.walkDirection = 0;
     data.player.rotationAngle = PI / 2;
     data.player.rotationSpeed = 3 * (PI / 180);
-    data.player.moveSpeed = 1;
+    data.player.moveSpeed = 0.1;
     data.map = readingdata(av[1]);
     data.height = countlines(av[1]);
     data.width = countwidth(av[1]);
     
-
+    
 	data.mlx = mlx_init();
 	data.mlx_win = mlx_new_window(data.mlx, (data.width - 1)* BLOCK, data.height * BLOCK, "Peanut cub3d!");
     draw_map(&data);
