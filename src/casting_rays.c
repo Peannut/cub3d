@@ -29,16 +29,11 @@
 //     mlx_pixel_put(mlx, window, x2, y2, 0xFF0000);
 // }
 void castRay(void *mlx, void *window, t_data *data, int col) {
-    // player position
     int x1 = data->player.x * BLOCK + 16;
     int y1 = data->player.y * BLOCK + 16;
-
-    // angle of the ray
     double angle = data->player.rotationAngle - FOV_ANGEL / 2 + (double)col / (data->width * BLOCK )* FOV_ANGEL;
-
     int x2 = x1 + 70 * cos(angle);
     int y2 = y1 + 70 * sin(angle);
-
     int x = x1, y = y1;
     int dx = abs(x2 - x1);
     int dy = abs(y2 - y1);
