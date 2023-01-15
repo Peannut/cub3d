@@ -23,10 +23,10 @@ void castRay(void *mlx, void *window, t_data *data, int col) {
     // find the intersection point of the ray with the closest wall
     int x2 = x1 + 70 * cos(angle);
     int y2 = y1 + 70 * sin(angle);
-	printf("hna \n");
+
     // draw the ray as a line
-    mlx_pixel_put(mlx, window, x1, y1, 0x00FF00);
-    mlx_pixel_put(mlx, window, x2, y2, 0x00FF00);
+    mlx_pixel_put(mlx, window, x1, y1, 0xFF0000);
+    mlx_pixel_put(mlx, window, x2, y2, 0xFF0000);
 }
 
 void castAllRays(t_data *data) {
@@ -44,4 +44,12 @@ void castAllRays(t_data *data) {
         castRay(data->mlx, data->mlx_win, data, col);
     }
 	printf("col value : %d\n", col);
+}
+
+
+void    exitfunc(void)
+{
+    // should free hna tal mn b3d;
+    printf("je exit baye hh\n");
+    exit(0);
 }

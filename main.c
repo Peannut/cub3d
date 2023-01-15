@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:56 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/01/09 04:57:06 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/01/09 13:14:56 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int key_press(int keycode, void *param) {
     char **map = data->map;
 
     double moveStep;
+    
     if (keycode == 119) {  // W key
        player->walkDirection = 1;
     } else if (keycode == 97) {  // A key
@@ -112,6 +113,7 @@ int main(int ac, char **av)
     // data.map = map;
     mlx_hook(data.mlx_win, 2, 1L << 0, key_press, (void*)&data);
     mlx_hook(data.mlx_win, 3, 1L << 1, key_release, (void*)&data);
+    mlx_hook(data.mlx_win, 17, 0, exitfunc, NULL);
     mlx_loop(data.mlx);
     return (0);
 }

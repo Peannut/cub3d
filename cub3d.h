@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:54 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/01/09 07:52:57 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/01/15 16:48:22 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 # define BLOCK 32
 # define PI 3.1415926535
-# define FOV_ANGEL 60 
+# define FOV_ANGEL 60 * (PI / 180)
 // fov angel in radiant btw :)
 
 // typedef struct s_data
@@ -85,4 +85,5 @@ int countwidth(char *file);
 
 /*****rays casting******/
 void castAllRays(t_data *data);
+void exitfunc(void);
 #endif 
