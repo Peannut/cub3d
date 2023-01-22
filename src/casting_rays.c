@@ -43,7 +43,7 @@ void castRay(void *mlx, void *window, t_data *data, int col) {
     int e2;
 
     while(x != x2 || y != y2) {
-        mlx_pixel_put(mlx, window, x, y, 0xFF0000);
+        mlx_pixel_put(mlx, window, x, y, 0x00FF00);
         e2 = 2 * err;
         if (e2 > -dy) {
             err -= dy;
@@ -67,7 +67,7 @@ void castAllRays(t_data *data) {
 	// rayangle = player->rotationAngle - (FOV_ANGEL / 2);
 	printf("wsl hna\n");
 	int col;
-    for (col = 0; col < ((data->width - 1) * BLOCK); col++) {
+    for (col = 0; col < ((data->width - 1) * BLOCK); col+= WALL_STRIP_WIDTH) {
         castRay(data->mlx, data->mlx_win, data, col);
     }
 	printf("col value : %d\n", col);
