@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:54 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/01/22 01:09:02 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/02/17 16:22:27 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,16 @@
 # include <fcntl.h>
 # include "libft/libft.h"
 # include "get_next_line/get_next_line.h"
-#include <math.h>
+# include <math.h>
+# include <mlx.h>
 
 
 # define BLOCK 32
 # define PI 3.1415926535
 # define FOV_ANGEL 60 * (PI / 180)
 # define WALL_STRIP_WIDTH 30
+# define WIN_HEIGHT 720
+# define WIN_WIDTH 1280
 // fov angel in radiant btw :)
 
 // typedef struct s_data
@@ -52,11 +55,18 @@ typedef struct data {
     char **map;
 	void *mlx;
 	void *mlx_win;
+	void *frame;
 	int	height;
 	int	width;
     t_player player;
 } t_data;
 
+typedef struct	s_data {
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_img;
 
 // typedef struct s_player_params{
 //     t_player *player;
@@ -66,8 +76,10 @@ typedef struct data {
 
 void	init_the_map(char *map_name);
 void	ft_error(char *msg);
+void    exitfunc(void);
 
 /************drawing*******/
+void my_pixel_put(void *img, int x, int y, int color);
 void draw_map(t_data *data);
 void draw_grid(t_data *data);
 void draw_player(t_data *data, int flag);

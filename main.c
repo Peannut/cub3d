@@ -6,18 +6,11 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:56 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/01/09 13:14:56 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/02/17 16:18:42 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minilibx-linux/mlx.h"
 #include "cub3d.h"
-#include <fcntl.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-
-
 
 void draw_line(t_data *data) {
     int x1 = data->player.x * 32 + 16;  // x coordinate of the player's position
@@ -31,7 +24,8 @@ void draw_line(t_data *data) {
     for (i = 0; i < 40; i++) {
         int x = x1 + i * cos(data->player.rotationAngle);
         int y = y1 + i * sin(data->player.rotationAngle);
-        mlx_pixel_put(data->mlx, data->mlx_win, x, y, color);
+        // mlx_pixel_put(data->mlx, data->mlx_win, x, y, color);
+        my_pixel_put(data->frame, x, y, color);
     }
 }
 
@@ -42,17 +36,17 @@ int key_press(int keycode, void *param) {
 
     double moveStep;
     
-    if (keycode == 119) {  // W key
+    if (keycode == 13) {  // W key
        player->walkDirection = 1;
-    } else if (keycode == 97) {  // A key
+    } else if (keycode == 0) {  // A key
         player->turnDirection = -1;
-    } else if (keycode == 115) {  // S key
+    } else if (keycode == 1) {  // S key
       player->walkDirection = -1;
-    } else if (keycode == 100) {  // D key
+    } else if (keycode == 2) {  // D key
         player->turnDirection = 1;
       
     }
-    printf("turnDirection: %d\n", player->turnDirection);
+    // printf("turnDirection: %d\n", player->turnDirection);
     update(data);
     render(data);
 
@@ -64,15 +58,18 @@ int key_release(int keycode, void *param) {
     t_data *data = (t_data*)param;  
     t_player *player = &data->player;
     char **map = data->map;
-
-    if (keycode == 119) {  // W key
+    if (keycode == 13) {  // W key
         player->walkDirection = 0;
-    } else if (keycode == 97) {  // A key
+    } else if (keycode == 0) {  // A key
         player->turnDirection = 0;
-    } else if (keycode == 115) {  // S key
+    } else if (keycode == 1) {  // S key
         player->walkDirection = 0;
-    } else if (keycode == 100) {  // D key
+    } else if (keycode == 2) {  // D key
         player->turnDirection = 0;
+    }
+    else if (keycode == 53)
+    {
+        exit(1);
     }
     return (0);
 }
@@ -103,16 +100,18 @@ int main(int ac, char **av)
     
     
 	data.mlx = mlx_init();
-	data.mlx_win = mlx_new_window(data.mlx, (data.width - 1)* BLOCK, data.height * BLOCK, "Peanut cub3d!");
+	data.mlx_win = mlx_new_window(data.mlx, WIN_WIDTH, WIN_HEIGHT, "Peanut cub3d!");
+    data.frame = mlx_new_image(data.mlx, WIN_WIDTH, WIN_HEIGHT);
     draw_map(&data);
     draw_grid(&data);
     draw_player(&data , 1);
     draw_line(&data);
+    mlx_put_image_to_window(data.mlx, data.mlx_win, data.frame, 0, 0);
     // t_player_params params;
     // params.player = &player;
     // data.map = map;
-    mlx_hook(data.mlx_win, 2, 1L << 0, key_press, (void*)&data);
-    mlx_hook(data.mlx_win, 3, 1L << 1, key_release, (void*)&data);
+    mlx_hook(data.mlx_win, 2, 0, key_press, (void*)&data);
+    mlx_hook(data.mlx_win, 3, 0, key_release, (void*)&data);
     mlx_hook(data.mlx_win, 17, 0, exitfunc, NULL);
     mlx_loop(data.mlx);
     return (0);

@@ -6,7 +6,7 @@
 #    By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 22:20:51 by zoukaddo          #+#    #+#              #
-#    Updated: 2023/01/22 02:13:07 by zoukaddo         ###   ########.fr        #
+#    Updated: 2023/02/17 16:08:47 by zoukaddo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,16 +23,19 @@ CC				= cc -g
 RM				= rm -f
 
 
-MlX_PATH 		= -L/usr/lib -lXext -lX11 -lm -lz
+#MlX_PATH 		= -L/usr/lib -lXext -lX11 -lm -lz
 
 
-CFLAGS			= #-Wall -Wextra -Werror
+#CFLAGS			= #-Wall -Wextra -Werror
+CFLAGS			=  -I minilibx -framework OpenGl -framework Appkit -fsanitize=address -g
+
 
 all:			$(NAME)
 
 $(NAME):		$(OBJS)
 				
-				$(CC) ${OBJS} $(CFLAGS) minilibx-linux/libmlx.a -o ${NAME} $(MlX_PATH) 
+				$(CC) ${OBJS} minilibx/libmlx.a $(CFLAGS) -o ${NAME}
+				
 clean:
 				$(RM) $(OBJS) 
 		

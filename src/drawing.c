@@ -6,11 +6,22 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 16:19:21 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/01/07 16:23:00 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/02/17 16:13:33 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void	my_pixel_put(void *img, int x, int y, int color)
+{
+	t_img img_addr;
+    char *pos;
+    if (x < 0 || y < 0 || x >= WIN_WIDTH || y >= WIN_HEIGHT)
+        return ;
+    img_addr.addr = mlx_get_data_addr(img, &img_addr.bits_per_pixel, &img_addr.line_length, &img_addr.endian);
+    pos = img_addr.addr + ((y * img_addr.line_length) + (x * (img_addr.bits_per_pixel / 8)));
+    *(unsigned int *)pos = color;
+}
 
 void draw_map(t_data *data) {
     int x, y, i, j;
@@ -25,7 +36,8 @@ void draw_map(t_data *data) {
             }
             for (i = 0; i < 32; i++) {
                 for (j = 0; j < 32; j++) {
-                    mlx_pixel_put(data->mlx, data->mlx_win, x * BLOCK + i, y * BLOCK + j, color);
+                    // mlx_pixel_put(data->mlx, data->mlx_win, x * BLOCK + i, y * BLOCK + j, color);
+                    my_pixel_put(data->frame, x * BLOCK + i, y * BLOCK + j, color);
                 }
             }
         }
@@ -39,10 +51,12 @@ void draw_grid(t_data *data) {
         for (x = 0; x < data->width; x++) {
             // draw grid
             for (i = 0; i < 32; i++) {
-                mlx_pixel_put(data->mlx, data->mlx_win, x * 32 + i, y * 32 + 31, 0x000000);
+                // mlx_pixel_put(data->mlx, data->mlx_win, x * 32 + i, y * 32 + 31, 0x000000);
+                my_pixel_put(data->frame, x * 32 + i, y * 32 + 31, 0x000000);
             }
             for (j = 0; j < 32; j++) {
-                mlx_pixel_put(data->mlx, data->mlx_win, x * 32 + 31, y * 32 + j, 0x000000);
+                // mlx_pixel_put(data->mlx, data->mlx_win, x * 32 + 31, y * 32 + j, 0x000000);
+                my_pixel_put(data->frame, x * 32 + 31, y * 32 + j, 0x000000);
             }
         }
     }
@@ -56,7 +70,8 @@ void draw_circle(void *mlx, void *window, int x, int y, int radius, int color) {
         for (j = 0; j < 2 * radius; j++) {
             // if the pixel is within the circle, draw it
             if ((i - radius) * (i - radius) + (j - radius) * (j - radius) <= radius * radius) {
-                mlx_pixel_put(mlx, window, x + i - radius, y + j - radius, color);
+                // mlx_pixel_put(mlx, window, x + i - radius, y + j - radius, color);
+                my_pixel_put(window, x + i - radius, y + j - radius, color);
             }
         }
     }
@@ -95,5 +110,6 @@ void draw_player(t_data *data , int flag) {
     int center_y = data->player.y * BLOCK + 16;
 
     // draw player
-    draw_circle(data->mlx, data->mlx_win, center_x, center_y, radius, color);
+    // draw_circle(data->mlx, data->mlx_win, center_x, center_y, radius, color);
+    draw_circle(data->mlx, data->frame, center_x, center_y, radius, color);
 }
