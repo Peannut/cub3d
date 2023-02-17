@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:56 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/02/17 16:18:42 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/02/17 17:10:01 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,20 @@ int key_press(int keycode, void *param) {
     if (keycode == 13) {  // W key
        player->walkDirection = 1;
     } else if (keycode == 0) {  // A key
-        player->turnDirection = -1;
+        player->sidewaysDirection = -1;
     } else if (keycode == 1) {  // S key
       player->walkDirection = -1;
     } else if (keycode == 2) {  // D key
+        player->sidewaysDirection = 1;
+    }
+    else if (keycode == 124){ // right arrow
         player->turnDirection = 1;
-      
+    }
+    else if (keycode == 123){ // left arrow
+        player->turnDirection = -1;
+    }
+    else if (keycode == 53){
+        exit(1);
     }
     // printf("turnDirection: %d\n", player->turnDirection);
     update(data);
@@ -59,17 +67,19 @@ int key_release(int keycode, void *param) {
     t_player *player = &data->player;
     char **map = data->map;
     if (keycode == 13) {  // W key
-        player->walkDirection = 0;
+       player->walkDirection = 0;
     } else if (keycode == 0) {  // A key
-        player->turnDirection = 0;
+        player->sidewaysDirection = 0;
     } else if (keycode == 1) {  // S key
-        player->walkDirection = 0;
+      player->walkDirection = 0;
     } else if (keycode == 2) {  // D key
+        player->sidewaysDirection = 0;
+    }
+    else if (keycode == 124){ // right arrow
         player->turnDirection = 0;
     }
-    else if (keycode == 53)
-    {
-        exit(1);
+    else if (keycode == 123){ // left arrow
+        player->turnDirection = 0;
     }
     return (0);
 }
