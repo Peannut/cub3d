@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:54 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/02/18 03:01:42 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/02/18 03:47:10 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_player
 	int	walkDirection; // -1 for back, +1 for front
 	double	moveSpeed; // the constant value is in squares/second
 	double	rotationSpeed; // the constant value is in radians/second
-	char ch;
+	char spawn;
 }	t_player;
 
 typedef struct data {
