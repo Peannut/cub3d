@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:56 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/02/17 17:10:01 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/02/18 03:06:17 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ int key_release(int keycode, void *param) {
 
 int main(int ac, char **av)
 {
-	//test2
    if (ac != 2)
    {
         printf("usage : cub3d ./file.cub\n");
@@ -97,14 +96,14 @@ int main(int ac, char **av)
 //     init_the_map(av[1]);
     // t_player player;
     t_data data;
-    data.player.x = 2;
+    data.player.x = 2; //changed them in is_valid()
     data.player.y = 5;
     data.player.turnDirection = 0;
     data.player.walkDirection = 0;
     data.player.rotationAngle = PI / 2;
     data.player.rotationSpeed = 3 * (PI / 180);
     data.player.moveSpeed = 0.1;
-    data.map = readingdata(av[1]);
+    data.map = readingdata(av[1], &data);
     data.height = countlines(av[1]);
     data.width = countwidth(av[1]);
     

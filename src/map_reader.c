@@ -3,44 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   map_reader.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 14:05:01 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/01/04 14:18:58 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/02/18 03:04:04 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-char	**readingdata(char *file)
-{
-	char	**map;
-	int		nblines;
-	int		fd;
-	int		i;
-	char	*tmp;
+//char	**readingdata(char *file, t_data *data)
+//{
+	// char	**map;
+	// int		nblines;
+	// int		fd;
+	// int		i;
+	// char	*tmp;
 
-	i = 0;
-	fd = open(file, O_RDONLY);
-	if (fd < 1)
-	{
-		printf("failed to open file\n");
-		// possible leak hna knti dayr ft_erro 3ndak tnsa;
-	}
-	nblines = countlines(file);
-	map = malloc(sizeof(char *) * (nblines + 1));
-	while (1)
-	{
-		map[i] = get_next_line(fd);
-		if (!map[i++])
-			break ;
-	}
-	tmp = map[i - 2];
-	map[i - 2] = ft_strjoin(map[i - 2], "\n");
-	free(tmp);
-	close(fd);
-	return (map);
-}
+	// i = 0;
+	// fd = open(file, O_RDONLY);
+	// if (fd < 1)
+	// {
+	// 	printf("failed to open file\n");
+	// 	// possible leak hna knti dayr ft_erro 3ndak tnsa;
+	// }
+	// nblines = countlines(file);
+	// map = malloc(sizeof(char *) * (nblines + 1));
+	// while (1)
+	// {
+	// 	map[i] = get_next_line(fd);
+	// 	if (!map[i++])
+	// 		break ;
+	// }
+	// tmp = map[i - 2];
+	// map[i - 2] = ft_strjoin(map[i - 2], "\n");
+	// free(tmp);
+	// close(fd);
+	// return (map);
+//}
 
 int	countlines(char *file)
 {
