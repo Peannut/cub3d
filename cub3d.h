@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:54 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/02/18 03:47:10 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/02/21 13:28:46 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,15 @@
 
 // }t_datad;
 
-
+typedef struct s_texture
+{
+	char	*info;
+	char	*path;
+	void	*img;
+	int		width;
+	int		height;
+	
+} t_texture;
 typedef struct s_player
 {
 	double	x;
@@ -55,12 +63,17 @@ typedef struct s_player
 
 typedef struct data {
     char **map;
+	t_texture	no_t;
+	t_texture	so_t;
+	t_texture	we_t;
+	t_texture	ea_t;
 	void *mlx;
 	void *mlx_win;
 	void *frame;
 	int	height;
 	int	width;
     t_player player;
+	t_texture img;
 } t_data;
 
 typedef struct	s_data {
