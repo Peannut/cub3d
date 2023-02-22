@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+         #
+#    By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 22:20:51 by zoukaddo          #+#    #+#              #
-#    Updated: 2023/02/17 16:08:47 by zoukaddo         ###   ########.fr        #
+#    Updated: 2023/02/22 19:03:00 by abouhaga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= cub3d
 
-SRCS			= main.c ./src/drawing.c ./src/map_reader.c \
+SRCS			= main.c ./src/drawing.c ./src/map_reader.c ./src/parser.c\
 				./get_next_line/get_next_line_utils.c ./get_next_line/get_next_line.c \
 				./src/update.c ./src/casting_rays.c
 

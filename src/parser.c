@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 02:28:43 by abouhaga          #+#    #+#             */
-/*   Updated: 2023/02/21 13:38:37 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/02/22 22:04:06 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int is_valid_component(char ch, t_data *data, int i, int j)
         data->player.x = j;
         data->player.y = i;
         data->player.spawn = data->map[i][j];
-        data->map[i][j] = '0';
+        //data->map[i][j] = '0';
     }
     return (0);
 }
@@ -95,26 +95,33 @@ int check_col(t_data *data, int i, int j)
     return (0); 
 }
 
-void    valid_walls(t_data *data)
+void	valid_walls(char **mapv)
 {
-    int i;
-    int j;
-    int k;
+	int		j;
+	int		i;
+	char	*elements;
 
-    i = 0;
-    while(data->map[i])
-    {
-        j = 0;
-        while(data->map[i][j])
-        {
-            k = data->map[i][j];
-            if (k == 'S' || k == 'W' || k == 'N' || k == 'E' || k == '0')
-                if (check_col(data, i, j) || check_row(data, i, j))
-                    ft_error("Invalid Map walls !");
-            j++;
-        }
-        i++;
-    }
+	elements = "01WESN";
+	i = -1;
+	while (mapv[++i])
+	{
+		j = -1;
+		while (mapv[i][++j])
+		{
+			if (mapv[i][j] == '0' || mapv[i][j] == 'W' || mapv[i][j] == 'E'
+				|| mapv[i][j] == 'S' || mapv[i][j] == 'N')
+			{
+				if (check_edges(mapv, i, j))
+					print_error("ERROR\n");
+				check_previous(j, mapv[i - 1], mapv[i + 1]);
+				if (!ft_strchr(elements, mapv[i - 1][j])
+					|| !ft_strchr(elements, mapv[i + 1][j]) \
+					|| !ft_strchr(elements, mapv[i][j - 1]) \
+					|| !ft_strchr(elements, mapv[i][j + 1]))
+					print_error("ERROR\n");
+			}
+		}
+	}
 }
 
 void    valid_map(t_data *data)
@@ -140,6 +147,35 @@ void    valid_map(t_data *data)
     valid_walls(data);
 }
 
+int check_init(t_data *data)
+{
+    if (data->ea_t.img == NULL || data->no_t.img == NULL \
+	|| data->so_t.img == NULL || data->we_t.img == NULL \
+	|| data->floor_color == NULL || data->ceilling_color == NULL)
+		return (1);
+	else
+		return (0);
+}
+
+int is_spaces(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != ' ' && line[i] != '\t' && line[i] != '\n' \
+		&& line[i] != '\v' && line[i] != '\f' && line[i] != '\r')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+void add_line2map(char *line, t_data *data)
+{
+    
+}
 void    load_files(int fd, t_data* data)
 {
     char    *line;
@@ -149,10 +185,19 @@ void    load_files(int fd, t_data* data)
         line = get_next_line(fd);
 		if(!line)
 			break;
-        
-        
+        if (check_init(data) && !is_spaces(line))
+            ft_extract_data(line, data);
+        else
+        {
+            if (is_spaces(line) && data->map)
+                ft_error("Map is not valid");
+            else if (!is_spaces(line))
+                add_line2map(line, data);
+        }
+        free(line);
     }
-    
+    if (!data->map || check_init(data))
+        ft_error("Map is not valid");
 }
 char	**readingdata(char *file, t_data *data)
 {

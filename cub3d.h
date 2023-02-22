@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:54 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/02/21 13:28:46 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/02/22 19:12:53 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ typedef struct data {
 	t_texture	so_t;
 	t_texture	we_t;
 	t_texture	ea_t;
+	int			*floor_color;
+	int			*ceilling_color;
 	void *mlx;
 	void *mlx_win;
 	void *frame;
