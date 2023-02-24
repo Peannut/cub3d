@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 01:08:46 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/01/04 18:41:07 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/02/24 13:08:12 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,31 +23,31 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	size_t	s1len;
-	size_t	s2len;
-	size_t	i;
-	size_t	k;
-	char	*nstr;
+// char	*ft_strjoin(char const *s1, char const *s2)
+// {
+// 	size_t	s1len;
+// 	size_t	s2len;
+// 	size_t	i;
+// 	size_t	k;
+// 	char	*nstr;
 
-	if (!s1 || !s2)
-		return (0);
-	s1len = ft_strlen(s1);
-	s2len = ft_strlen(s2);
-	i = 0;
-	k = 0;
-	nstr = (char *)malloc(s1len + s2len + 1);
-	if (!nstr)
-		return (NULL);
-	while (s1[k])
-		nstr[i++] = s1[k++];
-	k = 0;
-	while (s2[k])
-		nstr[i++] = s2[k++];
-	nstr[i] = '\0';
-	return (nstr);
-}
+// 	if (!s1 || !s2)
+// 		return (0);
+// 	s1len = ft_strlen(s1);
+// 	s2len = ft_strlen(s2);
+// 	i = 0;
+// 	k = 0;
+// 	nstr = (char *)malloc(s1len + s2len + 1);
+// 	if (!nstr)
+// 		return (NULL);
+// 	while (s1[k])
+// 		nstr[i++] = s1[k++];
+// 	k = 0;
+// 	while (s2[k])
+// 		nstr[i++] = s2[k++];
+// 	nstr[i] = '\0';
+// 	return (nstr);
+// }
 
 void	ft_free(char **b)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 18:20:53 by zoukaddo          #+#    #+#             */
-/*   Updated: 2021/11/17 22:04:50 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/02/24 13:00:45 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,27 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (ptr);
 }
 
-/*int    main()
+char	*ft_strjoin2(char *s1, char const *s2)
 {
-    char s1[] = "ayo";
-    char s2[] = "klo";
-    printf("%s",ft_strjoin(,));
+	char	*s;
+	int		i;
+	int		j;
 
-}*/
+	i = -1;
+	j = -1;
+	if (!s1 || !s2)
+	{
+		free(s1);
+		return (NULL);
+	}
+	s = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!s)
+		return (NULL);
+	while (s1[++i])
+		s[i] = s1[i];
+	while (s2[++j])
+		s[i + j] = s2[j];
+	s[i + j] = '\0';
+	free(s1);
+	return (s);
+}

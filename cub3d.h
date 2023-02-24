@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:54 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/02/22 19:12:53 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/02/24 18:05:39 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ typedef struct s_player
 }	t_player;
 
 typedef struct data {
-    char **map;
-	t_texture	no_t;
-	t_texture	so_t;
-	t_texture	we_t;
-	t_texture	ea_t;
-	int			*floor_color;
-	int			*ceilling_color;
+    //char **map;
+	// t_texture	no_t;
+	// t_texture	so_t;
+	// t_texture	we_t;
+	// t_texture	ea_t;
+	// int			*floor_color;
+	// int			*ceilling_color;
 	void *mlx;
 	void *mlx_win;
 	void *frame;
@@ -85,11 +85,35 @@ typedef struct	s_data {
 	int		endian;
 }				t_img;
 
+typedef struct infos
+{
+	char		*no;
+	char		*so;
+	char		*we;
+	char		*ea;
+	int			*f;
+	int			*c;
+	char		**map;
+	// int			x;
+	// int			y;
+}	t_info;
+
+typedef struct s_tools
+{
+	int	no;
+	int	so;
+	int	we;
+	int	ea;
+	int	f;
+	int	c;
+	int	counter;
+	int	i;
+	int	j;
+}			t_tools;
 // typedef struct s_player_params{
 //     t_player *player;
 //     char (*map)[10];
 // } t_player_params;
-
 
 void	init_the_map(char *map_name);
 void	ft_error(char *msg);
