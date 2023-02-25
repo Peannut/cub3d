@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 02:28:43 by abouhaga          #+#    #+#             */
-/*   Updated: 2023/02/24 19:11:29 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/02/25 21:43:50 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,9 +234,17 @@ int	scan_line(char *map)
 	return (0);
 }
 
+ void check_lines(char **map, int l_nbr, t_tools tools)
+ {
+    tools.i = 0;
+    while(tools.i < l_nbr - 1)
+    {
+        //continue here
+        
+    }
+ }
 int ft_scan_map(char **map, t_info *info)
-{
-    int i;
+{ 
     int j;
     int cnt;
     t_tools tools;
@@ -256,8 +264,8 @@ int ft_scan_map(char **map, t_info *info)
     }
     if (tools.counter != 6)
         ft_error("Map is not valid");
-    //complete 
-    
+    check_lines(map, tools.counter + cnt, tools);
+    return (cnt + tools.counter);
 }
 
 char	**readingdata(char *file, t_data *data)
