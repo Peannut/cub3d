@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 02:28:43 by abouhaga          #+#    #+#             */
-/*   Updated: 2023/02/25 21:43:50 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/02/26 23:31:02 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int is_valid_component(char ch, t_data *data, int i, int j)
             ft_error("More than one player");
         data->player.x = j;
         data->player.y = i;
-        data->player.spawn = data->map[i][j];
+        data->player.spawn = data->info->map[i][j];
         //data->map[i][j] = '0';
     }
     return (0);
@@ -100,12 +100,12 @@ void    valid_map(t_data *data)
 
     i = 0;
     data->player.spawn = '+';
-    while(data->map[i])
+    while(data->info->map[i])
     {
         j = 0;
-        while(data->map[i][j])
+        while(data->info->map[i][j])
         {
-            if (is_valid_component(data->map[i][j], data, i, j))
+            if (is_valid_component(data->info->map[i][j], data, i, j))
                 ft_error("Map is not valid");
             j++;
         }
@@ -113,17 +113,7 @@ void    valid_map(t_data *data)
     }
     if (data->player.spawn == '+')
         ft_error("This Map has no player !");
-    valid_walls(data->map);
-}
-
-int check_init(t_data *data)
-{
-    if (data->ea_t.img == NULL || data->no_t.img == NULL \
-	|| data->so_t.img == NULL || data->we_t.img == NULL \
-	|| data->floor_color == NULL || data->ceilling_color == NULL)
-		return (1);
-	else
-		return (0);
+    valid_walls(data->info->map);
 }
 
 int is_spaces(char *line)
@@ -234,18 +224,77 @@ int	scan_line(char *map)
 	return (0);
 }
 
- void check_lines(char **map, int l_nbr, t_tools tools)
- {
-    tools.i = 0;
-    while(tools.i < l_nbr - 1)
+int	skip_whitespace(char *s)
+{
+	int	i;
+	int	c;
+
+	i = 0;
+	c = 0;
+	while (s[i] && !ft_isalnum(s[i]))
+	{
+		if (s[i] == ' ' || s[i] == '\t')
+			c++;
+		i++;
+	}
+	return (c);
+}
+
+void check_lines(char **map, int l_nbr, t_tools tl)
+{
+    tl.i = 0;
+    while(tl.i < l_nbr - 1)
     {
-        //continue here
-        
+        tl.j = skip_whitespace(map[tl.i]);
+        if (map[tl.i][tl.j] == 'N' && map[tl.i][tl.j + 1] == 'O'
+            && map[tl.i][tl.j + 2] == ' ')
+            tl.i++;
+        else if (map[tl.i][tl.j] == 'S' && map[tl.i][tl.j + 1] == 'O'
+            && map[tl.i][tl.j + 2] == ' ')
+            tl.i++;
+        else if (map[tl.i][tl.j] == 'W' && map[tl.i][tl.j + 1] == 'E'
+            && map[tl.i][tl.j + 2] == ' ')
+            tl.i++;
+        else if (map[tl.i][tl.j] == 'E' && map[tl.i][tl.j + 1] == 'A'
+            && map[tl.i][tl.j + 2] == ' ')
+            tl.i++;
+        else if (map[tl.i][tl.j] == 'F' && map[tl.i][tl.j + 1] == ' ')
+            tl.i++;
+        else if (map[tl.i][tl.j] == 'C' && map[tl.i][tl.j + 1] == ' ')
+            tl.i++;
+        else
+            ft_error("Map is not valid");   
     }
- }
+}
+
+
+int	ft_read_map_help(t_tools *tl, char **map, t_info *info, int i)
+{
+	int	j;
+
+	j = skip_whitespace(map[i]);
+	if (!tl->no && (map[i][j] == 'N'
+		&& map[i][j + 1] == 'O' && map[i][j + 2] == ' '))
+		(ft_north(map[i], info), tl->counter++, tl->no = 1);
+	else if (!tl->so && (map[i][j] == 'S'
+		&& map[i][j + 1] == 'O' && map[i][j + 2] == ' '))
+		(ft_south(map[i], info), tl->counter++, tl->so = 1);
+	else if (!tl->we && (map[i][j] == 'W'
+		&& map[i][j + 1] == 'E' && map[i][j + 2] == ' '))
+		(ft_west(map[i], info), tl->counter++, tl->we = 1);
+	else if (!tl->ea && (map[i][j] == 'E'
+		&& map[i][j + 1] == 'A' && map[i][j + 2] == ' '))
+		(ft_east(map[i], info), tl->counter++, tl->ea = 1);
+	else if (!tl->f && (map[i][j] == 'F' && map[i][j + 1] == ' '))
+		(ft_floor(map[i], info), tl->counter++, tl->f = 1);
+	else if (!tl->c && (map[i][j] == 'C' && map[i][j + 1] == ' '))
+		(ft_ceilling(map[i], info), tl->counter++, tl->c = 1);
+	return (tl->counter);
+}
+
 int ft_scan_map(char **map, t_info *info)
 { 
-    int j;
+    int i;
     int cnt;
     t_tools tools;
 
@@ -268,7 +317,51 @@ int ft_scan_map(char **map, t_info *info)
     return (cnt + tools.counter);
 }
 
-char	**readingdata(char *file, t_data *data)
+char **allocate(char **map, int cnt)
+{
+    int i;
+    int j;
+    char **tmp;
+    
+    i = cnt;
+    j = 0;
+    while(map[i])
+        i++, j++;
+    tmp = malloc(sizeof(char *) * (j + 1));
+    j = 0;
+    while (map[cnt])
+        tmp[j++] = ft_strdup(map[cnt++]);
+    tmp[j] = NULL;
+    return (tmp);
+}
+
+void setup_map (t_info *info, char **map, int cnt, t_data *data)
+{
+    char **tmp;
+
+    tmp = allocate(map, cnt);
+    valid_map(data);
+    info->map = tmp;
+}
+
+void	ft_free(char **s)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i])
+	{
+		free(s[i]);
+		s[i] = 0;
+		i++;
+	}
+	free(s);
+	s = NULL;
+}
+
+t_info	*ft_parse(char *file, t_data *data)
 {
     int fd;
     t_info *info;
@@ -284,6 +377,7 @@ char	**readingdata(char *file, t_data *data)
     free (lines);
     cnt = ft_scan_map(map, info);
     //load_files(fd, data);
-	valid_map(data);
-    return (map);
+    setup_map(info, map, cnt, data);
+    ft_free(map);
+    return (info);
 }

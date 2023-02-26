@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:54 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/02/24 18:05:39 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/02/26 23:16:01 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,18 @@ typedef struct s_player
 	double	rotationSpeed; // the constant value is in radians/second
 	char spawn;
 }	t_player;
+typedef struct infos
+{
+	char		*no;
+	char		*so;
+	char		*we;
+	char		*ea;
+	int			*f;
+	int			*c;
+	char		**map;
+	// int			x;
+	// int			y;
+}	t_info;
 
 typedef struct data {
     //char **map;
@@ -74,6 +86,7 @@ typedef struct data {
 	void *frame;
 	int	height;
 	int	width;
+	t_info *info;
     t_player player;
 	t_texture img;
 } t_data;
@@ -85,18 +98,6 @@ typedef struct	s_data {
 	int		endian;
 }				t_img;
 
-typedef struct infos
-{
-	char		*no;
-	char		*so;
-	char		*we;
-	char		*ea;
-	int			*f;
-	int			*c;
-	char		**map;
-	// int			x;
-	// int			y;
-}	t_info;
 
 typedef struct s_tools
 {
@@ -132,7 +133,7 @@ void update(t_data *data);
 void render(t_data *data);
 
 /*********data reader*********/
-char	**readingdata(char *file, t_data *data);
+t_info	*ft_parse(char *file, t_data *data);
 int		countlines(char *file);
 int		countwidth(char *file);
 
