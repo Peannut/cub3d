@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 01:08:46 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/02/24 13:08:12 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/02/28 18:39:06 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ size_t	ft_strlen(const char *s)
 // 	return (nstr);
 // }
 
-void	ft_free(char **b)
+void	ft_free_it(char **b)
 {
 	free(*b);
 	*b = NULL;

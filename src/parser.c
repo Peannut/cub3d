@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 02:28:43 by abouhaga          #+#    #+#             */
-/*   Updated: 2023/02/26 23:31:02 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/02/28 18:35:56 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,7 @@ char *read_file(char* file)
         if (!ft_strcmp("\n", tmp))
         {
             free(tmp);
-            tmp = ft_strdup("\n");
+            tmp = ft_strdup(" \n");
         }
         line = ft_strjoin2(line, tmp);
     }
@@ -267,28 +267,146 @@ void check_lines(char **map, int l_nbr, t_tools tl)
     }
 }
 
+int	check_path(char *path)
+{
+	int	i;
 
-int	ft_read_map_help(t_tools *tl, char **map, t_info *info, int i)
+	i = skip_whitespace(path) + 2 ;
+	while (path[i])
+	{
+		if ((path[i] == '.' && path[i + 1] == '/') || path[i] == '/'
+			|| ft_isalnum(path[i]))
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+char	*end_spaces(char *s)
+{
+	int		i;
+	int		j;
+	char	*tmp;
+
+	tmp = ft_strdup("");
+	i = ft_strlen(s) - 1;
+	j = 0;
+	while (j < i)
+	{
+		if (s[i] == ' ')
+			i--;
+		else
+			break ;
+		j++;
+	}
+	j = 0;
+	while (j <= i)
+		tmp = ft_strjoin2c(tmp, s[j++]);
+	free(s);
+	return (tmp);
+}
+
+void	north(char *map, t_info *info)
+{
+	char	*tmp;
+	int		i;
+	int		cnt;
+
+	i = 0;
+	tmp = ft_strdup("");
+	cnt = check_path(map);
+	if (cnt == -1)
+		ft_error("invalid north path dude !\n");
+	while (map[cnt])
+		tmp = ft_strjoin2c(tmp, map[cnt++]);
+	tmp = end_spaces(tmp);
+	if (!info->no)
+		info->no = tmp;
+	else
+		free(tmp);
+}
+
+void	south(char *map, t_info *info)
+{
+	char	*tmp;
+	int		i;
+	int		cnt;
+
+	i = 0;
+	tmp = ft_strdup("");
+	cnt = check_path(map);
+	if (cnt == -1)
+		ft_error("invalid south path dude !\n");
+	while (map[cnt])
+		tmp = ft_strjoin2c(tmp, map[cnt++]);
+	tmp = end_spaces(tmp);
+	if (!info->so)
+		info->so = tmp;
+	else
+		free(tmp);
+}
+
+void	east(char *map, t_info *info)
+{
+	char	*tmp;
+	int		i;
+	int		cnt;
+
+	i = 0;
+	tmp = ft_strdup("");
+	cnt = check_path(map);
+	if (cnt == -1)
+		ft_error("invalid south path dude !\n");
+	while (map[cnt])
+		tmp = ft_strjoin2c(tmp, map[cnt++]);
+	tmp = end_spaces(tmp);
+	if (!info->ea)
+		info->ea = tmp;
+	else
+		free(tmp);
+}
+
+void	west(char *map, t_info *info)
+{
+	char	*tmp;
+	int		i;
+	int		cnt;
+
+	i = 0;
+	tmp = ft_strdup("");
+	cnt = check_path(map);
+	if (cnt == -1)
+		ft_error("invalid path dude !\n");
+	while (map[cnt])
+		tmp = ft_strjoin2c(tmp, map[cnt++]);
+	tmp = end_spaces(tmp);
+	if (!info->we)
+		info->we = tmp;
+	else
+		free(tmp);
+}
+
+int	ft_extract_data(t_tools *tl, t_info *info, char **map, int i)
 {
 	int	j;
 
 	j = skip_whitespace(map[i]);
 	if (!tl->no && (map[i][j] == 'N'
 		&& map[i][j + 1] == 'O' && map[i][j + 2] == ' '))
-		(ft_north(map[i], info), tl->counter++, tl->no = 1);
+		(north(map[i], info), tl->counter++, tl->no = 1);
 	else if (!tl->so && (map[i][j] == 'S'
 		&& map[i][j + 1] == 'O' && map[i][j + 2] == ' '))
-		(ft_south(map[i], info), tl->counter++, tl->so = 1);
+		(south(map[i], info), tl->counter++, tl->so = 1);
 	else if (!tl->we && (map[i][j] == 'W'
 		&& map[i][j + 1] == 'E' && map[i][j + 2] == ' '))
-		(ft_west(map[i], info), tl->counter++, tl->we = 1);
+		(west(map[i], info), tl->counter++, tl->we = 1);
 	else if (!tl->ea && (map[i][j] == 'E'
 		&& map[i][j + 1] == 'A' && map[i][j + 2] == ' '))
-		(ft_east(map[i], info), tl->counter++, tl->ea = 1);
-	else if (!tl->f && (map[i][j] == 'F' && map[i][j + 1] == ' '))
-		(ft_floor(map[i], info), tl->counter++, tl->f = 1);
-	else if (!tl->c && (map[i][j] == 'C' && map[i][j + 1] == ' '))
-		(ft_ceilling(map[i], info), tl->counter++, tl->c = 1);
+		(east(map[i], info), tl->counter++, tl->ea = 1);
+	// else if (!tl->f && (map[i][j] == 'F' && map[i][j + 1] == ' '))
+	// 	(floor(map[i], info), tl->counter++, tl->f = 1);
+	// else if (!tl->c && (map[i][j] == 'C' && map[i][j + 1] == ' '))
+	// 	(ceilling(map[i], info), tl->counter++, tl->c = 1);
 	return (tl->counter);
 }
 

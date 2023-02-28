@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 18:20:53 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/02/24 13:00:45 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/02/28 18:34:53 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,29 @@ char	*ft_strjoin2(char *s1, char const *s2)
 	s[i + j] = '\0';
 	free(s1);
 	return (s);
+}
+
+char	*ft_strjoin2c(char *s, char c)
+{
+	int		i;
+	char	*r;
+
+	if (!s)
+		return (NULL);
+	i = 0;
+	while (s[i])
+		i++;
+	r = malloc(sizeof(char) * i + 2);
+	if (!r)
+		return (NULL);
+	i = 0;
+	while (s[i])
+	{
+		r[i] = s[i];
+		i++;
+	}
+	r[i] = c;
+	r[i + 1] = '\0';
+	free(s);
+	return (r);
 }

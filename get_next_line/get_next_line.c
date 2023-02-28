@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 00:32:58 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/01/04 14:14:27 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/02/28 18:40:30 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ void	ft_check_endl(char **next, char **line)
 			*next = ft_strdup(++c);
 			c[0] = '\0';
 			if (!(*next[0]))
-				ft_free(next);
+				ft_free_it(next);
 			*line = ft_strdup(tmp);
-			ft_free(&tmp);
+			ft_free_it(&tmp);
 		}
 		else
 		{
 			*line = ft_strdup(*next);
-			ft_free(next);
+			ft_free_it(next);
 		}
 	}
 }
@@ -47,7 +47,7 @@ void	ft_next_line(char **next, char *ptr)
 	{
 		if (*next)
 		{
-			ft_free(next);
+			ft_free_it(next);
 		}
 		*next = ft_strdup(ptr);
 	}
@@ -67,9 +67,9 @@ void	ft_write_line(char **line, char *buff)
 	}
 	*line = ft_strjoin(*line, buff);
 	if (ok)
-		ft_free(&ok);
+		ft_free_it(&ok);
 	if (tmp)
-		ft_free(&tmp);
+		ft_free_it(&tmp);
 }
 
 void	ft_check_buff(char **buff, char **next)
@@ -109,7 +109,7 @@ char	*get_next_line(int fd)
 		ft_check_buff(&buff, &next);
 		ft_write_line(&line, buff);
 	}
-	ft_free(&buff);
+	ft_free_it(&buff);
 	return (line);
 }
 

@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 17:56:55 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/02/24 12:39:45 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/02/28 18:34:48 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin2c(char *s, char c);
 int		ft_strcmp(const char *s1, const char *s2);
 
 #endif

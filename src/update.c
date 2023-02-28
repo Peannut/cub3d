@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:23:13 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/02/26 22:51:21 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/02/28 18:32:08 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 
 void update(t_data *data) {
     t_player *player = &data->player;
-    char **map = data->info.map;
+    char **map = data->info->map;
 
     // update player's rotation
     player->rotationAngle += player->turnDirection * player->rotationSpeed;

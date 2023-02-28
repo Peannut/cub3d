@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:56 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/02/26 23:16:23 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/02/28 18:42:50 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int key_release(int keycode, void *param) {
 int ft_start(char *av, t_data *cube)
 {
     cube->info = ft_parse(&av[1], cube);
+    return (0);
 }
 
 int main(int ac, char **av)
@@ -110,6 +111,7 @@ int main(int ac, char **av)
     data.width = countwidth(av[1]);
     
     
+    ft_start(av[1], &data);
 	data.mlx = mlx_init();
 	data.mlx_win = mlx_new_window(data.mlx, WIN_WIDTH, WIN_HEIGHT, "Peanut cub3d!");
     data.frame = mlx_new_image(data.mlx, WIN_WIDTH, WIN_HEIGHT);
@@ -121,7 +123,6 @@ int main(int ac, char **av)
     // t_player_params params;
     // params.player = &player;
     // data.map = map;
-    ft_start(av[1], &data);
     mlx_hook(data.mlx_win, 2, 0, key_press, (void*)&data);
     mlx_hook(data.mlx_win, 3, 0, key_release, (void*)&data);
     mlx_hook(data.mlx_win, 17, 0, (void*)exitfunc, NULL);
