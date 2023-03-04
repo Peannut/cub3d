@@ -6,17 +6,34 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 02:28:43 by abouhaga          #+#    #+#             */
-/*   Updated: 2023/02/28 18:35:56 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/03/04 14:18:36 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	check_extension(char *map_file)
+void	ft_free(char **s)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i])
+	{
+		free(s[i]);
+		s[i] = 0;
+		i++;
+	}
+	free(s);
+	s = NULL;
+}
+
+void	check_extension(char **map_file)
 {
 	char	*occurrence;
 
-	occurrence = ft_strrchr(map_file, '.');
+	occurrence = ft_strrchr(map_file[1], '.');
 	if (!occurrence || ft_strcmp(occurrence, ".cub"))
 		ft_error("map should have .cub extension");
 }
@@ -131,34 +148,6 @@ int is_spaces(char *line)
 	return (1);
 }
 
-// void add_line2map(char *line, t_data *data)
-// {
-    
-// }
-// void    load_files(int fd, t_data* data)
-// {
-//     char    *line;
-
-//     while(1)
-//     {
-//         line = get_next_line(fd);
-// 		if(!line)
-// 			break;
-//         if (check_init(data) && !is_spaces(line))
-//             ft_extract_data(line, data);
-//         else
-//         {
-//             if (is_spaces(line) && data->map)
-//                 ft_error("Map is not valid");
-//             else if (!is_spaces(line))
-//                 add_line2map(line, data);
-//         }
-//         free(line);
-//     }
-//     if (!data->map || check_init(data))
-//         ft_error("Map is not valid");
-// }
-
 void initialize(t_info *info)
 {
     info->no = NULL;
@@ -169,15 +158,15 @@ void initialize(t_info *info)
     info->c = NULL;
 }
 
-char *read_file(char* file)
+char *read_file(char** av)
 {
     char *line;
     int fd;
     char *tmp;
 
-    fd = open(file, O_RDONLY);
+    fd = open(av[1], O_RDONLY);
     line = ft_strdup("");
-    if (fd < 0)
+    if (fd == -1)
         ft_error("Couldn't open !");
     tmp = ft_strdup("");
     while(tmp)
@@ -386,6 +375,41 @@ void	west(char *map, t_info *info)
 		free(tmp);
 }
 
+int	*ft_check_colors(char *map)
+{
+	t_var	var;
+
+	var.rgb = malloc(sizeof(int) * 3);
+	var.tmp = ft_strdup("");
+	var.i = skip_whitespace(map) + 1;
+	while (map[var.i] && !ft_isdigit(map[var.i]))
+	{
+		if (map[var.i] == ',')
+			ft_error("Invalid RGB\n");
+		if (map[var.i] == ' ' || map[var.i] == '\t')
+			var.i++;
+	}
+	while (map[var.i])
+		var.tmp = ft_strjoin2c(var.tmp, map[var.i++]);
+	var.tmp = end_spaces(var.tmp);
+	var.hold = ft_split(var.tmp, ',');
+	var.i = 0;
+	while (var.hold[var.i])
+		var.i++;
+	if (var.i != 3)
+		ft_error("Invalid RGB\n");
+	var.rgb = rgb_tool_help(&var);
+	free(var.tmp);
+	ft_free(var.hold);
+	return (var.rgb);
+}
+
+void	floor(char *map, t_info *info)
+{
+	if (!info->f)
+		info->f = ft_check_colors(map);
+}
+
 int	ft_extract_data(t_tools *tl, t_info *info, char **map, int i)
 {
 	int	j;
@@ -403,10 +427,10 @@ int	ft_extract_data(t_tools *tl, t_info *info, char **map, int i)
 	else if (!tl->ea && (map[i][j] == 'E'
 		&& map[i][j + 1] == 'A' && map[i][j + 2] == ' '))
 		(east(map[i], info), tl->counter++, tl->ea = 1);
-	// else if (!tl->f && (map[i][j] == 'F' && map[i][j + 1] == ' '))
-	// 	(floor(map[i], info), tl->counter++, tl->f = 1);
-	// else if (!tl->c && (map[i][j] == 'C' && map[i][j + 1] == ' '))
-	// 	(ceilling(map[i], info), tl->counter++, tl->c = 1);
+	else if (!tl->f && (map[i][j] == 'F' && map[i][j + 1] == ' '))
+		(floor(map[i], info), tl->counter++, tl->f = 1);
+	else if (!tl->c && (map[i][j] == 'C' && map[i][j + 1] == ' '))
+		(ceilling(map[i], info), tl->counter++, tl->c = 1);
 	return (tl->counter);
 }
 
@@ -462,24 +486,7 @@ void setup_map (t_info *info, char **map, int cnt, t_data *data)
     info->map = tmp;
 }
 
-void	ft_free(char **s)
-{
-	int	i;
-
-	i = 0;
-	if (!s)
-		return ;
-	while (s[i])
-	{
-		free(s[i]);
-		s[i] = 0;
-		i++;
-	}
-	free(s);
-	s = NULL;
-}
-
-t_info	*ft_parse(char *file, t_data *data)
+t_info	*ft_parse(char **av, t_data *data)
 {
     int fd;
     t_info *info;
@@ -489,8 +496,8 @@ t_info	*ft_parse(char *file, t_data *data)
 	
     info = malloc(sizeof(t_info));
     initialize(info);
-	check_extension(file); //if dir check 
-    lines = read_file(file);
+	check_extension(av); //if dir check 
+    lines = read_file(av);
     map = ft_split(lines, '\n');
     free (lines);
     cnt = ft_scan_map(map, info);

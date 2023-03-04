@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:54 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/02/26 23:16:01 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/03/04 14:26:50 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,25 @@ typedef struct s_tools
 	int	i;
 	int	j;
 }			t_tools;
+
+
+typedef struct s_color
+{
+	char	*tmp;
+	char	**hold;
+	char	**hold2;
+	int		*rgb;
+	// float	distencetowall;
+	// float	wallhight;
+	// float	startp;
+	// float	endp;
+	// float	correct_ray_des;
+	// char	*dst;
+	// int		t_offsetx;
+	// int		t_offsety;
+	int		i;
+} t_color;
+
 // typedef struct s_player_params{
 //     t_player *player;
 //     char (*map)[10];
@@ -133,7 +152,7 @@ void update(t_data *data);
 void render(t_data *data);
 
 /*********data reader*********/
-t_info	*ft_parse(char *file, t_data *data);
+t_info	*ft_parse(char **av, t_data *data);
 int		countlines(char *file);
 int		countwidth(char *file);
 
