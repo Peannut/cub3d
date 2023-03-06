@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 02:28:43 by abouhaga          #+#    #+#             */
-/*   Updated: 2023/03/04 14:18:36 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/03/06 23:06:45 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -375,40 +375,95 @@ void	west(char *map, t_info *info)
 		free(tmp);
 }
 
-int	*ft_check_colors(char *map)
+int	valid_rgb(char *s)
 {
-	t_var	var;
+	int	i;
 
-	var.rgb = malloc(sizeof(int) * 3);
-	var.tmp = ft_strdup("");
-	var.i = skip_whitespace(map) + 1;
-	while (map[var.i] && !ft_isdigit(map[var.i]))
+	i = 0;
+	while (s[i])
 	{
-		if (map[var.i] == ',')
-			ft_error("Invalid RGB\n");
-		if (map[var.i] == ' ' || map[var.i] == '\t')
-			var.i++;
+		if (!ft_isdigit(s[i]))
+			return (1);
+		i++;
 	}
-	while (map[var.i])
-		var.tmp = ft_strjoin2c(var.tmp, map[var.i++]);
-	var.tmp = end_spaces(var.tmp);
-	var.hold = ft_split(var.tmp, ',');
-	var.i = 0;
-	while (var.hold[var.i])
-		var.i++;
-	if (var.i != 3)
-		ft_error("Invalid RGB\n");
-	var.rgb = rgb_tool_help(&var);
-	free(var.tmp);
-	ft_free(var.hold);
-	return (var.rgb);
+	return (0);
 }
 
-void	floor(char *map, t_info *info)
+void	rgb_handling(int rgb)
+{
+	if (rgb < 0 || rgb > 255)
+		ft_error("Invalid RGB\n");
+}
+
+int	*rgb_check_help(t_color *color)
+{
+	int	i;
+	int	j;
+	int	k;
+
+	i = -1;
+	j = 0;
+	while (color->hold[++i])
+	{
+		color->hold2 = ft_split(color->hold[i], ' ');
+		k = 0;
+		while (color->hold2[k])
+			k++;
+		if (k > 1)
+			ft_error("Invalid RGB\n");
+		if (j < 3)
+		{ 
+			if (valid_rgb(color->hold[i]))
+				ft_error("Invalid RGB\n");
+			color->rgb[j] = ft_atoi(color->hold[i]);
+			rgb_handling(color->rgb[j]);
+			j++;
+		}
+		ft_free(color->hold2);
+	}
+	return (color->rgb);
+}
+
+int	*ft_check_colors(char *map)
+{
+	t_color	clr;
+
+	clr.rgb = malloc(sizeof(int) * 3);
+	clr.tmp = ft_strdup("");
+	clr.i = skip_whitespace(map) + 1;
+	while (map[clr.i] && !ft_isdigit(map[clr.i]))
+	{
+		if (map[clr.i] == ',')
+			ft_error("Invalid RGB\n");
+		if (map[clr.i] == ' ' || map[clr.i] == '\t')
+			clr.i++;
+	}
+	while (map[clr.i])
+		clr.tmp = ft_strjoin2c(clr.tmp, map[clr.i++]);
+	clr.tmp = end_spaces(clr.tmp);
+	clr.hold = ft_split(clr.tmp, ',');
+	clr.i = 0;
+	while (clr.hold[clr.i])
+		clr.i++;
+	if (clr.i != 3)
+		ft_error("Invalid RGB\n");
+	clr.rgb = rgb_check_help(&clr);
+	free(clr.tmp);
+	ft_free(clr.hold);
+	return (clr.rgb);
+}
+
+void	ft_floor(char *map, t_info *info)
 {
 	if (!info->f)
 		info->f = ft_check_colors(map);
 }
+
+void	ft_ceilling(char *map, t_info *info)
+{
+	if (!info->c)
+		info->c = ft_check_colors(map);
+} 
 
 int	ft_extract_data(t_tools *tl, t_info *info, char **map, int i)
 {
@@ -428,9 +483,9 @@ int	ft_extract_data(t_tools *tl, t_info *info, char **map, int i)
 		&& map[i][j + 1] == 'A' && map[i][j + 2] == ' '))
 		(east(map[i], info), tl->counter++, tl->ea = 1);
 	else if (!tl->f && (map[i][j] == 'F' && map[i][j + 1] == ' '))
-		(floor(map[i], info), tl->counter++, tl->f = 1);
+		(ft_floor(map[i], info), tl->counter++, tl->f = 1);
 	else if (!tl->c && (map[i][j] == 'C' && map[i][j + 1] == ' '))
-		(ceilling(map[i], info), tl->counter++, tl->c = 1);
+		(ft_ceilling(map[i], info), tl->counter++, tl->c = 1);
 	return (tl->counter);
 }
 
