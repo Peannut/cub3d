@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 02:28:43 by abouhaga          #+#    #+#             */
-/*   Updated: 2023/03/06 23:06:45 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/03/09 02:02:46 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,59 +79,29 @@ int	check_extrm(char **map, int i, int j)
 	return (0);
 }
 
-void	valid_walls(char **map)
-{
-	int		i;
-	int		j;
-	char	*components;
+// void    valid_map(char **map, t_data *data)
+// {
+//     int i;
+//     int j;
 
-	components = "01WESN";
-	i = -1;
-	while (map[++i])
-	{
-		j = -1;
-		while (map[i][++j])
-		{
-			if (map[i][j] == '0' || map[i][j] == 'W' || map[i][j] == 'E'
-				|| map[i][j] == 'S' || map[i][j] == 'N')
-			{
-				if (check_extrm(map, i, j))
-					ft_error("Map is not valid\n");
-				check_previous(j, map[i - 1], map[i + 1]);
-				if (!ft_strchr(components, map[i - 1][j])
-					|| !ft_strchr(components, map[i + 1][j]) \
-					|| !ft_strchr(components, map[i][j - 1]) \
-					|| !ft_strchr(components, map[i][j + 1]))
-					ft_error("Map is not valid\n");
-			}
-		}
-	}
-}
-
-//to ensure that the walls of the map are valid
-//and that they surround the playable area.
-void    valid_map(t_data *data)
-{
-    int i;
-    int j;
-
-    i = 0;
-    data->player.spawn = '+';
-    while(data->info->map[i])
-    {
-        j = 0;
-        while(data->info->map[i][j])
-        {
-            if (is_valid_component(data->info->map[i][j], data, i, j))
-                ft_error("Map is not valid");
-            j++;
-        }
-        i++;
-    }
-    if (data->player.spawn == '+')
-        ft_error("This Map has no player !");
-    valid_walls(data->info->map);
-}
+//     i = 0;
+//     data->player.spawn = '+';
+// 	data->info->map = map;
+//     while(data->info->map[i])
+//     {
+//         j = 0;
+//         while(data->info->map[i][j])
+//         {
+//             if (is_valid_component(data->info->map[i][j], data, i, j))
+//                 ft_error("Map is not valid");
+//             j++;
+//         }
+//         i++;
+//     }
+//     if (data->player.spawn == '+')
+//         ft_error("This Map has no player !");
+//     valid_walls(data->info->map);
+// }
 
 int is_spaces(char *line)
 {
@@ -251,6 +221,8 @@ void check_lines(char **map, int l_nbr, t_tools tl)
             tl.i++;
         else if (map[tl.i][tl.j] == 'C' && map[tl.i][tl.j + 1] == ' ')
             tl.i++;
+		else if (!map[tl.i][tl.j])
+			tl.i++;
         else
             ft_error("Map is not valid");   
     }
@@ -532,12 +504,90 @@ char **allocate(char **map, int cnt)
     return (tmp);
 }
 
-void setup_map (t_info *info, char **map, int cnt, t_data *data)
+void	check_map_components(char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] != '1' && map[i][j] != '0' && map[i][j] != 'W'
+				&& map[i][j] != 'E' && map[i][j] != 'S' && map[i][j] != 'N' \
+				&& map[i][j] != ' ')
+				ft_error("dude verify yr map!\n");
+			j++;
+		}
+		i++;
+	}
+}
+
+void	check_directions(char **map)
+{
+	int		i;
+	int		j;
+	char	*components;
+
+	components = "01WESN";
+	i = -1;
+	while (map[++i])
+	{
+		j = -1;
+		while (map[i][++j])
+		{
+			if (map[i][j] == '0' || map[i][j] == 'W' || map[i][j] == 'E'
+				|| map[i][j] == 'S' || map[i][j] == 'N')
+			{
+				if (check_extrm(map, i, j))
+					ft_error("Map is not valid\n");
+				check_previous(j, map[i - 1], map[i + 1]);
+				if (!ft_strchr(components, map[i - 1][j])
+					|| !ft_strchr(components, map[i + 1][j]) \
+					|| !ft_strchr(components, map[i][j - 1]) \
+					|| !ft_strchr(components, map[i][j + 1]))
+					ft_error("Map is not valid\n");
+			}
+		}
+	}
+}
+
+void	valid_player(char **map)
+{
+	int	i;
+	int	j;
+	int	count;
+
+	count = 0;
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == 'N' || map[i][j] == 'W'
+				|| map[i][j] == 'S' || map[i][j] == 'E')
+				count++;
+			j++;
+		}
+		i++;
+	}
+	if (count != 1)
+		ft_error("ERROR\n");
+}
+
+//to ensure that the walls of the map are valid
+//and that they surround the playable area.
+void setup_map(t_info *info, char **map, int cnt, t_data *data)
 {
     char **tmp;
 
     tmp = allocate(map, cnt);
-    valid_map(data);
+	check_map_components(tmp);
+	check_directions(tmp);
+    valid_player(tmp);
     info->map = tmp;
 }
 
@@ -551,7 +601,10 @@ t_info	*ft_parse(char **av, t_data *data)
 	
     info = malloc(sizeof(t_info));
     initialize(info);
-	check_extension(av); //if dir check 
+	check_extension(av); //if dir check
+	// fd = open(av[1], O_RDONLY);
+	// if (fd < 0)
+	// 	ft_error("Couldn't open !");
     lines = read_file(av);
     map = ft_split(lines, '\n');
     free (lines);

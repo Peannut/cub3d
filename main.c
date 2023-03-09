@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:56 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/04 13:24:48 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/03/09 01:19:05 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int main(int ac, char **av)
     data.width = countwidth(av[1]);
     
     
-    ft_start(av, &data);
+     ft_start(av, &data);
 	data.mlx = mlx_init();
 	data.mlx_win = mlx_new_window(data.mlx, WIN_WIDTH, WIN_HEIGHT, "Peanut cub3d!");
     data.frame = mlx_new_image(data.mlx, WIN_WIDTH, WIN_HEIGHT);
