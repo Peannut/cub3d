@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 23:09:17 by abouhaga          #+#    #+#             */
-/*   Updated: 2023/03/09 01:01:35 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/03/12 19:14:33 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,23 +48,23 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (nstr);
 }
 
-char	*ft_strdup(const char *s1)
-{
-	char	*p;
-	size_t	i;
+// char	*ft_strdup(const char *s1)
+// {
+// 	char	*p;
+// 	size_t	i;
 
-	i = 0;
-	p = (char *)malloc(sizeof(char) * ft_strlen(s1) + 1);
-	if (!p)
-		return (0);
-	while (s1[i])
-	{
-		p[i] = s1[i];
-		i++;
-	}
-	p[i] = '\0';
-	return (p);
-}
+// 	i = 0;
+// 	p = (char *)malloc(sizeof(char) * ft_strlen(s1) + 1);
+// 	if (!p)
+// 		return (0);
+// 	while (s1[i])
+// 	{
+// 		p[i] = s1[i];
+// 		i++;
+// 	}
+// 	p[i] = '\0';
+// 	return (p);
+// }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {

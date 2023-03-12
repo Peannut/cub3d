@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 02:28:43 by abouhaga          #+#    #+#             */
-/*   Updated: 2023/03/09 02:02:46 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/03/12 20:15:09 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -486,22 +486,25 @@ int ft_scan_map(char **map, t_info *info)
     return (cnt + tools.counter);
 }
 
-char **allocate(char **map, int cnt)
+char	**allocate(char **map, int i)
 {
-    int i;
-    int j;
-    char **tmp;
-    
-    i = cnt;
-    j = 0;
-    while(map[i])
-        i++, j++;
-    tmp = malloc(sizeof(char *) * (j + 1));
-    j = 0;
-    while (map[cnt])
-        tmp[j++] = ft_strdup(map[cnt++]);
-    tmp[j] = NULL;
-    return (tmp);
+	int		k;
+	int		j;
+	char	**mapv;
+
+	k = i;
+	j = 0;
+	while (map[k])
+	{
+		k++;
+		j++;
+	}
+	mapv = malloc(sizeof(char *) * (j + 1));
+	j = 0;
+	while (map[i])
+		mapv[j++] = ft_strdup(map[i++]);
+	mapv[j] = NULL;
+	return (mapv);
 }
 
 void	check_map_components(char **map)
@@ -591,6 +594,23 @@ void setup_map(t_info *info, char **map, int cnt, t_data *data)
     info->map = tmp;
 }
 
+void print_map(t_data *data)
+{
+    int i = 0;
+    int j = 0;
+    while (i < data->height)
+    {
+        j = 0;
+        while (j < data->width)
+        {
+            printf("%c", data->info->map[i][j]);
+            j++;
+        }
+        printf("\n");
+        i++;
+    }
+}
+
 t_info	*ft_parse(char **av, t_data *data)
 {
     int fd;
@@ -612,5 +632,7 @@ t_info	*ft_parse(char **av, t_data *data)
     //load_files(fd, data);
     setup_map(info, map, cnt, data);
     ft_free(map);
+	// print_map(data);
+    // exit(0);
     return (info);
 }

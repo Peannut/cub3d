@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:56 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/09 01:19:05 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/03/12 20:11:28 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int main(int ac, char **av)
 //     init_the_map(av[1]);
     // t_player player;
     t_data data;
-    data.player.x = 2; //changed them in is_valid()
+    data.player.x = 2;
     data.player.y = 5;
     data.player.turnDirection = 0;
     data.player.walkDirection = 0;
@@ -110,8 +110,7 @@ int main(int ac, char **av)
     data.height = countlines(av[1]);
     data.width = countwidth(av[1]);
     
-    
-     ft_start(av, &data);
+    ft_start(av, &data);
 	data.mlx = mlx_init();
 	data.mlx_win = mlx_new_window(data.mlx, WIN_WIDTH, WIN_HEIGHT, "Peanut cub3d!");
     data.frame = mlx_new_image(data.mlx, WIN_WIDTH, WIN_HEIGHT);
