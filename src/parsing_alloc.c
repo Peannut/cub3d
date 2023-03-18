@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 00:04:56 by abouhaga          #+#    #+#             */
-/*   Updated: 2023/03/18 00:51:01 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/03/18 18:28:03 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char **allocate(char **map, int num_lines, int longest_line)
         mapv[i] = malloc(sizeof(char) * (longest_line + 1));
         if (mapv[i] == NULL)
             ft_error("Error: malloc failed\n");
-        ft_strlcpy(mapv[i], map[i], longest_line);
+        ft_strlcpy(mapv[i], map[i], longest_line + 1);
         mapv[i][longest_line] = '\0';
         i++;
     }

@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 02:28:43 by abouhaga          #+#    #+#             */
-/*   Updated: 2023/03/18 01:03:57 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/03/18 19:12:07 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,14 @@ int is_valid_component(char ch, t_data *data, int i, int j)
     return (0);
 }
 
-void	check_previous(int now, char *previous, char *next)
+void check_previous(int now, char *previous, char *next)
 {
-	int	j;
-	int	i;
-
-	i = (int)ft_strlen(next);
-	j = (int)ft_strlen(previous);
-	if (now > j || now > i)
-		ft_error("Map is not valid\n");
+    int prev_len = (int)ft_strlen(previous);
+    int next_len = (int)ft_strlen(next);
+    
+    if (now > prev_len || now > next_len) {
+        ft_error("Map is not valid, length problem !\n");
+    }
 }
 
 int	check_extrm(char **map, int i, int j)
@@ -201,7 +200,7 @@ void check_lines(char **map, int l_nbr, t_tools el)
 		else if (!map[el.i][el.j])
 			el.i++;
         else
-            ft_error("Map is not valid");   
+            ft_error("Map is not valid, Invalid direction !");   
     }
 }
 
@@ -254,7 +253,7 @@ void	north(char *map, t_info *info)
 	tmp = ft_strdup("");
 	cnt = check_path(map);
 	if (cnt == -1)
-		ft_error("invalid north path dude !\n");
+		ft_error("invalid north path !\n");
 	while (map[cnt])
 		tmp = ft_strjoin2c(tmp, map[cnt++]);
 	tmp = end_spaces(tmp);
@@ -274,7 +273,7 @@ void	south(char *map, t_info *info)
 	tmp = ft_strdup("");
 	cnt = check_path(map);
 	if (cnt == -1)
-		ft_error("invalid south path dude !\n");
+		ft_error("invalid south path !\n");
 	while (map[cnt])
 		tmp = ft_strjoin2c(tmp, map[cnt++]);
 	tmp = end_spaces(tmp);
@@ -294,7 +293,7 @@ void	east(char *map, t_info *info)
 	tmp = ft_strdup("");
 	cnt = check_path(map);
 	if (cnt == -1)
-		ft_error("invalid south path dude !\n");
+		ft_error("invalid east path !\n");
 	while (map[cnt])
 		tmp = ft_strjoin2c(tmp, map[cnt++]);
 	tmp = end_spaces(tmp);
@@ -314,7 +313,7 @@ void	west(char *map, t_info *info)
 	tmp = ft_strdup("");
 	cnt = check_path(map);
 	if (cnt == -1)
-		ft_error("invalid path dude !\n");
+		ft_error("invalid west path !\n");
 	while (map[cnt])
 		tmp = ft_strjoin2c(tmp, map[cnt++]);
 	tmp = end_spaces(tmp);
@@ -324,7 +323,7 @@ void	west(char *map, t_info *info)
 		free(tmp);
 }
 
-int	valid_rgb(char *s)
+int	valid_rgb_help(char *s)
 {
 	int	i;
 
@@ -341,10 +340,10 @@ int	valid_rgb(char *s)
 void	rgb_handling(int rgb)
 {
 	if (rgb < 0 || rgb > 255)
-		ft_error("Invalid RGB\n");
+		ft_error("Invalid RGB, out of range !\n");
 }
 
-int	*rgb_check_help(t_color *color)
+int	*valid_rgb(t_color *color)
 {
 	int	i;
 	int	j;
@@ -352,9 +351,9 @@ int	*rgb_check_help(t_color *color)
 
 	i = -1;
 	j = 0;
-	while (color->hold[++i])
+	while (color->arr[++i])
 	{
-		color->hold2 = ft_split(color->hold[i], ' ');
+		color->hold2 = ft_split(color->arr[i], ' ');
 		k = 0;
 		while (color->hold2[k])
 			k++;
@@ -362,9 +361,9 @@ int	*rgb_check_help(t_color *color)
 			ft_error("Invalid RGB\n");
 		if (j < 3)
 		{ 
-			if (valid_rgb(color->hold[i]))
+			if (valid_rgb_help(color->arr[i]))
 				ft_error("Invalid RGB\n");
-			color->rgb[j] = ft_atoi(color->hold[i]);
+			color->rgb[j] = ft_atoi(color->arr[i]);
 			rgb_handling(color->rgb[j]);
 			j++;
 		}
@@ -390,15 +389,15 @@ int	*ft_check_colors(char *map)
 	while (map[clr.i])
 		clr.tmp = ft_strjoin2c(clr.tmp, map[clr.i++]);
 	clr.tmp = end_spaces(clr.tmp);
-	clr.hold = ft_split(clr.tmp, ',');
+	clr.arr = ft_split(clr.tmp, ',');
 	clr.i = 0;
-	while (clr.hold[clr.i])
+	while (clr.arr[clr.i])
 		clr.i++;
 	if (clr.i != 3)
 		ft_error("Invalid RGB\n");
-	clr.rgb = rgb_check_help(&clr);
+	clr.rgb = valid_rgb(&clr);
 	free(clr.tmp);
-	ft_free(clr.hold);
+	ft_free(clr.arr);
 	return (clr.rgb);
 }
 
@@ -458,7 +457,7 @@ int ft_scan_map(char **map, t_info *info)
         i++;
     }
     if (tools.counter != 6)
-        ft_error("Map is not valid");
+        ft_error("Map is not valid, extra info !");
     check_lines(map, tools.counter + cnt, tools);
     return (cnt + tools.counter);
 }
@@ -498,7 +497,7 @@ void	check_map_components(char **map)
 			if (map[i][j] != '1' && map[i][j] != '0' && map[i][j] != 'W'
 				&& map[i][j] != 'E' && map[i][j] != 'S' && map[i][j] != 'N' \
 				&& map[i][j] != ' ')
-				ft_error("dude verify yr map!\n");
+				ft_error("dude verify yr map components!\n");
 			j++;
 		}
 		i++;
@@ -522,13 +521,13 @@ void	check_directions(char **map)
 				|| map[i][j] == 'S' || map[i][j] == 'N')
 			{
 				if (check_extrm(map, i, j))
-					ft_error("Map is not valid\n");
+					ft_error("Map is not valid, walls problem !\n");
 				check_previous(j, map[i - 1], map[i + 1]);
 				if (!ft_strchr(components, map[i - 1][j])
 					|| !ft_strchr(components, map[i + 1][j]) \
 					|| !ft_strchr(components, map[i][j - 1]) \
 					|| !ft_strchr(components, map[i][j + 1]))
-					ft_error("Map is not valid\n");
+					ft_error("Map is not valid, check it again !\n");
 			}
 		}
 	}
@@ -538,9 +537,9 @@ void	valid_player(char **map)
 {
 	int	i;
 	int	j;
-	int	count;
+	int	pos;
 
-	count = 0;
+	pos = 0;
 	i = 0;
 	while (map[i])
 	{
@@ -549,13 +548,13 @@ void	valid_player(char **map)
 		{
 			if (map[i][j] == 'N' || map[i][j] == 'W'
 				|| map[i][j] == 'S' || map[i][j] == 'E')
-				count++;
+				pos++;
 			j++;
 		}
 		i++;
 	}
-	if (count != 1)
-		ft_error("ERROR\n");
+	if (pos != 1)
+		ft_error("Map is not valid, Zero or multiple player positions !\n");
 }
 
 //to ensure that the walls of the map are valid
@@ -565,26 +564,20 @@ void setup_map(t_info *info, char **map, int cnt)
     char **tmp;
 
     tmp = allocate_map(map, cnt);
+	// print_map(tmp);
+    // exit(0);
 	check_map_components(tmp);
 	check_directions(tmp);
     valid_player(tmp);
     info->map = tmp;
 }
 
-void print_map(t_data *data)
+void print_map(char **map)
 {
     int i = 0;
-    int j = 0;
-    while (i < 13)
+    while (map[i] != NULL)
     {
-        j = 0;
-        while (j < 33)
-        {
-			printf("%d, %d\n", i, j);
-            printf("%c", data->info->map[i][j]);
-            j++;
-        }
-        printf("\n");
+        printf("%s\n", map[i]);
         i++;
     }
 }
@@ -604,8 +597,8 @@ t_info	*ft_parse(char **av, t_data *data)
     free (lines);
     cnt = ft_scan_map(map, info);
     setup_map(info, map, cnt);
-    ft_free(map);
-	print_map(data);
+	print_map(info->map);
     exit(0);
+    ft_free(map);
     return (info);
 }

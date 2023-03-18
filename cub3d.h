@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:54 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/18 00:59:36 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/03/18 19:00:35 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ typedef struct s_tools
 typedef struct s_color
 {
 	char	*tmp;
-	char	**hold;
+	char	**arr;
 	char	**hold2;
 	int		*rgb;
 	// float	distencetowall;
@@ -135,6 +135,7 @@ typedef struct s_color
 //     char (*map)[10];
 // } t_player_params;
 
+void print_map(char **map);
 void	init_the_map(char *map_name);
 void	ft_error(char *msg);
 void    exitfunc(void);
