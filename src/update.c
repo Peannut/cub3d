@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:23:13 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/18 18:57:52 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/18 20:25:53 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 
 void update(t_data *data) {
     t_player *player = &data->player;
-    char **map = data->map;
+    char **map = data->info->map;
     
 //     // printf("PLAYER Y:%f AND X%f\n",player->y*BLOCK, player->x*BLOCK);
 //     // update player's rotation

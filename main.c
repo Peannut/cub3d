@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:56 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/18 15:48:43 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/18 20:31:44 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void draw_line2(void *img, double x1, double y1, double x2, double y2, int color
 int key_press(int keycode, void *param) {
     t_data *data = (t_data*)param;
     t_player *player = &data->player;
-    char **map = data->map;
+    char **map = data->info->map;
 
     double moveStep;
     
@@ -68,7 +68,7 @@ int key_press(int keycode, void *param) {
 int key_release(int keycode, void *param) {
     t_data *data = (t_data*)param;  
     t_player *player = &data->player;
-    char **map = data->map;
+    char **map = data->info->map;
     if (keycode == 13) {  // W key
        player->walkDirection = 0;
     } else if (keycode == 0) {  // A key
@@ -87,17 +87,20 @@ int key_release(int keycode, void *param) {
     return (0);
 }
 
-
+int ft_start(char **av, t_data *cube)
+{
+    cube->info = ft_parse(av, cube);
+    return (0);
+}
 
 int main(int ac, char **av)
 {
-	//test2
-	if (ac != 2)
-	{
-		printf("usage : cub3d ./file.cub\n");
-		exit(1);
-	}
-    // init_the_map(av[1]);
+   if (ac != 2)
+   {
+        printf("usage : cub3d ./file.cub\n");
+        exit(1);
+   }
+//     init_the_map(av[1]);
     // t_player player;
 	t_data data;
 	data.player.turnDirection = 0;
@@ -110,6 +113,7 @@ int main(int ac, char **av)
 	data.height = countlines(av[1]);
 	data.width = countwidth(av[1]);
     
+    ft_start(av, &data);
 	data.mlx = mlx_init();
 	data.mlx_win = mlx_new_window(data.mlx, WIN_WIDTH, WIN_HEIGHT, "Peanut cub3d!");
 	data.frame = mlx_new_image(data.mlx, WIN_WIDTH, WIN_HEIGHT);

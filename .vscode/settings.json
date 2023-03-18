@@ -12,5 +12,7 @@
         "utility": "c",
         "__locale": "c",
         "__string": "c"
+        "stdio.h": "c",
+        "algorithm": "c"
     }
 }
