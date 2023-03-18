@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 16:19:21 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/02/17 16:13:33 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/02/28 18:31:55 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void draw_map(t_data *data) {
 
     for (y = 0; y < data->height; y++) {
         for (x = 0; x < data->width; x++) {
-            if (data->map[y][x] == '1') {
+            if (data->info->map[y][x] == '1') {
                 color = 0xA020F0; 
             } else {
                 color = 0xFFFF00; 
@@ -96,7 +96,7 @@ void draw_player(t_data *data , int flag) {
     {
         for (i = 0; i < data->height; i++) {
             for (j = 0; j < data->width; j++) {
-                if (data->map[i][j] == 'P') {
+                if (data->info->map[i][j] == 'P') {
                     data->player.x = j;
                     data->player.y = i;
                     break;

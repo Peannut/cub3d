@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:23:13 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/02/17 17:00:16 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/04 15:19:59 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 
 void update(t_data *data) {
     t_player *player = &data->player;
-    char **map = data->map;
+    char **map = data->info->map;
 
     // update player's rotation
     player->rotationAngle += player->turnDirection * player->rotationSpeed;

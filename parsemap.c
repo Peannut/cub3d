@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsemap.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 17:10:52 by zoukaddo          #+#    #+#             */
-/*   Updated: 2022/08/14 21:26:42 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/02/24 13:11:41 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 
 void	ft_error(char *msg)
 {
-	ft_putendl_fd("Error", 2);
+	ft_putendl_fd("Error :", 2);
 	ft_putendl_fd(msg, 2);
 	exit(1);
 }

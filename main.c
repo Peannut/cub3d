@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:56 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/02/17 17:10:01 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/12 20:11:28 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void draw_line(t_data *data) {
 int key_press(int keycode, void *param) {
     t_data *data = (t_data*)param;
     t_player *player = &data->player;
-    char **map = data->map;
+    char **map = data->info->map;
 
     double moveStep;
     
@@ -65,7 +65,7 @@ int key_press(int keycode, void *param) {
 int key_release(int keycode, void *param) {
     t_data *data = (t_data*)param;  
     t_player *player = &data->player;
-    char **map = data->map;
+    char **map = data->info->map;
     if (keycode == 13) {  // W key
        player->walkDirection = 0;
     } else if (keycode == 0) {  // A key
@@ -84,11 +84,14 @@ int key_release(int keycode, void *param) {
     return (0);
 }
 
-
+int ft_start(char **av, t_data *cube)
+{
+    cube->info = ft_parse(av, cube);
+    return (0);
+}
 
 int main(int ac, char **av)
 {
-	//test2
    if (ac != 2)
    {
         printf("usage : cub3d ./file.cub\n");
@@ -104,11 +107,10 @@ int main(int ac, char **av)
     data.player.rotationAngle = PI / 2;
     data.player.rotationSpeed = 3 * (PI / 180);
     data.player.moveSpeed = 0.1;
-    data.map = readingdata(av[1]);
     data.height = countlines(av[1]);
     data.width = countwidth(av[1]);
     
-    
+    ft_start(av, &data);
 	data.mlx = mlx_init();
 	data.mlx_win = mlx_new_window(data.mlx, WIN_WIDTH, WIN_HEIGHT, "Peanut cub3d!");
     data.frame = mlx_new_image(data.mlx, WIN_WIDTH, WIN_HEIGHT);
@@ -122,7 +124,7 @@ int main(int ac, char **av)
     // data.map = map;
     mlx_hook(data.mlx_win, 2, 0, key_press, (void*)&data);
     mlx_hook(data.mlx_win, 3, 0, key_release, (void*)&data);
-    mlx_hook(data.mlx_win, 17, 0, exitfunc, NULL);
+    mlx_hook(data.mlx_win, 17, 0, (void*)exitfunc, NULL);
     mlx_loop(data.mlx);
     return (0);
 }

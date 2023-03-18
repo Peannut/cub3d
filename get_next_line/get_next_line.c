@@ -3,113 +3,117 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/24 00:32:58 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/01/04 14:14:27 by zoukaddo         ###   ########.fr       */
+/*   Created: 2021/11/26 18:47:21 by abouhaga          #+#    #+#             */
+/*   Updated: 2022/07/18 19:14:44 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <fcntl.h>
+#define BUFFER_SIZE 1
 
-#include"get_next_line.h"
-
-void	ft_check_endl(char **next, char **line)
+static int	index_line(const char *s, int c)
 {
-	char	*c;
+	size_t	i;
+	char	*p;
+
+	i = 0;
+	p = (char *)s;
+	while (p[i])
+	{
+		if (p[i] == c)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+static void	ft_free(void *ptr)
+{
+	free(ptr);
+	ptr = NULL;
+}
+
+static void	get_rest(char **save, char **line, ssize_t end, char **tmp)
+{
+	if (end == 0 && !ft_strchr(*save, '\n'))
+	{
+		*line = ft_strdup(*save);
+		*save = 0;
+	}
+	else
+	{
+		*line = ft_substr(*save, 0, index_line(*save, '\n') + 1);
+		*save = ft_strdup(*save + index_line(*save, '\n') + 1);
+	}
+	ft_free(*tmp);
+	if (**line == '\0')
+	{
+		ft_free(*line);
+		*line = NULL;
+	}
+}
+
+static void	get_line(int fd, char **save, char *buff, char **line)
+{
+	ssize_t	end;
 	char	*tmp;
 
-	c = NULL;
-	tmp = *next;
-	if (*next)
+	end = 1;
+	buff[0] = '\0';
+	while (end != 0 && (!ft_strchr(buff, '\n')))
 	{
-		c = ft_strchr(*next, '\n');
-		if (c)
-		{
-			*next = ft_strdup(++c);
-			c[0] = '\0';
-			if (!(*next[0]))
-				ft_free(next);
-			*line = ft_strdup(tmp);
-			ft_free(&tmp);
-		}
-		else
-		{
-			*line = ft_strdup(*next);
-			ft_free(next);
-		}
+		end = read(fd, buff, BUFFER_SIZE);
+		buff[end] = '\0';
+		tmp = *save;
+		*save = ft_strjoin(tmp, buff);
+		ft_free(tmp);
 	}
-}
-
-void	ft_next_line(char **next, char *ptr)
-{
-	if (*ptr != '\0')
-	{
-		if (*next)
-		{
-			ft_free(next);
-		}
-		*next = ft_strdup(ptr);
-	}
-}
-
-void	ft_write_line(char **line, char *buff)
-{
-	char	*tmp;
-	char	*ok;
-
-	tmp = *line;
-	ok = NULL;
-	if (!(*line))
-	{	
-		*line = ft_strdup("");
-		ok = *line;
-	}
-	*line = ft_strjoin(*line, buff);
-	if (ok)
-		ft_free(&ok);
-	if (tmp)
-		ft_free(&tmp);
-}
-
-void	ft_check_buff(char **buff, char **next)
-{
-	char	*ptr;
-
-	ptr = ft_strchr(*buff, '\n');
-	if (ptr)
-	{	
-		ft_next_line(next, ++ptr);
-		ptr[0] = '\0';
-	}
+	ft_free(buff);
+	tmp = *save;
+	get_rest(save, line, end, &tmp);
 }
 
 char	*get_next_line(int fd)
 {
+	static char	*save;
 	char		*buff;
-	static char	*next;
 	char		*line;
-	int			read_byte;
-	int			buffer;
 
-	buffer = 100;
-	if (fd < 0 || buffer <= 0 || read(fd, 0, 0))
+	buff = NULL;
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buff = malloc(buffer + 1);
-	read_byte = 1;
-	line = NULL;
-	buff[0] = 0;
-	ft_check_endl(&next, &line);
-	while (!ft_strchr(line, '\n'))
-	{	
-		read_byte = read(fd, buff, buffer);
-		buff[read_byte] = '\0';
-		if (read_byte == 0)
-			break ;
-		ft_check_buff(&buff, &next);
-		ft_write_line(&line, buff);
+	buff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buff)
+		return (NULL);
+	if (read(fd, buff, 0) == -1)
+	{
+		ft_free(buff);
+		return (NULL);
 	}
-	ft_free(&buff);
+	if (!save)
+		save = ft_strdup("");
+	get_line(fd, &save, buff, &line);
 	return (line);
 }
 
+// int	main()
+// {
+// 	int fd = open("l", O_RDONLY);
+// 	char *retour = get_next_line(fd);
+// 	printf("%s",retour);
+
+// 	retour = get_next_line(fd);
+// 	printf("%s",retour);
+
+// 	retour = get_next_line(fd);
+// 	printf("%s",retour);
+// 	retour = get_next_line(fd);
+// 	printf("%s",retour);
+// 	retour = get_next_line(fd);
+// 	printf("%s",retour);
+// 	retour = get_next_line(fd);
+// 	printf("%s",retour);
+// }
