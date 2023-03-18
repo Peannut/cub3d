@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:54 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/09 00:53:23 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/03/18 00:59:36 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ void    exitfunc(void);
 
 /************drawing*******/
 void my_pixel_put(void *img, int x, int y, int color);
+char **allocate_map(char **map, int i);
 void draw_map(t_data *data);
 void draw_grid(t_data *data);
 void draw_player(t_data *data, int flag);

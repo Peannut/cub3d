@@ -6,7 +6,7 @@
 #    By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 22:20:51 by zoukaddo          #+#    #+#              #
-#    Updated: 2023/03/12 19:47:00 by abouhaga         ###   ########.fr        #
+#    Updated: 2023/03/18 00:12:28 by abouhaga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CFLAGS			=  -I minilibx -framework OpenGl -framework Appkit -fsanitize=address -
 NAME			= cub3d
 
 LIBFT			= libft/libft.a
-SRCS			= main.c ./src/drawing.c ./src/map_reader.c ./src/parser.c \
+SRCS			= main.c ./src/drawing.c ./src/map_reader.c ./src/parser.c ./src/parsing_alloc.c\
 					./get_next_line/get_next_line_utils.c ./get_next_line/get_next_line.c \
 					./src/update.c ./src/casting_rays.c parsemap.c
 

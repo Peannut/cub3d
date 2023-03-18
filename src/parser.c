@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 02:28:43 by abouhaga          #+#    #+#             */
-/*   Updated: 2023/03/12 20:15:09 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/03/18 01:03:57 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,30 +79,6 @@ int	check_extrm(char **map, int i, int j)
 	return (0);
 }
 
-// void    valid_map(char **map, t_data *data)
-// {
-//     int i;
-//     int j;
-
-//     i = 0;
-//     data->player.spawn = '+';
-// 	data->info->map = map;
-//     while(data->info->map[i])
-//     {
-//         j = 0;
-//         while(data->info->map[i][j])
-//         {
-//             if (is_valid_component(data->info->map[i][j], data, i, j))
-//                 ft_error("Map is not valid");
-//             j++;
-//         }
-//         i++;
-//     }
-//     if (data->player.spawn == '+')
-//         ft_error("This Map has no player !");
-//     valid_walls(data->info->map);
-// }
-
 int is_spaces(char *line)
 {
 	int	i;
@@ -120,22 +96,23 @@ int is_spaces(char *line)
 
 void initialize(t_info *info)
 {
-    info->no = NULL;
-    info->so = NULL;
-    info->we = NULL;
-    info->ea = NULL;
-    info->f = NULL;
-    info->c = NULL;
+    info->no = 0;
+    info->so = 0;
+    info->we = 0;
+    info->ea = 0;
+    info->f = 0;
+    info->c = 0;
 }
 
-char *read_file(char** av)
+char *read_file(char** av, t_info *info)
 {
     char *line;
     int fd;
     char *tmp;
 
-    fd = open(av[1], O_RDONLY);
+	(void)info;
     line = ft_strdup("");
+    fd = open(av[1], O_RDONLY);
     if (fd == -1)
         ft_error("Couldn't open !");
     tmp = ft_strdup("");
@@ -199,30 +176,30 @@ int	skip_whitespace(char *s)
 	return (c);
 }
 
-void check_lines(char **map, int l_nbr, t_tools tl)
+void check_lines(char **map, int l_nbr, t_tools el)
 {
-    tl.i = 0;
-    while(tl.i < l_nbr - 1)
+    el.i = 0;
+    while(el.i < l_nbr - 1)
     {
-        tl.j = skip_whitespace(map[tl.i]);
-        if (map[tl.i][tl.j] == 'N' && map[tl.i][tl.j + 1] == 'O'
-            && map[tl.i][tl.j + 2] == ' ')
-            tl.i++;
-        else if (map[tl.i][tl.j] == 'S' && map[tl.i][tl.j + 1] == 'O'
-            && map[tl.i][tl.j + 2] == ' ')
-            tl.i++;
-        else if (map[tl.i][tl.j] == 'W' && map[tl.i][tl.j + 1] == 'E'
-            && map[tl.i][tl.j + 2] == ' ')
-            tl.i++;
-        else if (map[tl.i][tl.j] == 'E' && map[tl.i][tl.j + 1] == 'A'
-            && map[tl.i][tl.j + 2] == ' ')
-            tl.i++;
-        else if (map[tl.i][tl.j] == 'F' && map[tl.i][tl.j + 1] == ' ')
-            tl.i++;
-        else if (map[tl.i][tl.j] == 'C' && map[tl.i][tl.j + 1] == ' ')
-            tl.i++;
-		else if (!map[tl.i][tl.j])
-			tl.i++;
+        el.j = skip_whitespace(map[el.i]);
+        if (map[el.i][el.j] == 'N' && map[el.i][el.j + 1] == 'O'
+            && map[el.i][el.j + 2] == ' ')
+            el.i++;
+        else if (map[el.i][el.j] == 'S' && map[el.i][el.j + 1] == 'O'
+            && map[el.i][el.j + 2] == ' ')
+            el.i++;
+        else if (map[el.i][el.j] == 'W' && map[el.i][el.j + 1] == 'E'
+            && map[el.i][el.j + 2] == ' ')
+            el.i++;
+        else if (map[el.i][el.j] == 'E' && map[el.i][el.j + 1] == 'A'
+            && map[el.i][el.j + 2] == ' ')
+            el.i++;
+        else if (map[el.i][el.j] == 'F' && map[el.i][el.j + 1] == ' ')
+            el.i++;
+        else if (map[el.i][el.j] == 'C' && map[el.i][el.j + 1] == ' ')
+            el.i++;
+		else if (!map[el.i][el.j])
+			el.i++;
         else
             ft_error("Map is not valid");   
     }
@@ -478,7 +455,7 @@ int ft_scan_map(char **map, t_info *info)
         else if (scan_line(map[i]) && tools.counter == 6)
             break;
         tools.counter = ft_extract_data(&tools, info, map, i);
-            i++;
+        i++;
     }
     if (tools.counter != 6)
         ft_error("Map is not valid");
@@ -486,26 +463,26 @@ int ft_scan_map(char **map, t_info *info)
     return (cnt + tools.counter);
 }
 
-char	**allocate(char **map, int i)
-{
-	int		k;
-	int		j;
-	char	**mapv;
+// char	**allocate(char **map, int i)
+// {
+// 	int		k;
+// 	int		j;
+// 	char	**mapv;
 
-	k = i;
-	j = 0;
-	while (map[k])
-	{
-		k++;
-		j++;
-	}
-	mapv = malloc(sizeof(char *) * (j + 1));
-	j = 0;
-	while (map[i])
-		mapv[j++] = ft_strdup(map[i++]);
-	mapv[j] = NULL;
-	return (mapv);
-}
+// 	k = i;
+// 	j = 0;
+// 	while (map[k])
+// 	{
+// 		k++;
+// 		j++;
+// 	}
+// 	mapv = malloc(sizeof(char *) * (j + 1));
+// 	j = 0;
+// 	while (map[i])
+// 		mapv[j++] = ft_strdup(map[i++]);
+// 	mapv[j] = NULL;
+// 	return (mapv);
+// }
 
 void	check_map_components(char **map)
 {
@@ -583,11 +560,11 @@ void	valid_player(char **map)
 
 //to ensure that the walls of the map are valid
 //and that they surround the playable area.
-void setup_map(t_info *info, char **map, int cnt, t_data *data)
+void setup_map(t_info *info, char **map, int cnt)
 {
     char **tmp;
 
-    tmp = allocate(map, cnt);
+    tmp = allocate_map(map, cnt);
 	check_map_components(tmp);
 	check_directions(tmp);
     valid_player(tmp);
@@ -598,11 +575,12 @@ void print_map(t_data *data)
 {
     int i = 0;
     int j = 0;
-    while (i < data->height)
+    while (i < 13)
     {
         j = 0;
-        while (j < data->width)
+        while (j < 33)
         {
+			printf("%d, %d\n", i, j);
             printf("%c", data->info->map[i][j]);
             j++;
         }
@@ -613,7 +591,6 @@ void print_map(t_data *data)
 
 t_info	*ft_parse(char **av, t_data *data)
 {
-    int fd;
     t_info *info;
     char *lines;
     char **map;
@@ -622,17 +599,13 @@ t_info	*ft_parse(char **av, t_data *data)
     info = malloc(sizeof(t_info));
     initialize(info);
 	check_extension(av); //if dir check
-	// fd = open(av[1], O_RDONLY);
-	// if (fd < 0)
-	// 	ft_error("Couldn't open !");
-    lines = read_file(av);
+    lines = read_file(av, info);
     map = ft_split(lines, '\n');
     free (lines);
     cnt = ft_scan_map(map, info);
-    //load_files(fd, data);
-    setup_map(info, map, cnt, data);
+    setup_map(info, map, cnt);
     ft_free(map);
-	// print_map(data);
-    // exit(0);
+	print_map(data);
+    exit(0);
     return (info);
 }
