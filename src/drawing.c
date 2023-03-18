@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 16:19:21 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/02/17 16:13:33 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/10 11:50:57 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,40 +23,40 @@ void	my_pixel_put(void *img, int x, int y, int color)
     *(unsigned int *)pos = color;
 }
 
-void draw_map(t_data *data) {
-    int x, y, i, j;
-    int color;
+// void draw_map(t_data *data) {
+//     int x, y, i, j;
+//     int color;
 
-    for (y = 0; y < data->height; y++) {
-        for (x = 0; x < data->width; x++) {
-            if (data->map[y][x] == '1') {
-                color = 0xA020F0; 
-            } else {
-                color = 0xFFFF00; 
-            }
-            for (i = 0; i < 32; i++) {
-                for (j = 0; j < 32; j++) {
-                    // mlx_pixel_put(data->mlx, data->mlx_win, x * BLOCK + i, y * BLOCK + j, color);
-                    my_pixel_put(data->frame, x * BLOCK + i, y * BLOCK + j, color);
-                }
-            }
-        }
-    }
-}
+//     for (y = 0; y < data->height; y++) {
+//         for (x = 0; x < data->width - 1; x++) {
+//             if (data->map[y][x] == '1') {
+//                 color = 0xA020F0; 
+//             } else {
+//                 color = 0xFFFF00; 
+//             }
+//             for (i = 0; i < BLOCK; i++) {
+//                 for (j = 0; j < BLOCK; j++) {
+//                     // mlx_pixel_put(data->mlx, data->mlx_win, x * BLOCK + i, y * BLOCK + j, color);
+//                     my_pixel_put(data->frame, x * BLOCK + i , y * BLOCK + j , color);
+//                 }
+//             }
+//         }
+//     }
+// }
 
 void draw_grid(t_data *data) {
     int x, y, i, j;
 
     for (y = 0; y < data->height; y++) {
-        for (x = 0; x < data->width; x++) {
+        for (x = 0; x < data->width - 1; x++) {
             // draw grid
-            for (i = 0; i < 32; i++) {
+            for (i = 0; i < BLOCK; i++) {
                 // mlx_pixel_put(data->mlx, data->mlx_win, x * 32 + i, y * 32 + 31, 0x000000);
-                my_pixel_put(data->frame, x * 32 + i, y * 32 + 31, 0x000000);
+                my_pixel_put(data->frame, x * BLOCK + i , y * BLOCK + 31 , 0x000000);
             }
-            for (j = 0; j < 32; j++) {
+            for (j = 0; j < BLOCK; j++) {
                 // mlx_pixel_put(data->mlx, data->mlx_win, x * 32 + 31, y * 32 + j, 0x000000);
-                my_pixel_put(data->frame, x * 32 + 31, y * 32 + j, 0x000000);
+                my_pixel_put(data->frame, x * BLOCK + 31 , y * 32 + j , 0x000000);
             }
         }
     }
@@ -77,15 +77,6 @@ void draw_circle(void *mlx, void *window, int x, int y, int radius, int color) {
     }
 }
 
-// void draw_player(void *mlx, void *window, t_data *data) {
-//     int radius = 3;  // radius of the circle
-//     int center_x = data->player.x * 32 + 16;  // x coordinate of the center of the circle
-//     int center_y = data->player.y * 32 + 16;  // y coordinate of the center of the circle
-//     int color = 0xFF0000;  // color of the circle
-
-//     draw_circle(mlx, window, center_x, center_y, radius, color);
-// }
-
 void draw_player(t_data *data , int flag) {
     int radius = 3;  // radius of the circle
     int color = 0xFF0000;  // color of the circle
@@ -97,8 +88,8 @@ void draw_player(t_data *data , int flag) {
         for (i = 0; i < data->height; i++) {
             for (j = 0; j < data->width; j++) {
                 if (data->map[i][j] == 'P') {
-                    data->player.x = j;
-                    data->player.y = i;
+                    data->player.x = j * BLOCK + BLOCK / 2;
+                    data->player.y = i * BLOCK + BLOCK / 2;
                     break;
                 }
             }
@@ -106,9 +97,9 @@ void draw_player(t_data *data , int flag) {
     }
    
     // calculate the center of the circle
-    int center_x = data->player.x * BLOCK + 16;
-    int center_y = data->player.y * BLOCK + 16;
-
+    int center_x = data->player.x;
+    int center_y = data->player.y;
+    // printf("centerx and y%d, %d\n", center_y, center_x);
     // draw player
     // draw_circle(data->mlx, data->mlx_win, center_x, center_y, radius, color);
     draw_circle(data->mlx, data->frame, center_x, center_y, radius, color);

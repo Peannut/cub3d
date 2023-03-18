@@ -6,7 +6,7 @@
 #    By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 22:20:51 by zoukaddo          #+#    #+#              #
-#    Updated: 2023/02/17 16:08:47 by zoukaddo         ###   ########.fr        #
+#    Updated: 2023/03/12 20:12:35 by zoukaddo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME			= cub3d
 
 SRCS			= main.c ./src/drawing.c ./src/map_reader.c \
 				./get_next_line/get_next_line_utils.c ./get_next_line/get_next_line.c \
-				./src/update.c ./src/casting_rays.c
+				./src/update.c ./src/casting_rays.c ./src/vertical_rays.c ./src/minimap.c ./src/mouse.c
 
 OBJS			= $(SRCS:.c=.o)
 
@@ -27,14 +27,15 @@ RM				= rm -f
 
 
 #CFLAGS			= #-Wall -Wextra -Werror
-CFLAGS			=  -I minilibx -framework OpenGl -framework Appkit -fsanitize=address -g
+#CFLAGS			=  -I minilibx -framework OpenGl -framework Appkit #-fsanitize=address -g
+CFLAGS			=  -lmlx -framework OpenGl -framework Appkit #-fsanitize=address -g
 
 
 all:			$(NAME)
 
 $(NAME):		$(OBJS)
 				
-				$(CC) ${OBJS} minilibx/libmlx.a $(CFLAGS) -o ${NAME}
+				$(CC) ${OBJS} minilibx/libmlx.a $(CFLAGS) -o ${NAME} -fsanitize=address 
 				
 clean:
 				$(RM) $(OBJS) 
@@ -44,5 +45,7 @@ fclean:			clean
 				$(RM) $(NAME)
 				
 re:				fclean $(NAME)
+
+bonus:			all
 
 .PHONY:			all clean fclean re
