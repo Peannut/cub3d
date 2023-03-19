@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:54 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/18 20:29:49 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/18 21:20:32 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,18 @@ typedef struct s_player
 	double	rotationSpeed; // the constant value is in radians/second
 	char spawn;
 }	t_player;
+typedef struct s_tools
+{
+	int	no;
+	int	so;
+	int	we;
+	int	ea;
+	int	f;
+	int	c;
+	int	counter;
+	int	i;
+	int	j;
+}			t_tools;
 typedef struct infos
 {
 	char		*no;
@@ -87,6 +99,7 @@ typedef struct infos
 	int			*f;
 	int			*c;
 	char		**map;
+	t_tools		*tool;
 	// int			x;
 	// int			y;
 }	t_info;
@@ -105,6 +118,8 @@ typedef struct data {
 	void *text;
 	int	height;
 	int	width;
+	int raysnumba;
+	t_ray *rays;
 	t_info *info;
     t_player player;
 	t_texture img;
@@ -118,18 +133,6 @@ typedef struct	s_img {
 }				t_img;
 
 
-typedef struct s_tools
-{
-	int	no;
-	int	so;
-	int	we;
-	int	ea;
-	int	f;
-	int	c;
-	int	counter;
-	int	i;
-	int	j;
-}			t_tools;
 
 
 typedef struct s_color
@@ -148,16 +151,23 @@ typedef struct s_color
 	// int		t_offsety;
 	int		i;
 } t_color;
+typedef struct s_vec
+{
+	int x;
+	int y;
+} t_vec;
 
 // typedef struct s_player_params{
 //     t_player *player;
 //     char (*map)[10];
 // } t_player_params;
 
+int count_lines(char **map);
+int get_longest_line(char **map);
 void print_map(char **map);
 void	init_the_map(char *map_name);
 void	ft_error(char *msg);
-void    exitfunc(void);
+int    exitfunc(t_data *data);
 
 /************drawing*******/
 void my_pixel_put(void *img, int x, int y, int color);
@@ -179,7 +189,6 @@ int		countwidth(char *file);
 
 /*****rays casting******/
 void castAllRays(t_data *data);
-void exitfunc(void);
 
 
 /******horiz and ver*****/

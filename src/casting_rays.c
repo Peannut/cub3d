@@ -59,8 +59,8 @@ void    find_Interceptions(t_data *data,t_vec *step,t_vec *intercept ,int ray)
     while (intercept->y > 0 && intercept->y / BLOCK < data->height && intercept->x > 0 && intercept->x / BLOCK < data->width)
     {
         // intercept->y = (floor(data->player.y / BLOCK)) * BLOCK;
-        if ((data->rays[ray].rayFacingDown && data->map[(int)(intercept->y / BLOCK)][(int)(intercept->x / BLOCK)] == '1')
-            || (data->rays[ray].rayFacingUp && data->map[(int)(intercept->y / BLOCK) - 1][(int)(intercept->x / BLOCK)] == '1'))
+        if ((data->rays[ray].rayFacingDown && data->info->map[(int)(intercept->y / BLOCK)][(int)(intercept->x / BLOCK)] == '1')
+            || (data->rays[ray].rayFacingUp && data->info->map[(int)(intercept->y / BLOCK) - 1][(int)(intercept->x / BLOCK)] == '1'))
             break ;
         if (data->rays[ray].rayFacingDown)
             intercept->y += BLOCK;
@@ -171,7 +171,6 @@ void castAllRays(t_data *data) {
     // data->rays = malloc(sizeof(t_ray) * data->raysnumba + 1);
     ray_angle = data->player.rotationAngle - (FOV_ANGEL/ 2);
     i = 0;
-
     while(i < data->raysnumba)
     {
         data->rays[i].rayAngle = normalizeAngle(ray_angle);
@@ -200,9 +199,10 @@ void castAllRays(t_data *data) {
 }
 
 
-void    exitfunc(void)
+int    exitfunc(t_data *data)
 {
     // should free hna tal mn b3d;
+    (void)data;
     printf("je exit baye hh\n");
     exit(0);
 }

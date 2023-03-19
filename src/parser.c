@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 02:28:43 by abouhaga          #+#    #+#             */
-/*   Updated: 2023/03/18 19:12:07 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/03/19 17:45:32 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,11 @@ int is_valid_component(char ch, t_data *data, int i, int j)
     {
         if(data->player.spawn != '+')
             ft_error("More than one player");
-        data->player.x = j;
-        data->player.y = i;
+        data->player.x = j * BLOCK + BLOCK / 2;;
+        data->player.y = i * BLOCK + BLOCK / 2;;
         data->player.spawn = data->info->map[i][j];
-        //data->map[i][j] = '0';
+        printf("spawn in pars %c\n", data->player.spawn);
+		//data->map[i][j] = '0';
     }
     return (0);
 }
@@ -462,27 +463,6 @@ int ft_scan_map(char **map, t_info *info)
     return (cnt + tools.counter);
 }
 
-// char	**allocate(char **map, int i)
-// {
-// 	int		k;
-// 	int		j;
-// 	char	**mapv;
-
-// 	k = i;
-// 	j = 0;
-// 	while (map[k])
-// 	{
-// 		k++;
-// 		j++;
-// 	}
-// 	mapv = malloc(sizeof(char *) * (j + 1));
-// 	j = 0;
-// 	while (map[i])
-// 		mapv[j++] = ft_strdup(map[i++]);
-// 	mapv[j] = NULL;
-// 	return (mapv);
-// }
-
 void	check_map_components(char **map)
 {
 	int	i;
@@ -533,7 +513,7 @@ void	check_directions(char **map)
 	}
 }
 
-void	valid_player(char **map)
+void	valid_player(char **map, t_data *data)
 {
 	int	i;
 	int	j;
@@ -548,7 +528,16 @@ void	valid_player(char **map)
 		{
 			if (map[i][j] == 'N' || map[i][j] == 'W'
 				|| map[i][j] == 'S' || map[i][j] == 'E')
-				pos++;
+				{
+					if (pos == 0)
+					{
+						data->player.spawn = map[i][j];
+						data->player.x = i  * BLOCK * BLOCK / 2;
+						data->player.y = j  * BLOCK * BLOCK / 2;
+					}
+					pos++;
+
+				}
 			j++;
 		}
 		i++;
@@ -559,7 +548,7 @@ void	valid_player(char **map)
 
 //to ensure that the walls of the map are valid
 //and that they surround the playable area.
-void setup_map(t_info *info, char **map, int cnt)
+void setup_map(t_info *info, char **map, int cnt, t_data *data)
 {
     char **tmp;
 
@@ -568,7 +557,7 @@ void setup_map(t_info *info, char **map, int cnt)
     // exit(0);
 	check_map_components(tmp);
 	check_directions(tmp);
-    valid_player(tmp);
+    valid_player(tmp, data);
     info->map = tmp;
 }
 
@@ -596,9 +585,8 @@ t_info	*ft_parse(char **av, t_data *data)
     map = ft_split(lines, '\n');
     free (lines);
     cnt = ft_scan_map(map, info);
-    setup_map(info, map, cnt);
+    setup_map(info, map, cnt, data);
 	print_map(info->map);
-    exit(0);
     ft_free(map);
     return (info);
 }

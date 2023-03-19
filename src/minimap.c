@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:50:52 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/18 18:48:57 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/19 17:16:30 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,13 @@ void draw_map(t_data *data) {
         for (x = startX; x <= endX; x++) {
             mapX = (int)(centerX + (x - data->player.x / BLOCK) * BLOCK / 2);
             mapY = (int)(centerY + (y - data->player.y / BLOCK) * BLOCK / 2);
-            if (data->map[y][x] == '1') {
+            if (data->info->map[y][x] == '1') {
                 color = 0xA020F0; 
-            } else {
+            }
+            else if (data->info->map[y][x] == ' '){
+                color = 0xFFFFFF;
+            } 
+            else {
                 color = 0xFFFF00; 
             }
             for (i = 0; i < BLOCK / 2; i++) {
@@ -110,12 +114,12 @@ void draw_map(t_data *data) {
             }
         }
     }
-    double playerMinimapX = centerX + cos(data->player.rotationAngle) * 30;
-    double playerMinimapY = centerY + sin(data->player.rotationAngle) * 30;
+    // double playerMinimapX = centerX + cos(data->player.rotationAngle) * 30;
+    // double playerMinimapY = centerY + sin(data->player.rotationAngle) * 30;
 
-    // draw_line2(data->frame, playerMinimapX , playerMinimapY, endX, endY, 0x0000FF);
+    // // draw_line2(data->frame, playerMinimapX , playerMinimapY, endX, endY, 0x0000FF);
 
-    draw_line2(data->frame, x + cos(data->player.rotationAngle) * 40 , y + sin(data->player.rotationAngle) * 40, endX, endY, 0x0000FF);
+    // draw_line2(data->frame, x + cos(data->player.rotationAngle) * 40 , y + sin(data->player.rotationAngle) * 40, endX, endY, 0x0000FF);
 }
 
 void	minimap_render(t_data *data)

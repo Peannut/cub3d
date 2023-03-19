@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 16:19:21 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/18 20:38:07 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/19 17:31:02 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,10 @@ void draw_player(t_data *data , int flag) {
     {
         for (i = 0; i < data->height; i++) {
             for (j = 0; j < data->width; j++) {
-                if (data->map[i][j] == 'P') {
+                if (data->info->map[i][j] == data->player.spawn) {
                     data->player.x = j * BLOCK + BLOCK / 2;
                     data->player.y = i * BLOCK + BLOCK / 2;
+                	printf("spawn in func %c \n", data->player.spawn);
                     break;
                 }
             }

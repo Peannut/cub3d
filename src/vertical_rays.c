@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 19:05:42 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/11 11:27:28 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/18 20:47:03 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	findverticalsteps(t_data *data,t_vec *intercept, t_vec *step, int ray)
 	while (intercept->y > 0 && intercept->y / BLOCK < data->height && intercept->x > 0 && intercept->x / BLOCK < data->width)
 	{
 		// intercept->x = (floor(data->player.x / BLOCK) * BLOCK);
-		if ((data->rays[ray].rayFacingRight && data->map[(int)(intercept->y / BLOCK)][(int)(intercept->x / BLOCK)] == '1')
-            || (data->rays[ray].rayFacingLeft && data->map[(int)(intercept->y / BLOCK)][(int)(intercept->x / BLOCK) - 1] == '1'))
+		if ((data->rays[ray].rayFacingRight && data->info->map[(int)(intercept->y / BLOCK)][(int)(intercept->x / BLOCK)] == '1')
+            || (data->rays[ray].rayFacingLeft && data->info->map[(int)(intercept->y / BLOCK)][(int)(intercept->x / BLOCK) - 1] == '1'))
             break ;
 		if (data->rays[ray].rayFacingRight)
 			intercept->x += BLOCK;

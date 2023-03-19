@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:23:13 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/18 20:25:53 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/19 17:52:32 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,9 @@ void render(t_data *data) {
     // draw_line(data);
     // draw_grid(data);
     draw_player(data, 0);
+	printf("spawn %c \n", data->player.spawn);
+	printf("p pos %f | %f\n", data->player.x, data->player.y);
+	
     castAllRays(data);
     mlx_put_image_to_window(data->mlx, data->mlx_win, data->frame, 0, 0);
     // mlx_do_sync(data->mlx);

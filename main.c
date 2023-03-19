@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:56 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/18 20:31:44 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/19 17:54:58 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,39 @@ int key_release(int keycode, void *param) {
 int ft_start(char **av, t_data *cube)
 {
     cube->info = ft_parse(av, cube);
+        // cube->height = count_lines(cube->info->map) - cube->info->tool->counter;
+        // printf("%d\n", cube->height);
+        // exit(0);
     return (0);
+}
+
+size_t	ptrline(char **str)
+{
+	size_t	length;
+
+	length = 0;
+	while (str[length])
+		length++;
+	return (length);
+}
+
+int thebiggestlen(t_data *data)
+{
+    int i;
+    int max;
+    int len;
+
+    len = 0;
+    i = 0;
+    max = 0;
+    while (i < data->height)
+    {
+        len = ft_strlen(data->info->map[i]);
+        if (max < len)
+            max = len;
+        i++;
+    }
+    return (max);
 }
 
 int main(int ac, char **av)
@@ -109,11 +141,12 @@ int main(int ac, char **av)
 	data.player.rotationAngle = 0;
 	data.player.rotationSpeed = 4 * (PI / 180);
 	data.player.moveSpeed = 5;
-	data.map = readingdata(av[1]);
-	data.height = countlines(av[1]);
-	data.width = countwidth(av[1]);
-    
+	// data.map = readingdata(av[1]);
+	// data.height = countlines(av[1]);
+	// data.width = countwidth(av[1]);
     ft_start(av, &data);
+    data.height = ptrline(data.info->map);
+    data.width = thebiggestlen(&data);
 	data.mlx = mlx_init();
 	data.mlx_win = mlx_new_window(data.mlx, WIN_WIDTH, WIN_HEIGHT, "Peanut cub3d!");
 	data.frame = mlx_new_image(data.mlx, WIN_WIDTH, WIN_HEIGHT);
@@ -131,7 +164,7 @@ int main(int ac, char **av)
 	mlx_hook(data.mlx_win, 2, 0, key_press, (void*)&data);
 	mlx_hook(data.mlx_win, 3, 0, key_release, (void*)&data);
     mlx_hook(data.mlx_win, 6, 0 , &mouse_event, (void*)&data);
-	mlx_hook(data.mlx_win, 17, 0, exitfunc, NULL);
+	mlx_hook(data.mlx_win, 17, 0, exitfunc, (void*)&data);
 	mlx_loop(data.mlx);
     return (0);
 }
