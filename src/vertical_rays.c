@@ -6,12 +6,11 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 19:05:42 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/18 20:47:03 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/22 15:12:14 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
 
 void	hitsave(t_data *data,bool val1 , bool val2,int ray)
 {
@@ -41,7 +40,6 @@ void	findverticalsteps(t_data *data,t_vec *intercept, t_vec *step, int ray)
 	}
 }
 
-// double vertical_rays(t_data *data, int ray)
 t_vec vertical_rays(t_data *data, int ray)
 {
 	t_vec intercept;
@@ -49,6 +47,5 @@ t_vec vertical_rays(t_data *data, int ray)
 
 
 	findverticalsteps(data, &intercept, &step, ray);
-	
 	return (intercept);
 }

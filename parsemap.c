@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsemap.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 17:10:52 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/02/24 13:11:41 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/03/23 19:44:52 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	readmap(int fd)
 		line = get_next_line(fd);
 		if(!line)
 			break;
-		
 	}
 	
 }

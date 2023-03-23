@@ -103,9 +103,29 @@ int get_color_from_texture(t_data *data, int y, int ray, int wallHeight)
         tex.addr += ((int)((double)y * ((double)BLOCK / (double)wallHeight)) * tex.line_length) + ((data->rays[ray].Hitx % BLOCK) * (tex.bits_per_pixel / 8));
     else
         tex.addr += ((int)((double)y * ((double)BLOCK / (double)wallHeight)) * tex.line_length) + ((data->rays[ray].Hity % BLOCK) * (tex.bits_per_pixel / 8));
-
-
     return (*(int *)tex.addr);
+}
+
+void	*getTexture(char *file, t_data *data)
+{
+	void *textur;
+	int	width;
+	int	height;
+
+	width = 0;
+	height = 0;
+	textur = mlx_xpm_file_to_image(data->mlx, file, &width, &height);
+	if (!textur)
+	{
+		printf("failed to open %s\n", file);
+		exit(1);
+	}
+	else if (height != BLOCK || width != BLOCK )
+	{
+		printf("texture size incompatible %s\n", file);
+		exit(1);
+	}
+	return (textur);
 }
 
 void    projection_draw_ray(t_data *data, int ray)
@@ -118,16 +138,15 @@ void    projection_draw_ray(t_data *data, int ray)
     int end;
 
     if (data->rays[ray].rayFacingUp && data->rays[ray].HitHorizontal)
-        data->text = mlx_xpm_file_to_image(data->mlx, "north.xpm", &h, &h);
+        data->text = getTexture(data->info->no, data);
     else if (data->rays[ray].rayFacingDown && data->rays[ray].HitHorizontal)
-        data->text = mlx_xpm_file_to_image(data->mlx, "south.xpm", &h, &h);
+        data->text = getTexture(data->info->so, data);
     else if (data->rays[ray].rayFacingLeft && data->rays[ray].HitVertical)
-        data->text = mlx_xpm_file_to_image(data->mlx, "west.xpm", &h, &h);
+        data->text = getTexture(data->info->we, data);
     else if (data->rays[ray].rayFacingRight && data->rays[ray].HitVertical)
-        data->text = mlx_xpm_file_to_image(data->mlx, "east.xpm", &h, &h);
+        data->text = getTexture(data->info->ea, data);
     distanceProjectionPlane = (WIN_WIDTH / 2) / (tan(FOV_ANGEL / 2));
     wallHeight = (BLOCK / (data->rays[ray].distance * cos(data->player.rotationAngle - data->rays[ray].rayAngle))) * distanceProjectionPlane;
-    // printf("wallheight %d\n", wallHeight);
     y = 0;
     if (wallHeight > WIN_HEIGHT)
 	{
@@ -140,24 +159,24 @@ void    projection_draw_ray(t_data *data, int ray)
     {
         color = get_color_from_texture(data, y, ray, wallHeight);
         my_pixel_put(data->frame, ray, y + (WIN_HEIGHT / 2) - (wallHeight / 2), color);
-        
         y++;
     }
-    // render_ceiling(data, ray, wallHeight);
+    render_ceiling(data, wallHeight, ray);
+    render_floor(data, wallHeight, ray);
     // draw_line2(data->frame, ray,(WIN_HEIGHT / 2) - (wallHeight / 2), ray, (WIN_HEIGHT / 2) + (wallHeight / 2), 0xb05b54);
 
 }
 
 void    projection(t_data *data)
-{   
-    int i;
+{
+	int i;
 
-    i = 0;
-    while(i < data->raysnumba)
-    {
-        projection_draw_ray(data, i);
-        ++i;
-    }
+	i = 0;
+	while(i < data->raysnumba)
+	{
+		projection_draw_ray(data, i);
+		++i;
+	}
 }
 
 void castAllRays(t_data *data) {
@@ -166,10 +185,10 @@ void castAllRays(t_data *data) {
     t_vec hor_cord;
     t_vec ver_cord;
     t_vec distance;
-
     data->raysnumba = WIN_WIDTH;
     // data->rays = malloc(sizeof(t_ray) * data->raysnumba + 1);
     ray_angle = data->player.rotationAngle - (FOV_ANGEL/ 2);
+    // exit(1);
     i = 0;
     while(i < data->raysnumba)
     {
@@ -198,7 +217,6 @@ void castAllRays(t_data *data) {
     minimap_render(data);
 }
 
-
 int    exitfunc(t_data *data)
 {
     // should free hna tal mn b3d;
@@ -206,4 +224,3 @@ int    exitfunc(t_data *data)
     printf("je exit baye hh\n");
     exit(0);
 }
-

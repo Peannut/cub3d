@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:56 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/19 17:54:58 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/22 10:42:14 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,28 @@ int thebiggestlen(t_data *data)
     return (max);
 }
 
+
+void    init_rotationAngel(t_data *data)
+{
+    data->player.turnDirection = 0;
+    data->player.walkDirection = 0;
+    data->player.sidewaysDirection = 0;
+	data->player.rotationSpeed = 4 * (PI / 180);
+	data->player.moveSpeed = 6;
+
+    data->height = ptrline(data->info->map);
+    data->width = thebiggestlen(data);
+
+    if (data->player.spawn == 'S')
+        data->player.rotationAngle = M_PI / 2;
+    else if (data->player.spawn == 'N')
+        data->player.rotationAngle = 3 * M_PI / 2;
+    else if (data->player.spawn == 'E')
+        data->player.rotationAngle = 0;
+    else if (data->player.spawn == 'W')
+        data->player.rotationAngle = M_PI;
+}
+
 int main(int ac, char **av)
 {
    if (ac != 2)
@@ -132,32 +154,19 @@ int main(int ac, char **av)
         printf("usage : cub3d ./file.cub\n");
         exit(1);
    }
-//     init_the_map(av[1]);
-    // t_player player;
 	t_data data;
-	data.player.turnDirection = 0;
-	data.player.walkDirection = 0;
-    data.player.sidewaysDirection = 0;
-	data.player.rotationAngle = 0;
-	data.player.rotationSpeed = 4 * (PI / 180);
-	data.player.moveSpeed = 5;
-	// data.map = readingdata(av[1]);
-	// data.height = countlines(av[1]);
-	// data.width = countwidth(av[1]);
     ft_start(av, &data);
-    data.height = ptrline(data.info->map);
-    data.width = thebiggestlen(&data);
+    init_rotationAngel(&data);
 	data.mlx = mlx_init();
 	data.mlx_win = mlx_new_window(data.mlx, WIN_WIDTH, WIN_HEIGHT, "Peanut cub3d!");
 	data.frame = mlx_new_image(data.mlx, WIN_WIDTH, WIN_HEIGHT);
-    int i;
-    data.text = mlx_xpm_file_to_image(data.mlx, "north.xpm", &i, &i);
 	draw_map(&data);
 	// draw_grid(&data);
 	draw_player(&data , 1);
-	draw_line2(data.frame, data.player.x, data.player.y, (data.player.x) + cos(data.player.rotationAngle) * 40, (data.player.y) + sin(data.player.rotationAngle) * 40, 0x0000FF);
+	// draw_line2(data.frame, data.player.x, data.player.y, (data.player.x) + cos(data.player.rotationAngle) * 40, (data.player.y) + sin(data.player.rotationAngle) * 40, 0x0000FF);
 	// draw_line(&data);
 	mlx_put_image_to_window(data.mlx, data.mlx_win, data.frame, 0, 0);
+    render(&data);
     // t_player_params params;
     // params.player = &player;
     // data.map = map;

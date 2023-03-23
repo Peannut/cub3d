@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 02:28:43 by abouhaga          #+#    #+#             */
-/*   Updated: 2023/03/19 17:45:32 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/22 14:01:28 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ int is_valid_component(char ch, t_data *data, int i, int j)
     {
         if(data->player.spawn != '+')
             ft_error("More than one player");
-        data->player.x = j * BLOCK + BLOCK / 2;;
-        data->player.y = i * BLOCK + BLOCK / 2;;
+        data->player.x = j * BLOCK + BLOCK / 2 + 1;
+        data->player.y = i * BLOCK + BLOCK / 2 + 1;
         data->player.spawn = data->info->map[i][j];
         printf("spawn in pars %c\n", data->player.spawn);
 		//data->map[i][j] = '0';

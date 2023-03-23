@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:54 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/18 21:20:32 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/22 14:50:31 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ typedef struct data {
 	int	height;
 	int	width;
 	int raysnumba;
-	t_ray *rays;
+	t_ray	rays[WIN_WIDTH];
 	t_info *info;
     t_player player;
 	t_texture img;
@@ -199,8 +199,8 @@ double normalizeAngle(double angle);
 
 /*********vert rays******/
 // double vertical_rays(t_data *data, int ray);
-t_vec vertical_rays(t_data *data, int ray);
-t_vec horizontal_ray(t_data *data, int ray);
+t_vec	vertical_rays(t_data *data, int ray);
+t_vec	horizontal_ray(t_data *data, int ray);
 void	hitsave(t_data *data,bool val1 , bool val2,int ray);
 void	findverticalsteps(t_data *data,t_vec *intercept, t_vec *step, int ray);
 void	draw_ceiling_and_floor(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:23:13 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/19 17:52:32 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/23 19:54:41 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,10 @@ void update(t_data *data) {
     // check if the new position is inside a wall
     int mapX = (int)(newPlayerX / BLOCK);
     int mapY = (int)(newPlayerY / BLOCK);
-    if (map[mapY][mapX] != '1') {
+    if (map[mapY][mapX] != '1' ) {
         player->x = newPlayerX;
         player->y = newPlayerY;
     }
-
 }
 
 void    draw_black(t_data *data)
@@ -82,63 +81,43 @@ void    draw_black(t_data *data)
         draw_line2(data->frame, i, 0, i, WIN_HEIGHT, 0);
 }
 
-void	draw_ceiling_and_floor(t_data *data)
+int    rgb_to_hex(int r, int g, int b)
 {
-	int x;
-	int y;
+    int    rgb;
 
-	// Draw ceiling
+    rgb = (r << 16) + (g << 8) + b;
+    return (rgb);
+}
+
+void	render_ceiling(t_data *data,int wallHeight, int x)
+{
+	int	y;
+	int	endY;
+    int color;
+
 	y = 0;
-	while (y < WIN_HEIGHT / 2)
+	endY = (WIN_HEIGHT / 2) - wallHeight / 2;
+    color = rgb_to_hex(data->info->c[0], data->info->c[1], data->info->c[2]);
+	while (y < endY)
 	{
-		x = 0;
-		while (x < WIN_WIDTH)
-		{
-			my_pixel_put(data->frame, x, y, 0x63d1f2);
-			x++;
-		}
-		y++;
-	}
-
-	// Draw floor
-	y = WIN_HEIGHT / 2;
-	while (y < WIN_HEIGHT)
-	{
-		x = 0;
-		while (x < WIN_WIDTH)
-		{
-			// my_pixel_put(data->frame, x, y, 0x41e022);
-			my_pixel_put(data->frame, x, y, 0);
-			x++;
-		}
+		my_pixel_put(data->frame, x, y, color);
 		y++;
 	}
 }
 
-void	render_ceiling(t_data *data, int x, int wallHeight)
+
+void	render_floor(t_data *data, int wallHeight,  int x)
 {
 	int	y;
-	int	end;
-
-	y = 0;
-	end = (WIN_HEIGHT / 2) - wallHeight / 2;
-	while (y < end)
-	{
-		my_pixel_put(data, x, y, 0x63d1f2);
-		y++;
-	}
-}
-
-void	render_floor(t_data *data, int x, int wallHeight)
-{
-	int	y;
-	int	end;
+	int	endY;
+    int color;
 
 	y = (WIN_HEIGHT / 2 + wallHeight / 2) - 1;
-	end = WIN_HEIGHT;
-	while (y < end)
+	endY = WIN_HEIGHT;
+    color = rgb_to_hex(data->info->f[0], data->info->f[1], data->info->f[2]);
+	while (y < endY)
 	{
-		my_pixel_put(data->frame, x, y, 0x41e022);
+		my_pixel_put(data->frame, x, y, color);
 		y++;
 	}
 }
@@ -146,15 +125,14 @@ void	render_floor(t_data *data, int x, int wallHeight)
 void render(t_data *data) {
     t_player *player = &data->player;
     // draw_black(data);
-    draw_ceiling_and_floor(data);
+    // draw_ceiling_and_floor(data);
     draw_map(data);
 	draw_line2(data->frame, (data->player.x * BLOCK + 16), (data->player.y * BLOCK + 16), (data->player.x * BLOCK + 16) + cos(data->player.rotationAngle) * 40, (data->player.y * BLOCK + 16) + sin(data->player.rotationAngle) * 40, 0x0000FF);
     // printf("x and y %f %f in bixels\n ", player->x * BLOCK + 16, player->y * BLOCK + 16);
     // draw_line(data);
     // draw_grid(data);
     draw_player(data, 0);
-	printf("spawn %c \n", data->player.spawn);
-	printf("p pos %f | %f\n", data->player.x, data->player.y);
+	
 	
     castAllRays(data);
     mlx_put_image_to_window(data->mlx, data->mlx_win, data->frame, 0, 0);
