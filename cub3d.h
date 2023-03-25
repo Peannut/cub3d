@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:54 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/22 14:50:31 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/25 14:55:05 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 # define BLOCK 32
 # define PI 3.1415926535
-# define FOV_ANGEL 60 * (PI / 180)
+# define FOV_ANGEL 60 * (M_PI / 180)
 # define WALL_STRIP_WIDTH 30
 # define WIN_WIDTH 1280
 # define WIN_HEIGHT 720
@@ -46,16 +46,6 @@ typedef struct  s_ray
 	int		Hity;
 	int 	wallHeight;
 }               t_ray;	
-
-// typedef struct s_data
-// {
-// 	void *mlx;
-// 	void *win;
-// 	char **map;
-// 	int	floor_color;
-// 	int	ceiling_color;
-
-// }t_datad;
 
 typedef struct s_texture
 {
@@ -105,13 +95,6 @@ typedef struct infos
 }	t_info;
 
 typedef struct data {
-    //char **map;
-	// t_texture	no_t;
-	// t_texture	so_t;
-	// t_texture	we_t;
-	// t_texture	ea_t;
-	// int			*floor_color;
-	// int			*ceilling_color;
 	void *mlx;
 	void *mlx_win;
 	void *frame;
@@ -156,11 +139,6 @@ typedef struct s_vec
 	int x;
 	int y;
 } t_vec;
-
-// typedef struct s_player_params{
-//     t_player *player;
-//     char (*map)[10];
-// } t_player_params;
 
 int count_lines(char **map);
 int get_longest_line(char **map);

@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:50:52 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/23 19:55:04 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/25 13:24:55 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,9 @@ void draw_map(t_data *data) {
             }
         }
     }
+    int lineEndX = centerX + cos(data->player.rotationAngle) * 15;
+    int lineEndY = centerY + sin(data->player.rotationAngle) * 15;
+    draw_line2(data->frame, centerX, centerY, lineEndX, lineEndY, 0xFF0000);
 }
 
 void	minimap_render(t_data *data)
@@ -125,11 +128,11 @@ void	minimap_render(t_data *data)
 	
 	draw_map(data);
     // draw_grid(data);
-    draw_player(data, 0);
-	while (l < data->raysnumba)
-	{
-		draw_line2(data->frame, data->player.x, data->player.y, data->rays[l].Hitx, data->rays[l].Hity, 0x0000FF);
-		l++;
-	}
+    // draw_player(data, 0);
+	// while (l < data->raysnumba)
+	// {
+	// 	draw_line2(data->frame, data->player.x, data->player.y, data->rays[l].Hitx, data->rays[l].Hity, 0x0000FF);
+	// 	l++;
+	// }
 	
 }
