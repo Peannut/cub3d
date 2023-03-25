@@ -6,52 +6,11 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:50:52 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/25 13:24:55 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/25 16:44:20 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
-
-// void draw_map(t_data *data) {
-//     int x, y, i, j;
-//     int color;
-
-//     // calculate the visible portion of the map centered around the player
-//     int startX = (int)(data->player.x / BLOCK) - 2;
-//     int startY = (int)(data->player.y / BLOCK) - 2;
-//     int endX = startX + 9;
-//     int endY = startY + 9;
-//     startX = (startX < 0) ? 0 : startX;
-//     startY = (startY < 0) ? 0 : startY;
-//     endX = (endX >= data->width) ? data->width - 1 : endX;
-//     endY = (endY >= data->height) ? data->height - 1 : endY;
-
-//     for (y = startY; y <= endY; y++) {
-//         for (x = startX; x <= endX; x++) {
-//             if (data->map[y][x] == '1') {
-//                 color = 0xA020F0; 
-//             } else {
-//                 color = 0xFFFF00; 
-//             }
-//             for (i = 0; i < BLOCK; i++) {
-//                 for (j = 0; j < BLOCK; j++) {
-//                     // mlx_pixel_put(data->mlx, data->mlx_win, (x - startX) * BLOCK + i, (y - startY) * BLOCK + j, color);
-//                     my_pixel_put(data->frame, (x - startX) * BLOCK + i , (y - startY) * BLOCK + j , color);
-//                 }
-//             }
-//         }
-//     }
-
-//     // draw player at the center of the view
-//     int playerX = (int)(data->player.x) - startX * BLOCK;
-//     int playerY = (int)(data->player.y) - startY * BLOCK;
-//     for (i = -1; i <= 1; i++) {
-//         for (j = -1; j <= 1; j++) {
-//             // mlx_pixel_put(data->mlx, data->mlx_win, playerX + i, playerY + j, 0xFF0000);
-//             my_pixel_put(data->frame, playerX + i, playerY + j, 0xFF0000);
-//         }
-//     }
-// }
+#include "../inc/cub3d.h"
 
 void draw_map(t_data *data) {
     int x, y, i, j;
@@ -114,8 +73,8 @@ void draw_map(t_data *data) {
             }
         }
     }
-    int lineEndX = centerX + cos(data->player.rotationAngle) * 15;
-    int lineEndY = centerY + sin(data->player.rotationAngle) * 15;
+    int lineEndX = centerX + cos(data->player.rotation_angle) * 15;
+    int lineEndY = centerY + sin(data->player.rotation_angle) * 15;
     draw_line2(data->frame, centerX, centerY, lineEndX, lineEndY, 0xFF0000);
 }
 
@@ -125,13 +84,12 @@ void	minimap_render(t_data *data)
 
 	l = 0;
 
-	
 	draw_map(data);
     // draw_grid(data);
     // draw_player(data, 0);
 	// while (l < data->raysnumba)
 	// {
-	// 	draw_line2(data->frame, data->player.x, data->player.y, data->rays[l].Hitx, data->rays[l].Hity, 0x0000FF);
+	// 	draw_line2(data->frame, data->player.x, data->player.y, data->rays[l].hitx, data->rays[l].hity, 0x0000FF);
 	// 	l++;
 	// }
 	

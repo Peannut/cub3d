@@ -6,11 +6,11 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 00:04:56 by abouhaga          #+#    #+#             */
-/*   Updated: 2023/03/18 21:02:19 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/25 16:43:35 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../inc/cub3d.h"
 
 // to count the number of lines in a 2D array
 int count_lines(char **map)

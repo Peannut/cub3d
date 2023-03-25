@@ -6,11 +6,11 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:56 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/25 14:13:31 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/25 16:42:40 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "./inc/cub3d.h"
 
 void draw_line2(void *img, double x1, double y1, double x2, double y2, int color)
 {
@@ -41,19 +41,19 @@ int key_press(int keycode, void *param) {
     double moveStep;
     
     if (keycode == 13) {  // W key
-       player->walkDirection = 1;
+       player->walkdirection = 1;
     } else if (keycode == 0) {  // A key
-        player->sidewaysDirection = -1;
+        player->sidewaysdirection = -1;
     } else if (keycode == 1) {  // S key
-      player->walkDirection = -1;
+      player->walkdirection = -1;
     } else if (keycode == 2) {  // D key
-        player->sidewaysDirection = 1;
+        player->sidewaysdirection = 1;
     }
     else if (keycode == 124){ // right arrow
-        player->turnDirection = 1;
+        player->turndirection = 1;
     }
     else if (keycode == 123){ // left arrow
-        player->turnDirection = -1;
+        player->turndirection = -1;
     }
     else if (keycode == 53){
         exit(1);
@@ -70,19 +70,19 @@ int key_release(int keycode, void *param) {
     t_player *player = &data->player;
     char **map = data->info->map;
     if (keycode == 13) {  // W key
-       player->walkDirection = 0;
+       player->walkdirection = 0;
     } else if (keycode == 0) {  // A key
-		player->sidewaysDirection = 0;
+		player->sidewaysdirection = 0;
     } else if (keycode == 1) {  // S key
-		player->walkDirection = 0;
+		player->walkdirection = 0;
     } else if (keycode == 2) {  // D key
-		player->sidewaysDirection = 0;
+		player->sidewaysdirection = 0;
     }
     else if (keycode == 124){ // right arrow
-		player->turnDirection = 0;
+		player->turndirection = 0;
     }
     else if (keycode == 123){ // left arrow
-		player->turnDirection = 0;
+		player->turndirection = 0;
     }
     return (0);
 }
@@ -128,23 +128,23 @@ int thebiggestlen(t_data *data)
 
 void    init_rotationAngel(t_data *data)
 {
-    data->player.turnDirection = 0;
-    data->player.walkDirection = 0;
-    data->player.sidewaysDirection = 0;
-	data->player.rotationSpeed = 4 * (PI / 180);
-	data->player.moveSpeed = 6;
+    data->player.turndirection = 0;
+    data->player.walkdirection = 0;
+    data->player.sidewaysdirection = 0;
+	data->player.rotationspeed = 4 * (PI / 180);
+	data->player.movespeed = 6;
 
     data->height = ptrline(data->info->map);
     data->width = thebiggestlen(data);
 
     if (data->player.spawn == 'S')
-        data->player.rotationAngle = M_PI / 2;
+        data->player.rotation_angle = M_PI / 2;
     else if (data->player.spawn == 'N')
-        data->player.rotationAngle = 3 * M_PI / 2;
+        data->player.rotation_angle = 3 * M_PI / 2;
     else if (data->player.spawn == 'E')
-        data->player.rotationAngle = 0;
+        data->player.rotation_angle = 0;
     else if (data->player.spawn == 'W')
-        data->player.rotationAngle = M_PI;
+        data->player.rotation_angle = M_PI;
 }
 
 int main(int ac, char **av)
@@ -163,7 +163,7 @@ int main(int ac, char **av)
 	draw_map(&data);
 	// draw_grid(&data);
 	draw_player(&data , 1);
-	// draw_line2(data.frame, data.player.x, data.player.y, (data.player.x) + cos(data.player.rotationAngle) * 40, (data.player.y) + sin(data.player.rotationAngle) * 40, 0x0000FF);
+	// draw_line2(data.frame, data.player.x, data.player.y, (data.player.x) + cos(data.player.rotation_angle) * 40, (data.player.y) + sin(data.player.rotation_angle) * 40, 0x0000FF);
 	// draw_line(&data);
 	mlx_put_image_to_window(data.mlx, data.mlx_win, data.frame, 0, 0);
     render(&data);

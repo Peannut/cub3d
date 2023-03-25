@@ -6,11 +6,11 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:23:13 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/25 14:49:54 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/25 16:43:49 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../inc/cub3d.h"
 
 
 double fabs_val(double x) {
@@ -24,16 +24,16 @@ void update(t_data *data) {
     t_player *player = &data->player;
     char **map = data->info->map;
     
-    player->rotationAngle += player->turnDirection * player->rotationSpeed;
-    player->rotationAngle = normalizeAngle(player->rotationAngle);
+    player->rotation_angle += player->turndirection * player->rotationspeed;
+    player->rotation_angle = normalizeAngle(player->rotation_angle);
 
-    double dx = player->walkDirection * cos(player->rotationAngle) +
-                player->sidewaysDirection * -sin(player->rotationAngle);
-    double dy = player->walkDirection * sin(player->rotationAngle) +
-                player->sidewaysDirection * cos(player->rotationAngle);
+    double dx = player->walkdirection * cos(player->rotation_angle) +
+                player->sidewaysdirection * -sin(player->rotation_angle);
+    double dy = player->walkdirection * sin(player->rotation_angle) +
+                player->sidewaysdirection * cos(player->rotation_angle);
 
-    double newPlayerX = player->x + dx * player->moveSpeed;
-    double newPlayerY = player->y + dy * player->moveSpeed;
+    double newPlayerX = player->x + dx * player->movespeed;
+    double newPlayerY = player->y + dy * player->movespeed;
 
     int mapX = (int)(newPlayerX / BLOCK);
     int mapY = (int)(newPlayerY / BLOCK);
@@ -72,14 +72,14 @@ int    rgb_to_hex(int r, int g, int b)
     return (rgb);
 }
 
-void	render_ceiling(t_data *data,int wallHeight, int x)
+void	render_ceiling(t_data *data,int wallheight, int x)
 {
 	int	y;
 	int	endY;
     int color;
 
 	y = 0;
-	endY = (WIN_HEIGHT / 2) - wallHeight / 2;
+	endY = (WIN_HEIGHT / 2) - wallheight / 2;
     color = rgb_to_hex(data->info->c[0], data->info->c[1], data->info->c[2]);
 	while (y < endY)
 	{
@@ -89,13 +89,13 @@ void	render_ceiling(t_data *data,int wallHeight, int x)
 }
 
 
-void	render_floor(t_data *data, int wallHeight,  int x)
+void	render_floor(t_data *data, int wallheight,  int x)
 {
 	int	y;
 	int	endY;
     int color;
 
-	y = (WIN_HEIGHT / 2 + wallHeight / 2) - 1;
+	y = (WIN_HEIGHT / 2 + wallheight / 2) - 1;
 	endY = WIN_HEIGHT;
     color = rgb_to_hex(data->info->f[0], data->info->f[1], data->info->f[2]);
 	while (y < endY)

@@ -6,11 +6,11 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 17:10:52 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/23 19:44:52 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/25 16:44:05 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "./inc/cub3d.h"
 
 int	ft_strcmp(const char *s1, const char *s2)
 {
