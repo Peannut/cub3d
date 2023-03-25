@@ -37,7 +37,7 @@ void	find_ray_face(t_data *data, int ray)
 			&& data->rays[ray].rayAngle < 3 * M_PI / 2;
 }
 
-void	find_Interceptions(t_data *data,t_vec *step,t_vec *intercept ,int ray)
+void	find_Interceptions(t_data* data, t_vec* step, t_vec* intercept, int ray)
 {
 	intercept->y = (floor(data->player.y / BLOCK)) * BLOCK;
 	if (data->rays[ray].rayFacingDown)
@@ -95,9 +95,9 @@ int	get_color_from_texture(t_data *data, int y, int ray, int wallHeight)
 
 void	*getTexture(char *file, t_data *data)
 {
-	void *textur;
-	int	width;
-	int	height;
+	void	*textur;
+	int		width;
+	int		height;
 
 	width = 0;
 	height = 0;
@@ -117,12 +117,12 @@ void	*getTexture(char *file, t_data *data)
 
 void    projection_draw_ray(t_data *data, int ray)
 {
-    int distanceProjectionPlane;
-    int wallHeight;
-    int y;
-    int color;
-    int h;
-    int end;
+	int	distanceProjectionPlane;
+	int	wallHeight;
+	int	y;
+	int	color;
+	int	h;
+	int	end;
 
     if (data->rays[ray].rayFacingUp && data->rays[ray].HitHorizontal)
         data->text = getTexture(data->info->no, data);
@@ -143,13 +143,14 @@ void    projection_draw_ray(t_data *data, int ray)
 	else
 		end = wallHeight;
     while (y < end)
-    {
-        color = get_color_from_texture(data, y, ray, wallHeight);
-        my_pixel_put(data->frame, ray, y + (WIN_HEIGHT / 2) - (wallHeight / 2), color);
-        y++;
-    }
-    render_ceiling(data, wallHeight, ray);
-    render_floor(data, wallHeight, ray);
+	{
+		color = get_color_from_texture(data, y, ray, wallHeight);
+		my_pixel_put(data->frame, ray, y + (WIN_HEIGHT / 2)
+			- (wallHeight / 2), color);
+		y++;
+	}
+	render_ceiling(data, wallHeight, ray);
+	render_floor(data, wallHeight, ray);
 }
 
 void    projection(t_data *data)
