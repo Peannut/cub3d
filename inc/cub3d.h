@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:54 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/25 16:39:49 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/26 02:33:12 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ void	castAllRays(t_data *data);
 
 /******horiz and ver*****/
 double	distancecalc(t_player first, t_vec sec);
-double	normalizeAngle(double angle);
+double	normalize_angle(double angle);
 
 /*********vert rays******/
 // double vertical_rays(t_data *data, int ray);
@@ -172,4 +172,9 @@ int		mouse_event(int x, int y, void *data);
 int		mlx_mouse_hide(void);
 int		mlx_mouse_move(void *win_ptr, int x, int y);
 
+/************PARSING*********/
+
+int	ft_extract_data(t_tools *tl, t_info *info, char **map, int i);
+void	valid_player(char **map, t_data *data);
+void	check_map_components(char **map);
 #endif

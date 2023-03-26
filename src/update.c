@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 15:23:13 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/25 16:43:49 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/26 01:27:25 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void update(t_data *data) {
     char **map = data->info->map;
     
     player->rotation_angle += player->turndirection * player->rotationspeed;
-    player->rotation_angle = normalizeAngle(player->rotation_angle);
+    player->rotation_angle = normalize_angle(player->rotation_angle);
 
     double dx = player->walkdirection * cos(player->rotation_angle) +
                 player->sidewaysdirection * -sin(player->rotation_angle);

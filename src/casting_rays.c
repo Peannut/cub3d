@@ -12,16 +12,12 @@
 
 #include "../inc/cub3d.h"
 
-double	normalizeAngle(double angle)
+double	normalize_angle(double angle)
 {
 	if (angle < 0)
-	{
 		angle += 2 * M_PI;
-	}
 	if (angle >= 2 * M_PI)
-	{
 		angle -= 2 * M_PI;
-	}
 	return (angle);
 }
 
@@ -29,28 +25,32 @@ void	find_ray_face(t_data *data, int ray)
 {
 	data->rays[ray].ray_facing_up = data->rays[ray].ray_angle < 2 * M_PI
 			&& data->rays[ray].ray_angle > M_PI;
-	data->rays[ray].ray_facing_down = data->rays[ray].ray_angle > 0
-			&& data->rays[ray].ray_angle < M_PI;
+	data->rays[ray].ray_facing_down = data->rays[ray].ray_angle > 0 
+		&& data->rays[ray].ray_angle < M_PI;
 	data->rays[ray].ray_facing_right = data->rays[ray].ray_angle < M_PI / 2
 			|| data->rays[ray].ray_angle > 3 * M_PI / 2;
 	data->rays[ray].ray_facing_left = data->rays[ray].ray_angle > M_PI / 2
 			&& data->rays[ray].ray_angle < 3 * M_PI / 2;
 }
 
-void	find_Interceptions(t_data* data, t_vec* step, t_vec* intercept, int ray)
+void	find_interceptions(t_data *data, t_vec *step, t_vec *intercept, int ray)
 {
 	intercept->y = (floor(data->player.y / BLOCK)) * BLOCK;
 	if (data->rays[ray].ray_facing_down)
 		intercept->y += BLOCK;
-	intercept->x = data->player.x + (intercept->y - data->player.y) 
+	intercept->x = data->player.x + (intercept->y - data->player.y)
 		/ tan(data->rays[ray].ray_angle);
-	while (intercept->y > 0 && intercept->y / BLOCK < data->height && intercept->x > 0 && intercept->x / BLOCK < data->width)
-    {
-        // intercept->y = (floor(data->player.y / BLOCK)) * BLOCK;
-        if ((data->rays[ray].ray_facing_down && data->info->map[(int)(intercept->y / BLOCK)][(int)(intercept->x / BLOCK)] == '1')
-            || (data->rays[ray].ray_facing_up && data->info->map[(int)(intercept->y / BLOCK) - 1][(int)(intercept->x / BLOCK)] == '1'))
-            break ;
-        if (data->rays[ray].ray_facing_down)
+	while (intercept->y > 0 && intercept->y / BLOCK < data->height
+		&& intercept->x > 0 && intercept->x / BLOCK < data->width)
+	{
+		if ((data->rays[ray].ray_facing_down
+			&& data->info->map[(int)(intercept->y / BLOCK)]
+				[(int)(intercept->x / BLOCK)] == '1')
+			|| (data->rays[ray].ray_facing_up
+			&& data->info->map[(int)(intercept->y / BLOCK) - 1]
+					[(int)(intercept->x / BLOCK)] == '1'))
+			break ;
+		if (data->rays[ray].ray_facing_down)
             intercept->y += BLOCK;
         else
             intercept->y -= BLOCK;
@@ -74,7 +74,7 @@ t_vec	horizontal_ray(t_data *data, int ray)
 	t_vec	step;
 	t_vec	intercept;
 
-	find_Interceptions(data, &step, &intercept, ray);
+	find_interceptions(data, &step, &intercept, ray);
 	return (intercept);
 }
 
@@ -178,7 +178,7 @@ void castAllRays(t_data *data)
 	ray_angle = data->player.rotation_angle - (FOV_ANGEL / 2);
 	while (i < data->raysnumba)
 	{
-		data->rays[i].ray_angle = normalizeAngle(ray_angle);
+		data->rays[i].ray_angle = normalize_angle(ray_angle);
 		find_ray_face(data, i);
 		hor_cord = horizontal_ray(data, i);
 		ver_cord = vertical_rays(data, i);
