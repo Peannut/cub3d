@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 02:11:57 by abouhaga          #+#    #+#             */
-/*   Updated: 2023/03/26 02:22:50 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/03/27 16:47:59 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,25 @@ void	check_previous(int now, char *previous, char *next)
 	}
 }
 
-int	check_extrm(char **map, int i, int j)
+void	check_map_components(char **map)
 {
-	int	k;
+	int	i;
+	int	j;
 
-	k = 0;
-	while (map[k])
-		k++;
-	if ((i == 0 || j == 0) || j == (int)ft_strlen(map[i]) - 1 || i == k - 1)
-		return (1);
-	return (0);
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] != '1' && map[i][j] != '0' && map[i][j] != 'W'
+				&& map[i][j] != 'E' && map[i][j] != 'S' && map[i][j] != 'N' \
+				&& map[i][j] != ' ')
+				ft_error("dude verify yr map components!\n");
+			j++;
+		}
+		i++;
+	}
 }
 
 void	check_directions(char **map)

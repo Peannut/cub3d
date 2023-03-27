@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:54 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/26 02:33:12 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/03/27 16:02:35 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,8 +160,8 @@ double	normalize_angle(double angle);
 // double vertical_rays(t_data *data, int ray);
 t_vec	vertical_rays(t_data *data, int ray);
 t_vec	horizontal_ray(t_data *data, int ray);
-void	hitsave(t_data *data,bool val1 , bool val2,int ray);
-void	findverticalsteps(t_data *data,t_vec *intercept, t_vec *step, int ray);
+void	hitsave(t_data *data, bool val1, bool val2, int ray);
+void	findverticalsteps(t_data *data, t_vec *intercept, t_vec *step, int ray);
 void	draw_ceiling_and_floor(t_data *data);
 void	minimap_render(t_data *data);
 void	render_ceiling(t_data *data, int x, int wallheight);
@@ -174,7 +174,36 @@ int		mlx_mouse_move(void *win_ptr, int x, int y);
 
 /************PARSING*********/
 
-int	ft_extract_data(t_tools *tl, t_info *info, char **map, int i);
+int		ft_extract_data(t_tools *tl, t_info *info, char **map, int i);
 void	valid_player(char **map, t_data *data);
 void	check_map_components(char **map);
+int		is_valid_component(char ch, t_data *data, int i, int j);
+
+int		valid_rgb_help(char *s);
+void	rgb_handling(int rgb);
+int		*valid_rgb(t_color *color);
+int		*ft_check_colors(char *map);
+
+void	north(char *map, t_info *info);
+void	south(char *map, t_info *info);
+void	east(char *map, t_info *info);
+void	west(char *map, t_info *info);
+void	ft_floor(char *map, t_info *info);
+void	ft_ceilling(char *map, t_info *info);
+
+void	check_lines(char **map, int l_nbr, t_tools el);
+int		check_path(char *path);
+void	check_previous(int now, char *previous, char *next);
+int		check_extrm(char **map, int i, int j);
+void	check_directions(char **map);
+
+void	ft_free(char **s);
+
+void	initialize(t_info *info);
+t_tools	initialize_tools(void);
+int		scan_line(char *map);
+int		is_spaces(char *line);
+int		skip_whitespace(char *s);
+char	*end_spaces(char *s);
+
 #endif

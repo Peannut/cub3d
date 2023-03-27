@@ -6,11 +6,23 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 02:15:00 by abouhaga          #+#    #+#             */
-/*   Updated: 2023/03/26 02:29:42 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/03/27 16:48:31 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+int	check_extrm(char **map, int i, int j)
+{
+	int	k;
+
+	k = 0;
+	while (map[k])
+		k++;
+	if ((i == 0 || j == 0) || j == (int)ft_strlen(map[i]) - 1 || i == k - 1)
+		return (1);
+	return (0);
+}
 
 int	scan_line(char *map)
 {

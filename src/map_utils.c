@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 02:19:39 by abouhaga          #+#    #+#             */
-/*   Updated: 2023/03/26 02:31:01 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/03/27 16:48:43 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,18 @@ int	ft_extract_data(t_tools *tl, t_info *info, char **map, int i)
 	return (tl->counter);
 }
 
+void	set_player_position(char c, int x, int y, t_data *data)
+{
+	data->player.spawn = c;
+	data->player.x = x * BLOCK * BLOCK / 2;
+	data->player.y = y * BLOCK * BLOCK / 2;
+}
+
+int	is_player(char c)
+{
+	return (c == 'N' || c == 'W' || c == 'S' || c == 'E');
+}
+
 void	valid_player(char **map, t_data *data)
 {
 	int	i;
@@ -43,50 +55,22 @@ void	valid_player(char **map, t_data *data)
 	int	pos;
 
 	pos = 0;
-	i = 0;
-	while (map[i])
+	i = -1;
+	while (map[++i])
 	{
-		j = 0;
-		while (map[i][j])
+		j = -1;
+		while (map[i][++j])
 		{
-			if (map[i][j] == 'N' || map[i][j] == 'W'
-				|| map[i][j] == 'S' || map[i][j] == 'E')
+			if (is_player(map[i][j]))
 			{
 				if (pos == 0)
-				{
-					data->player.spawn = map[i][j];
-					data->player.x = i * BLOCK * BLOCK / 2;
-					data->player.y = j * BLOCK * BLOCK / 2;
-				}
+					set_player_position(map[i][j], i, j, data);
 				pos++;
 			}
-			j++;
 		}
-		i++;
 	}
 	if (pos != 1)
 		ft_error("Map is not valid, Zero or multiple player positions !\n");
-}
-
-void	check_map_components(char **map)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] != '1' && map[i][j] != '0' && map[i][j] != 'W'
-				&& map[i][j] != 'E' && map[i][j] != 'S' && map[i][j] != 'N' \
-				&& map[i][j] != ' ')
-				ft_error("dude verify yr map components!\n");
-			j++;
-		}
-		i++;
-	}
 }
 
 //Set-up the player's position
