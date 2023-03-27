@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:56 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/25 16:42:40 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/27 17:22:31 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void draw_line2(void *img, double x1, double y1, double x2, double y2, int color)
 {
-    double distance;
-    double midx;
-    double midy;
-    double d_midx;
-    double d_midy;
+	double	distance;
+	double	midx;
+	double	midy;
+	double	d_midx;
+	double	d_midy;
 
-    midx = 0;
+	midx = 0;
 	midy = 0;
 	distance = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
 	d_midx = (x2 - x1) / distance;
@@ -106,45 +106,44 @@ size_t	ptrline(char **str)
 	return (length);
 }
 
-int thebiggestlen(t_data *data)
+int	thebiggestlen(t_data *data)
 {
-    int i;
-    int max;
-    int len;
+	int	i;
+	int	max;
+	int	len;
 
-    len = 0;
-    i = 0;
-    max = 0;
-    while (i < data->height)
-    {
-        len = ft_strlen(data->info->map[i]);
-        if (max < len)
-            max = len;
-        i++;
-    }
-    return (max);
+	len = 0;
+	i = 0;
+	max = 0;
+	while (i < data->height)
+	{
+		len = ft_strlen(data->info->map[i]);
+		if (max < len)
+			max = len;
+		i++;
+	}
+	return (max);
 }
-
 
 void    init_rotationAngel(t_data *data)
 {
-    data->player.turndirection = 0;
-    data->player.walkdirection = 0;
-    data->player.sidewaysdirection = 0;
+	data->player.turndirection = 0;
+	data->player.walkdirection = 0;
+	data->player.sidewaysdirection = 0;
 	data->player.rotationspeed = 4 * (PI / 180);
 	data->player.movespeed = 6;
-
-    data->height = ptrline(data->info->map);
-    data->width = thebiggestlen(data);
-
-    if (data->player.spawn == 'S')
-        data->player.rotation_angle = M_PI / 2;
-    else if (data->player.spawn == 'N')
-        data->player.rotation_angle = 3 * M_PI / 2;
-    else if (data->player.spawn == 'E')
-        data->player.rotation_angle = 0;
-    else if (data->player.spawn == 'W')
-        data->player.rotation_angle = M_PI;
+	
+	data->height = ptrline(data->info->map);
+	data->width = thebiggestlen(data);
+	
+	if (data->player.spawn == 'S')
+	    data->player.rotation_angle = M_PI / 2;
+	else if (data->player.spawn == 'N')
+	    data->player.rotation_angle = 3 * M_PI / 2;
+	else if (data->player.spawn == 'E')
+	    data->player.rotation_angle = 0;
+	else if (data->player.spawn == 'W')
+	    data->player.rotation_angle = M_PI;
 }
 
 int main(int ac, char **av)

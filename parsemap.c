@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsemap.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 17:10:52 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/25 16:44:05 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/27 17:24:26 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,38 +29,37 @@ void	ft_error(char *msg)
 	exit(1);
 }
 
-void    format_check(char *map_name, char *format)
+void	format_check(char *map_name, char *format)
 {
-    char *str;
+	char	*str;
 
-    str = ft_strrchr(map_name, '.');
-    if (!str || ft_strcmp(str, format))
-    {
-        if (!ft_strcmp(format, ".cub"))
-            ft_error("the map should be .cub format");
-    }
-
+	str = ft_strrchr(map_name, '.');
+	if (!str || ft_strcmp(str, format))
+	{
+		if (!ft_strcmp(format, ".cub"))
+			ft_error("the map should be .cub format");
+	}
 }
+
 void	readmap(int fd)
 {
-	char *line;
+	char	*line;
+
 	while (1)
 	{
 		line = get_next_line(fd);
-		if(!line)
-			break;
+		if (!line)
+			break ;
 	}
-	
 }
 
 void	init_the_map(char *map_name)
 {
-    int fd;
+	int	fd;
 
-    format_check(map_name, ".cub");
-    fd = open(map_name, O_RDONLY);
-    if (fd == -1)
-        ft_error("open the map failed");
-    readmap(fd);
-    
+	format_check(map_name, ".cub");
+	fd = open(map_name, O_RDONLY);
+	if (fd == -1)
+		ft_error("open the map failed");
+	readmap(fd);
 }
