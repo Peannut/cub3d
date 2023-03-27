@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 02:28:43 by abouhaga          #+#    #+#             */
-/*   Updated: 2023/03/26 02:31:22 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/03/27 17:03:42 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ t_info	*ft_parse(char **av, t_data *data)
 
 	info = malloc(sizeof(t_info));
 	initialize(info);
-	check_extension(av); //if dir check
+	check_extension(av);
 	lines = read_file(av, info);
 	map = ft_split(lines, '\n');
 	free (lines);

@@ -123,26 +123,26 @@ void    projection_draw_ray(t_data *data, int ray)
 	int	color;
 	int	h;
 	int	end;
-
-    if (data->rays[ray].ray_facing_up && data->rays[ray].hit_horizontal)
-        data->text = getTexture(data->info->no, data);
-    else if (data->rays[ray].ray_facing_down && data->rays[ray].hit_horizontal)
-        data->text = getTexture(data->info->so, data);
-    else if (data->rays[ray].ray_facing_left && data->rays[ray].hit_vertical)
-        data->text = getTexture(data->info->we, data);
-    else if (data->rays[ray].ray_facing_right && data->rays[ray].hit_vertical)
-        data->text = getTexture(data->info->ea, data);
-    distanceProjectionPlane = (WIN_WIDTH / 2) / (tan(FOV_ANGEL / 2));
-    wallheight = (BLOCK / (data->rays[ray].distance * cos(data->player.rotation_angle - data->rays[ray].ray_angle))) * distanceProjectionPlane;
-    y = 0;
-    if (wallheight > WIN_HEIGHT)
+	
+	if (data->rays[ray].ray_facing_up && data->rays[ray].hit_horizontal)
+	    data->text = getTexture(data->info->no, data);
+	else if (data->rays[ray].ray_facing_down && data->rays[ray].hit_horizontal)
+	    data->text = getTexture(data->info->so, data);
+	else if (data->rays[ray].ray_facing_left && data->rays[ray].hit_vertical)
+	    data->text = getTexture(data->info->we, data);
+	else if (data->rays[ray].ray_facing_right && data->rays[ray].hit_vertical)
+	    data->text = getTexture(data->info->ea, data);
+	distanceProjectionPlane = (WIN_WIDTH / 2) / (tan(FOV_ANGEL / 2));
+	wallheight = (BLOCK / (data->rays[ray].distance * cos(data->player.rotation_angle - data->rays[ray].ray_angle))) * distanceProjectionPlane;
+	y = 0;
+	if (wallheight > WIN_HEIGHT)
 	{
 		y = wallheight / 2 - WIN_HEIGHT / 2;
 		end = wallheight / 2 + WIN_HEIGHT / 2;
 	}
 	else
 		end = wallheight;
-    while (y < end)
+	while (y < end)
 	{
 		color = get_color_from_texture(data, y, ray, wallheight);
 		my_pixel_put(data->frame, ray, y + (WIN_HEIGHT / 2)

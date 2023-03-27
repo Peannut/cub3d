@@ -3,24 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   vertical_rays.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 19:05:42 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/25 16:44:13 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/27 16:53:15 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	hitsave(t_data *data,bool val1 , bool val2,int ray)
+void	hitsave(t_data *data, bool val1, bool val2, int ray)
 {
 	data->rays[ray].hit_horizontal = val1;
 	data->rays[ray].hit_vertical = val2;
 }
 
-void	findverticalsteps(t_data *data,t_vec *intercept, t_vec *step, int ray)
+void	findverticalsteps(t_data *data, t_vec *intercept, t_vec *step, int ray)
 {
-
 	intercept->x = (floor(data->player.x / BLOCK) * BLOCK);
 	if (data->rays[ray].ray_facing_right)
 		intercept->x += BLOCK;
@@ -36,15 +35,15 @@ void	findverticalsteps(t_data *data,t_vec *intercept, t_vec *step, int ray)
 			intercept->x += BLOCK;
 		else
 			intercept->x -= BLOCK;
-		intercept->y = data->player.y + (intercept->x - data->player.x) * tan(data->rays[ray].ray_angle);
+		intercept->y = data->player.y + \
+			(intercept->x - data->player.x) * tan(data->rays[ray].ray_angle);
 	}
 }
 
-t_vec vertical_rays(t_data *data, int ray)
+t_vec	vertical_rays(t_data *data, int ray)
 {
-	t_vec intercept;
-	t_vec step;
-
+	t_vec	intercept;
+	t_vec	step;
 
 	findverticalsteps(data, &intercept, &step, ray);
 	return (intercept);

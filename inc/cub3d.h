@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:54 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/27 16:02:35 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/03/27 17:03:14 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,7 @@ int		check_extrm(char **map, int i, int j);
 void	check_directions(char **map);
 
 void	ft_free(char **s);
+void	free_map(char **map, int num_lines);
 
 void	initialize(t_info *info);
 t_tools	initialize_tools(void);

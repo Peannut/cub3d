@@ -6,7 +6,7 @@
 /*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 02:26:26 by abouhaga          #+#    #+#             */
-/*   Updated: 2023/03/26 02:26:43 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/03/27 17:06:06 by abouhaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,18 @@ void	ft_free(char **s)
 	}
 	free(s);
 	s = NULL;
+}
+
+//to free memory allocated 
+void	free_map(char **map, int num_lines)
+{
+	int	i;
+
+	i = 0;
+	while (i < num_lines)
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
 }
