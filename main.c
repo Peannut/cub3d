@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:56 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/27 17:22:31 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/03/29 15:57:38 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,58 +33,53 @@ void draw_line2(void *img, double x1, double y1, double x2, double y2, int color
 	}
 }
 
-int key_press(int keycode, void *param) {
-    t_data *data = (t_data*)param;
-    t_player *player = &data->player;
-    char **map = data->info->map;
+int	key_press(int keycode, void *param)
+{
+	t_data		*data;
+	t_player	*player;
 
-    double moveStep;
-    
-    if (keycode == 13) {  // W key
-       player->walkdirection = 1;
-    } else if (keycode == 0) {  // A key
-        player->sidewaysdirection = -1;
-    } else if (keycode == 1) {  // S key
-      player->walkdirection = -1;
-    } else if (keycode == 2) {  // D key
-        player->sidewaysdirection = 1;
-    }
-    else if (keycode == 124){ // right arrow
-        player->turndirection = 1;
-    }
-    else if (keycode == 123){ // left arrow
-        player->turndirection = -1;
-    }
-    else if (keycode == 53){
-        exit(1);
-    }
-    update(data);
-    render(data);
-
-    return (0);
+	data = (t_data *)param;
+	player = &data->player;
+	if (keycode == 13)
+		player->walkdirection = 1;
+	else if (keycode == 0)
+		player->sidewaysdirection = -1;
+	else if (keycode == 1)
+		player->walkdirection = -1;
+	else if (keycode == 2)
+		player->sidewaysdirection = 1;
+	else if (keycode == 124)
+		player->turndirection = 1;
+	else if (keycode == 123)
+		player->turndirection = -1;
+	else if (keycode == 53)
+		exit(1);
+	update(data);
+	render(data);
+	return (0);
 }
 
 
-int key_release(int keycode, void *param) {
-    t_data *data = (t_data*)param;  
-    t_player *player = &data->player;
-    char **map = data->info->map;
-    if (keycode == 13) {  // W key
-       player->walkdirection = 0;
-    } else if (keycode == 0) {  // A key
-		player->sidewaysdirection = 0;
-    } else if (keycode == 1) {  // S key
+int	key_release(int keycode, void *param)
+{
+	t_data		*data;
+	t_player	*player;
+
+	data = (t_data *)param;
+	player = &data->player;
+	if (keycode == 13)
 		player->walkdirection = 0;
-    } else if (keycode == 2) {  // D key
+	else if (keycode == 0)
 		player->sidewaysdirection = 0;
-    }
-    else if (keycode == 124){ // right arrow
+	else if (keycode == 1)
+		player->walkdirection = 0;
+	else if (keycode == 2)
+		player->sidewaysdirection = 0;
+	else if (keycode == 124)
 		player->turndirection = 0;
-    }
-    else if (keycode == 123){ // left arrow
+	else if (keycode == 123)
 		player->turndirection = 0;
-    }
-    return (0);
+	return (0);
 }
 
 int ft_start(char **av, t_data *cube)
@@ -125,54 +120,48 @@ int	thebiggestlen(t_data *data)
 	return (max);
 }
 
-void    init_rotationAngel(t_data *data)
+void	init_rotationangel(t_data *data)
 {
 	data->player.turndirection = 0;
 	data->player.walkdirection = 0;
 	data->player.sidewaysdirection = 0;
 	data->player.rotationspeed = 4 * (PI / 180);
 	data->player.movespeed = 6;
-	
+	data->fov = FOV_ANGEL * (M_PI / 180);
 	data->height = ptrline(data->info->map);
 	data->width = thebiggestlen(data);
-	
 	if (data->player.spawn == 'S')
-	    data->player.rotation_angle = M_PI / 2;
+		data->player.rotation_angle = M_PI / 2;
 	else if (data->player.spawn == 'N')
-	    data->player.rotation_angle = 3 * M_PI / 2;
+		data->player.rotation_angle = 3 * M_PI / 2;
 	else if (data->player.spawn == 'E')
-	    data->player.rotation_angle = 0;
+		data->player.rotation_angle = 0;
 	else if (data->player.spawn == 'W')
-	    data->player.rotation_angle = M_PI;
+		data->player.rotation_angle = M_PI;
 }
 
 int main(int ac, char **av)
 {
-   if (ac != 2)
-   {
-        printf("usage : cub3d ./file.cub\n");
-        exit(1);
-   }
-	t_data data;
-    ft_start(av, &data);
-    init_rotationAngel(&data);
+	t_data	data;
+
+	if (ac != 2)
+	{
+		printf("usage : cub3d ./file.cub\n");
+		exit(1);
+	}
+	ft_start(av, &data);
+	init_rotationangel(&data);
 	data.mlx = mlx_init();
-	data.mlx_win = mlx_new_window(data.mlx, WIN_WIDTH, WIN_HEIGHT, "Peanut cub3d!");
+	data.mlx_win = mlx_new_window(data.mlx, WIN_WIDTH, WIN_HEIGHT, "cub3d!");
 	data.frame = mlx_new_image(data.mlx, WIN_WIDTH, WIN_HEIGHT);
 	draw_map(&data);
-	// draw_grid(&data);
-	draw_player(&data , 1);
-	// draw_line2(data.frame, data.player.x, data.player.y, (data.player.x) + cos(data.player.rotation_angle) * 40, (data.player.y) + sin(data.player.rotation_angle) * 40, 0x0000FF);
-	// draw_line(&data);
+	draw_player(&data, 1);
 	mlx_put_image_to_window(data.mlx, data.mlx_win, data.frame, 0, 0);
-    render(&data);
-    // t_player_params params;
-    // params.player = &player;
-    // data.map = map;
+	render(&data);
 	mlx_hook(data.mlx_win, 2, 0, key_press, (void*)&data);
 	mlx_hook(data.mlx_win, 3, 0, key_release, (void*)&data);
-    mlx_hook(data.mlx_win, 6, 0 , &mouse_event, (void*)&data);
+	mlx_hook(data.mlx_win, 6, 0 , &mouse_event, (void*)&data);
 	mlx_hook(data.mlx_win, 17, 0, exitfunc, (void*)&data);
 	mlx_loop(data.mlx);
-    return (0);
+	return (0);
 }

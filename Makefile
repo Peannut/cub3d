@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+         #
+#    By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 22:20:51 by zoukaddo          #+#    #+#              #
-#    Updated: 2023/03/27 15:42:42 by abouhaga         ###   ########.fr        #
+#    Updated: 2023/03/29 18:23:40 by zoukaddo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,11 +18,12 @@ NAME			= cub3d
 
 LIBFT			= libft/libft.a
 
-SRCS			= main.c ./src/drawing.c ./src/map_reader.c ./src/parser.c ./src/parsing_alloc.c ./src/colors.c\
+SRCS			= main.c ./src/drawing.c ./src/parser.c ./src/parsing_alloc.c ./src/colors.c \
 					./get_next_line/get_next_line_utils.c ./get_next_line/get_next_line.c \
-					./src/update.c ./src/casting_rays.c parsemap.c ./src/vertical_rays.c ./src/minimap.c ./src/mouse.c \
+					./src/update.c ./src/casting_rays.c ./src/vertical_rays.c ./src/minimap.c ./src/mouse.c \
 					./src/directions.c ./src/floor_ceiling.c ./src/ft_check.c ./src/ft_free.c ./src/ft_initialize.c ./src/ft_utils.c \
-					./src/map_utils.c
+					./src/map_utils.c ./src/ft_error.c ./src/horizontal.c ./src/minimap_utils.c ./src/casting_rays_utils.c \
+					./src/casting_utils.c ./src/update_utils.c
 
 OBJS			= $(SRCS:.c=.o)
 

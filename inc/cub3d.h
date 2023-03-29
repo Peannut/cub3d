@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:54 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/27 17:03:14 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/03/29 17:56:11 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define BLOCK 32
 # define PI 3.1415926535
-# define FOV_ANGEL 60 * (M_PI / 180)
+# define FOV_ANGEL 60
 # define WALL_STRIP_WIDTH 30
 # define WIN_WIDTH 1280
 # define WIN_HEIGHT 720
@@ -98,6 +98,7 @@ typedef struct data {
 	int			height;
 	int			width;
 	int			raysnumba;
+	double		fov;
 	t_ray		rays[WIN_WIDTH];
 	t_info		*info;
 	t_player	player;
@@ -123,6 +124,17 @@ typedef struct s_vec
 	int	x;
 	int	y;
 }	t_vec;
+typedef struct s_minimap{
+	int	width;
+	int	height;
+	int	centerx;
+	int	centery;
+	int	radius;
+	int	startx;
+	int	starty;
+	int	endx;
+	int	endy;
+}	t_minimap;
 
 int		count_lines(char **map);
 int		get_longest_line(char **map);
@@ -150,7 +162,7 @@ int		countlines(char *file);
 int		countwidth(char *file);
 
 /*****rays casting******/
-void	castAllRays(t_data *data);
+void	cast_all_rays(t_data *data);
 
 /******horiz and ver*****/
 double	distancecalc(t_player first, t_vec sec);
@@ -161,9 +173,8 @@ double	normalize_angle(double angle);
 t_vec	vertical_rays(t_data *data, int ray);
 t_vec	horizontal_ray(t_data *data, int ray);
 void	hitsave(t_data *data, bool val1, bool val2, int ray);
-void	findverticalsteps(t_data *data, t_vec *intercept, t_vec *step, int ray);
+void	findverticalsteps(t_data *data, t_vec *intercept, int ray);
 void	draw_ceiling_and_floor(t_data *data);
-void	minimap_render(t_data *data);
 void	render_ceiling(t_data *data, int x, int wallheight);
 void	render_floor(t_data *data, int x, int wallheight);
 /*************mouse***********/
@@ -174,6 +185,11 @@ int		mlx_mouse_move(void *win_ptr, int x, int y);
 
 /************PARSING*********/
 
+void	ft_error(char *msg);
+int		ft_scan_map(char **map, t_info *info);
+void	check_extension(char **map_file);
+char	*read_file(char **av, t_info *info);
+t_info	*ft_parse(char **av, t_data *data);
 int		ft_extract_data(t_tools *tl, t_info *info, char **map, int i);
 void	valid_player(char **map, t_data *data);
 void	check_map_components(char **map);
@@ -207,4 +223,16 @@ int		is_spaces(char *line);
 int		skip_whitespace(char *s);
 char	*end_spaces(char *s);
 
+/****casting_rays_utils*/
+double	normalize_angle(double angle);
+void	find_ray_face(t_data *data, int ray);
+double	distancecalc(t_player valone, t_vec valtwo);
+int		get_color_from_texture(t_data *data, int y, int ray, int wallheight);
+void	*get_texture(char *file, t_data *data);
+void	projection(t_data *data);
+/***********minimap************/
+void	calculate_visible_map(t_data *data, t_minimap *minimap);
+void	draw_minimap_circle(t_data *data, t_minimap *minimap);
+int		get_map_color(char c);
+t_minimap	init_minimap(void);
 #endif
