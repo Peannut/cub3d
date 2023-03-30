@@ -6,7 +6,7 @@
 #    By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 22:20:51 by zoukaddo          #+#    #+#              #
-#    Updated: 2023/03/29 18:23:40 by zoukaddo         ###   ########.fr        #
+#    Updated: 2023/03/30 15:51:34 by zoukaddo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRCS			= main.c ./src/drawing.c ./src/parser.c ./src/parsing_alloc.c ./src/color
 					./src/update.c ./src/casting_rays.c ./src/vertical_rays.c ./src/minimap.c ./src/mouse.c \
 					./src/directions.c ./src/floor_ceiling.c ./src/ft_check.c ./src/ft_free.c ./src/ft_initialize.c ./src/ft_utils.c \
 					./src/map_utils.c ./src/ft_error.c ./src/horizontal.c ./src/minimap_utils.c ./src/casting_rays_utils.c \
-					./src/casting_utils.c ./src/update_utils.c
+					./src/casting_utils.c ./src/update_utils.c ./src/utils.c
 
 OBJS			= $(SRCS:.c=.o)
 

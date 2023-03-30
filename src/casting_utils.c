@@ -61,7 +61,6 @@ void	cast_all_rays(t_data *data)
 
 int	exitfunc(t_data *data)
 {
-	// should free hna tal mn b3d;
 	(void)data;
 	printf("je exit baye hh\n");
 	exit(0);

@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:54 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/29 17:56:11 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/30 16:08:38 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ typedef struct s_player
 	int		walkdirection;
 	double	movespeed;
 	double	rotationspeed;
+	double	dx;
+	double	dy;
 	char	spawn;
 }	t_player;
 typedef struct s_tools
@@ -99,6 +101,7 @@ typedef struct data {
 	int			width;
 	int			raysnumba;
 	double		fov;
+	int			color;
 	t_ray		rays[WIN_WIDTH];
 	t_info		*info;
 	t_player	player;
@@ -110,7 +113,7 @@ typedef struct s_img {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-}				t_img;
+}	t_img;
 typedef struct s_color
 {
 	char	*tmp;
@@ -136,103 +139,111 @@ typedef struct s_minimap{
 	int	endy;
 }	t_minimap;
 
-int		count_lines(char **map);
-int		get_longest_line(char **map);
-void	print_map(char **map);
-void	init_the_map(char *map_name);
-void	ft_error(char *msg);
-int		exitfunc(t_data *data);
+int			count_lines(char **map);
+int			get_longest_line(char **map);
+void		print_map(char **map);
+void		init_the_map(char *map_name);
+void		ft_error(char *msg);
+int			exitfunc(t_data *data);
 
 /************drawing*******/
-void	my_pixel_put(void *img, int x, int y, int color);
-char	**allocate_map(char **map, int i);
-void	draw_map(t_data *data);
-void	draw_grid(t_data *data);
-void	draw_player(t_data *data, int flag);
-void	draw_line2(void *img, double x1, double y1, double x2, double y2
-			, int color);
+void		my_pixel_put(void *img, int x, int y, int color);
+char		**allocate_map(char **map, int i);
+void		draw_map(t_data *data);
+void		draw_grid(t_data *data);
+void		draw_player(t_data *data, int flag);
+void		draw_line2(void *img, double x1, double y1, double x2, double y2
+				, int color);
 
 /********update*******/
-void	update(t_data *data);
-void	render(t_data *data);
+void		update(t_data *data);
+void		render(t_data *data);
 
 /*********data reader*********/
-t_info	*ft_parse(char **av, t_data *data);
-int		countlines(char *file);
-int		countwidth(char *file);
+t_info		*ft_parse(char **av, t_data *data);
+int			countlines(char *file);
+int			countwidth(char *file);
 
 /*****rays casting******/
-void	cast_all_rays(t_data *data);
+void		cast_all_rays(t_data *data);
 
 /******horiz and ver*****/
-double	distancecalc(t_player first, t_vec sec);
-double	normalize_angle(double angle);
+double		distancecalc(t_player first, t_vec sec);
+double		normalize_angle(double angle);
 
 /*********vert rays******/
 // double vertical_rays(t_data *data, int ray);
-t_vec	vertical_rays(t_data *data, int ray);
-t_vec	horizontal_ray(t_data *data, int ray);
-void	hitsave(t_data *data, bool val1, bool val2, int ray);
-void	findverticalsteps(t_data *data, t_vec *intercept, int ray);
-void	draw_ceiling_and_floor(t_data *data);
-void	render_ceiling(t_data *data, int x, int wallheight);
-void	render_floor(t_data *data, int x, int wallheight);
+t_vec		vertical_rays(t_data *data, int ray);
+t_vec		horizontal_ray(t_data *data, int ray);
+void		hitsave(t_data *data, bool val1, bool val2, int ray);
+void		findverticalsteps(t_data *data, t_vec *intercept, int ray);
+void		draw_ceiling_and_floor(t_data *data);
+void		render_ceiling(t_data *data, int x, int wallheight);
+void		render_floor(t_data *data, int x, int wallheight);
 /*************mouse***********/
 
-int		mouse_event(int x, int y, void *data);
-int		mlx_mouse_hide(void);
-int		mlx_mouse_move(void *win_ptr, int x, int y);
+int			mouse_event(int x, int y, void *data);
+int			mlx_mouse_hide(void);
+int			mlx_mouse_move(void *win_ptr, int x, int y);
 
 /************PARSING*********/
 
-void	ft_error(char *msg);
-int		ft_scan_map(char **map, t_info *info);
-void	check_extension(char **map_file);
-char	*read_file(char **av, t_info *info);
-t_info	*ft_parse(char **av, t_data *data);
-int		ft_extract_data(t_tools *tl, t_info *info, char **map, int i);
-void	valid_player(char **map, t_data *data);
-void	check_map_components(char **map);
-int		is_valid_component(char ch, t_data *data, int i, int j);
+void		ft_error(char *msg);
+int			ft_scan_map(char **map, t_info *info);
+void		check_extension(char **map_file);
+char		*read_file(char **av, t_info *info);
+t_info		*ft_parse(char **av, t_data *data);
+int			ft_extract_data(t_tools *tl, t_info *info, char **map, int i);
+void		valid_player(char **map, t_data *data);
+void		check_map_components(char **map);
+int			is_valid_component(char ch, t_data *data, int i, int j);
 
-int		valid_rgb_help(char *s);
-void	rgb_handling(int rgb);
-int		*valid_rgb(t_color *color);
-int		*ft_check_colors(char *map);
+int			valid_rgb_help(char *s);
+void		rgb_handling(int rgb);
+int			*valid_rgb(t_color *color);
+int			*ft_check_colors(char *map);
 
-void	north(char *map, t_info *info);
-void	south(char *map, t_info *info);
-void	east(char *map, t_info *info);
-void	west(char *map, t_info *info);
-void	ft_floor(char *map, t_info *info);
-void	ft_ceilling(char *map, t_info *info);
+void		north(char *map, t_info *info);
+void		south(char *map, t_info *info);
+void		east(char *map, t_info *info);
+void		west(char *map, t_info *info);
+void		ft_floor(char *map, t_info *info);
+void		ft_ceilling(char *map, t_info *info);
 
-void	check_lines(char **map, int l_nbr, t_tools el);
-int		check_path(char *path);
-void	check_previous(int now, char *previous, char *next);
-int		check_extrm(char **map, int i, int j);
-void	check_directions(char **map);
+void		check_lines(char **map, int l_nbr, t_tools el);
+int			check_path(char *path);
+void		check_previous(int now, char *previous, char *next);
+int			check_extrm(char **map, int i, int j);
+void		check_directions(char **map);
 
-void	ft_free(char **s);
-void	free_map(char **map, int num_lines);
+void		ft_free(char **s);
+void		free_map(char **map, int num_lines);
 
-void	initialize(t_info *info);
-t_tools	initialize_tools(void);
-int		scan_line(char *map);
-int		is_spaces(char *line);
-int		skip_whitespace(char *s);
-char	*end_spaces(char *s);
+void		initialize(t_info *info);
+t_tools		initialize_tools(void);
+int			scan_line(char *map);
+int			is_spaces(char *line);
+int			skip_whitespace(char *s);
+char		*end_spaces(char *s);
 
 /****casting_rays_utils*/
-double	normalize_angle(double angle);
-void	find_ray_face(t_data *data, int ray);
-double	distancecalc(t_player valone, t_vec valtwo);
-int		get_color_from_texture(t_data *data, int y, int ray, int wallheight);
-void	*get_texture(char *file, t_data *data);
-void	projection(t_data *data);
+double		normalize_angle(double angle);
+void		find_ray_face(t_data *data, int ray);
+double		distancecalc(t_player valone, t_vec valtwo);
+int			get_color_from_texture(t_data *data, int y, int ray,
+				int wallheight);
+void		*get_texture(char *file, t_data *data);
+void		projection(t_data *data);
+/*****utils*/
+int			thebiggestlen(t_data *data);
+size_t		ptrline(char **str);
+void		init_rotationangel(t_data *data);
+int			key_press(int keycode, void *param);
+int			key_release(int keycode, void *param);
+
 /***********minimap************/
-void	calculate_visible_map(t_data *data, t_minimap *minimap);
-void	draw_minimap_circle(t_data *data, t_minimap *minimap);
-int		get_map_color(char c);
+void		calculate_visible_map(t_data *data, t_minimap *minimap);
+void		draw_minimap_circle(t_data *data, t_minimap *minimap);
+int			get_map_color(char c);
 t_minimap	init_minimap(void);
 #endif

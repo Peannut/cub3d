@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 14:42:26 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/29 18:00:24 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:39:51 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,22 +51,4 @@ double	distancecalc(t_player valone, t_vec valtwo)
 	sum_x = pow(valone.x - valtwo.x, 2);
 	sum_y = pow(valone.y - valtwo.y, 2);
 	return (sqrt(sum_x + sum_y));
-}
-
-int	get_color_from_texture(t_data *data, int y, int ray, int wallheight)
-{
-	t_img	tex;
-	int		h;
-
-	tex.addr = mlx_get_data_addr(data->text, &tex.bits_per_pixel,
-			&tex.line_length, &tex.endian);
-	if (data->rays[ray].hit_horizontal)
-		tex.addr += ((int)((double)y * ((double)BLOCK / (double)wallheight))
-				* tex.line_length) + ((data->rays[ray].hitx % BLOCK)
-				* (tex.bits_per_pixel / 8));
-	else
-		tex.addr += ((int)((double)y * ((double)BLOCK / (double)wallheight))
-				* tex.line_length) + ((data->rays[ray].hity % BLOCK)
-				* (tex.bits_per_pixel / 8));
-	return (*(int *)tex.addr);
 }

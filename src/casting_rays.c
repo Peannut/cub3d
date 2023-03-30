@@ -75,3 +75,21 @@ void	projection(t_data *data)
 		++i;
 	}
 }
+
+int	get_color_from_texture(t_data *data, int y, int ray, int wallheight)
+{
+	t_img	tex;
+	int		h;
+
+	tex.addr = mlx_get_data_addr(data->text, &tex.bits_per_pixel,
+			&tex.line_length, &tex.endian);
+	if (data->rays[ray].hit_horizontal)
+		tex.addr += ((int)((double)y * ((double)BLOCK
+						/ (double)wallheight))*tex.line_length)
+			+ ((data->rays[ray].hitx % BLOCK) *(tex.bits_per_pixel / 8));
+	else
+		tex.addr += ((int)((double)y * ((double)BLOCK
+						/ (double)wallheight)) *tex.line_length)
+			+ ((data->rays[ray].hity % BLOCK) *(tex.bits_per_pixel / 8));
+	return (*(int *)tex.addr);
+}
