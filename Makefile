@@ -6,7 +6,7 @@
 #    By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 22:20:51 by zoukaddo          #+#    #+#              #
-#    Updated: 2023/03/30 16:49:11 by zoukaddo         ###   ########.fr        #
+#    Updated: 2023/03/30 16:50:24 by zoukaddo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,10 +28,6 @@ SRCS			= main.c ./src/drawing.c ./src/parser.c ./src/parsing_alloc.c ./src/color
 OBJS			= $(SRCS:.c=.o)
 
 RM				= rm -f
-
-
-#MlX_PATH 		= -L/usr/lib -lXext -lX11 -lm -lz
-
 
 
 all:			$(NAME)

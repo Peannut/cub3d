@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:54 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/30 16:19:27 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/30 16:52:32 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,6 @@ int			exitfunc(t_data *data);
 void		my_pixel_put(void *img, int x, int y, int color);
 char		**allocate_map(char **map, int i);
 void		draw_map(t_data *data);
-void		draw_grid(t_data *data);
 void		draw_player(t_data *data, int flag);
 void		draw_line2(void *img, t_vec *var1, t_vec *var2, int color);
 
