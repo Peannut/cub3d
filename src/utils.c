@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:46:37 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/30 16:17:41 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:12:58 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int	key_press(int keycode, void *param)
 	render(data);
 	return (0);
 }
-
 
 int	key_release(int keycode, void *param)
 {

@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:50:52 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/30 16:20:22 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:11:52 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void	draw_player_on_minimap(t_data *data, t_minimap *minimap)
 	var.y = minimap->centery + sin(data->player.rotation_angle) * 15;
 	varone.x = minimap->centerx;
 	varone.y = minimap->centery;
-
 	draw_line2(data->frame, &varone, &var, 0xFF0000);
 }
 
