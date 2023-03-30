@@ -62,7 +62,6 @@ void	cast_all_rays(t_data *data)
 int	exitfunc(t_data *data)
 {
 	(void)data;
-	printf("je exit baye hh\n");
 	exit(0);
 }
 

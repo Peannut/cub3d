@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 13:41:48 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/29 14:36:43 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:34:36 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	calculate_visible_map(t_data *data, t_minimap *minimap)
 		minimap->endy = data->height - 1;
 }
 
-// Function to initialize the minimap struct
 t_minimap	init_minimap(void)
 {
 	t_minimap	minimap;
@@ -41,7 +40,6 @@ t_minimap	init_minimap(void)
 	return (minimap);
 }
 
-// Function to draw the minimap circle
 void	draw_minimap_circle(t_data *data, t_minimap *minimap)
 {
 	int	x;

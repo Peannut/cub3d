@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 02:19:39 by abouhaga          #+#    #+#             */
-/*   Updated: 2023/03/27 16:48:43 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:52:46 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	valid_player(char **map, t_data *data)
 		ft_error("Map is not valid, Zero or multiple player positions !\n");
 }
 
-//Set-up the player's position
 int	is_valid_component(char ch, t_data *data, int i, int j)
 {
 	if (ch != '1' && ch != '0' && ch != ' '

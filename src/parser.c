@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 02:28:43 by abouhaga          #+#    #+#             */
-/*   Updated: 2023/03/27 17:03:42 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/03/30 21:44:27 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,6 @@ char	*read_file(char **av, t_info *info)
 	return (line);
 }
 
-// void print_map(char **map)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (map[i] != NULL)
-// 	{
-// 		printf("%s\n", map[i]);
-// 		i++;
-// 	}
-// }
 int	ft_scan_map(char **map, t_info *info)
 {
 	int		i;

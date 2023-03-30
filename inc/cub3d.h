@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:54 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/30 16:52:32 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/30 21:44:39 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,6 @@ typedef struct s_minimap{
 
 int			count_lines(char **map);
 int			get_longest_line(char **map);
-void		print_map(char **map);
 void		init_the_map(char *map_name);
 void		ft_error(char *msg);
 int			exitfunc(t_data *data);
