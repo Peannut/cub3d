@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:50:52 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/29 14:39:23 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/30 16:20:22 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ void	draw_visible_map(t_data *data, t_minimap *minimap)
 
 void	draw_player_on_minimap(t_data *data, t_minimap *minimap)
 {
-	int	i;
-	int	j;
-	int	line_endx;
-	int	line_endy;
+	int		i;
+	int		j;
+	t_vec	var;
+	t_vec	varone;
 
 	i = -2;
 	while (i <= 2)
@@ -79,10 +79,12 @@ void	draw_player_on_minimap(t_data *data, t_minimap *minimap)
 		}
 		i++;
 	}
-	line_endx = minimap->centerx + cos(data->player.rotation_angle) * 15;
-	line_endy = minimap->centery + sin(data->player.rotation_angle) * 15;
-	draw_line2(data->frame, minimap->centerx, minimap->centery, line_endx,
-		line_endy, 0xFF0000);
+	var.x = minimap->centerx + cos(data->player.rotation_angle) * 15;
+	var.y = minimap->centery + sin(data->player.rotation_angle) * 15;
+	varone.x = minimap->centerx;
+	varone.y = minimap->centery;
+
+	draw_line2(data->frame, &varone, &var, 0xFF0000);
 }
 
 void	draw_map(t_data *data)

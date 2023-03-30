@@ -6,13 +6,13 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:46:37 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/30 16:01:00 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/30 16:17:41 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void draw_line2(t_data *data, double x1, double y1, double x2, double y2)
+void	draw_line2(void *img, t_vec *var1, t_vec *var2, int color)
 {
 	double	distance;
 	double	midx;
@@ -22,13 +22,13 @@ void draw_line2(t_data *data, double x1, double y1, double x2, double y2)
 
 	midx = 0;
 	midy = 0;
-	distance = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
-	d_midx = (x2 - x1) / distance;
-	d_midy = (y2 - y1) / distance;
+	distance = sqrt(pow(var2->x - var1->x, 2) + pow(var2->y - var1->y, 2));
+	d_midx = (var2->x - var1->x) / distance;
+	d_midy = (var2->y - var1->y) / distance;
 	while (distance-- > 0)
 	{
-		my_pixel_put(data->frame, (int)(x1 + midx), (int)(y1 + midy),
-			data->color);
+		my_pixel_put(img, (int)(var1->x + midx), (int)(var1->y + midy),
+			color);
 		midx += d_midx;
 		midy += d_midy;
 	}

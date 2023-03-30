@@ -6,13 +6,13 @@
 #    By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 22:20:51 by zoukaddo          #+#    #+#              #
-#    Updated: 2023/03/30 15:51:34 by zoukaddo         ###   ########.fr        #
+#    Updated: 2023/03/30 16:49:11 by zoukaddo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC				= cc 
+CC				= gcc 
 
-CFLAGS			=  -I minilibx -framework OpenGl -framework Appkit -fsanitize=address -g
+CFLAGS			=  -I minilibx -framework OpenGl -framework Appkit
 
 NAME			= cub3d
 
@@ -33,16 +33,12 @@ RM				= rm -f
 #MlX_PATH 		= -L/usr/lib -lXext -lX11 -lm -lz
 
 
-#CFLAGS			= #-Wall -Wextra -Werror
-#CFLAGS			=  -I minilibx -framework OpenGl -framework Appkit #-fsanitize=address -g
-CFLAGS			=  -lmlx -framework OpenGl -framework Appkit #-fsanitize=address -g
-
 
 all:			$(NAME)
 
 $(NAME):		$(OBJS)
 				
-				$(CC) ${OBJS} minilibx/libmlx.a $(CFLAGS) libft/libft.a -o ${NAME} -fsanitize=address 
+				$(CC) ${OBJS} minilibx/libmlx.a $(CFLAGS) libft/libft.a -o $(NAME)
 				
 clean:
 				$(RM) $(OBJS)
