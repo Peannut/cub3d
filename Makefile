@@ -6,7 +6,7 @@
 #    By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 22:20:51 by zoukaddo          #+#    #+#              #
-#    Updated: 2023/03/31 15:13:30 by zoukaddo         ###   ########.fr        #
+#    Updated: 2023/03/31 15:21:08 by zoukaddo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ $(LIBFT):
 clean :
 	$(RM) $(OBJS)
 	make clean -C libft/ > /dev/null
+	make clean -C minilibx &> /dev/null
 
 fclean : clean
 	$(RM) $(NAME)
