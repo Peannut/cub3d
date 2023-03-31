@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 19:10:45 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/28 17:26:23 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:27:04 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	mouse_event(int x, int y, void *param)
 	int		mouse_x;
 	int		screen_midpoint;
 
+	(void)y;
 	data = (t_data *) param;
 	mouse_x = x;
 	screen_midpoint = WIN_WIDTH / 2;

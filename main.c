@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:59:56 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/30 21:41:25 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/31 15:03:51 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ int	main(int ac, char **av)
 	draw_player(&data, 1);
 	mlx_put_image_to_window(data.mlx, data.mlx_win, data.frame, 0, 0);
 	render(&data);
-	mlx_hook(data.mlx_win, 2, 0, key_press, (void *)&data);
-	mlx_hook(data.mlx_win, 3, 0, key_release, (void *)&data);
-	mlx_hook(data.mlx_win, 6, 0, &mouse_event, (void *)&data);
-	mlx_hook(data.mlx_win, 17, 0, exitfunc, (void *)&data);
+	mlx_hook(data.mlx_win, 2, 0, key_press, &data);
+	mlx_hook(data.mlx_win, 3, 0, key_release, &data);
+	mlx_hook(data.mlx_win, 6, 0, mouse_event, &data);
+	mlx_hook(data.mlx_win, 17, 0, exitfunc, &data);
 	mlx_loop(data.mlx);
 	return (0);
 }

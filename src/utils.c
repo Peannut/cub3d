@@ -6,7 +6,7 @@
 /*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:46:37 by zoukaddo          #+#    #+#             */
-/*   Updated: 2023/03/30 17:12:58 by zoukaddo         ###   ########.fr       */
+/*   Updated: 2023/03/31 10:42:12 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	init_rotationangel(t_data *data)
 	data->player.turndirection = 0;
 	data->player.walkdirection = 0;
 	data->player.sidewaysdirection = 0;
-	data->player.rotationspeed = 4 * (PI / 180);
+	data->player.rotationspeed = 4 * (M_PI / 180);
 	data->player.movespeed = 6;
 	data->fov = FOV_ANGEL * (M_PI / 180);
 	data->height = ptrline(data->info->map);

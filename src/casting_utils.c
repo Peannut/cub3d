@@ -12,6 +12,13 @@
 
 #include "../inc/cub3d.h"
 
+void	save_distance(t_data *data, int i, t_vec distance)
+{
+	data->rays[i].distance = distancecalc(data->player, distance);
+	data->rays[i].hitx = distance.x;
+	data->rays[i].hity = distance.y;
+}
+
 void	find_distance(t_data *data, int i)
 {
 	t_vec	hor_cord;
@@ -34,10 +41,11 @@ void	find_distance(t_data *data, int i)
 		hitsave(data, false, true, i);
 	}
 	else
+	{
+		distance = hor_cord;
 		hitsave(data, false, false, i);
-	data->rays[i].distance = distancecalc(data->player, distance);
-	data->rays[i].hitx = distance.x;
-	data->rays[i].hity = distance.y;
+	}
+	save_distance(data, i, distance);
 }
 
 void	cast_all_rays(t_data *data)
