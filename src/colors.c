@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouhaga <abouhaga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zoukaddo <zoukaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 02:09:03 by abouhaga          #+#    #+#             */
-/*   Updated: 2023/03/26 02:09:59 by abouhaga         ###   ########.fr       */
+/*   Updated: 2023/04/01 00:07:17 by zoukaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,24 @@ int	*valid_rgb(t_color *color)
 	return (color->rgb);
 }
 
+t_color	read_rgb_values(char *map, t_color clr)
+{
+	while (map[clr.i])
+	{
+		if (map[clr.i] == ',' && (map[clr.i + 1] == ',' || !map[clr.i + 1]))
+			ft_error("Invalid RGB\n");
+		clr.tmp = ft_strjoin2c(clr.tmp, map[clr.i++]);
+	}
+	clr.tmp = end_spaces(clr.tmp);
+	clr.arr = ft_split(clr.tmp, ',');
+	clr.i = 0;
+	while (clr.arr[clr.i])
+		clr.i++;
+	if (clr.i != 3)
+		ft_error("Invalid RGB\n");
+	return (clr);
+}
+
 int	*ft_check_colors(char *map)
 {
 	t_color	clr;
@@ -75,15 +93,7 @@ int	*ft_check_colors(char *map)
 		if (map[clr.i] == ' ' || map[clr.i] == '\t')
 			clr.i++;
 	}
-	while (map[clr.i])
-		clr.tmp = ft_strjoin2c(clr.tmp, map[clr.i++]);
-	clr.tmp = end_spaces(clr.tmp);
-	clr.arr = ft_split(clr.tmp, ',');
-	clr.i = 0;
-	while (clr.arr[clr.i])
-		clr.i++;
-	if (clr.i != 3)
-		ft_error("Invalid RGB\n");
+	clr = read_rgb_values(map, clr);
 	clr.rgb = valid_rgb(&clr);
 	free(clr.tmp);
 	ft_free(clr.arr);
